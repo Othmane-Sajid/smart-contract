@@ -1,0 +1,359 @@
+/* ================
+    Général
+    ===============
+*/
+:root {
+    --navbar-padding: 0;
+    --navbar-height: 3em;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    background-color: #000000;
+}
+
+p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.titre-centrer {
+    font-size: xx-large;
+    font-family: 'Anton', sans-serif;
+    margin-bottom: 1em;
+}
+
+.titre-section {
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+    bottom: 50%;
+    font-size: xx-large;
+    font-family: 'Anton', sans-serif;
+}
+
+.titre-section > ul {
+    font-size: medium;
+    font-family: 'Roboto', sans-serif;
+    padding-right: 2em;
+}
+
+.detail-section {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+}
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ==========
+    Navbar
+ ============*/
+ .navbar {
+    top: 0;
+    width: 100%;
+    height: var(--navbar-height);
+    padding: var(--navbar-padding);
+    position: fixed;
+    background-color: var(--accent-c);
+    opacity: 0.98;
+}
+
+.navbar-logo > img {
+    object-fit: cover;
+    width: 100% !important;
+    height: var(--navbar-height) !important;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar li a {
+    display: block;
+    padding: 12px;
+    transition: 0.5s;
+}
+
+.navbar li a:hover {
+    display: block;
+    padding: 12px;
+    color: var(--accent-a);
+}
+
+.navbar li img {
+    width: auto;
+    height: var(--brand-logo-height);
+    margin: 0 20px 0 20px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;background-color: var(--accent-c);
+    min-width: 160px;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+}
+
+.dropdown-content a:hover {
+    background-color: var(--accent-a);
+    color: var(--accent-b);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.background-nav-bar {
+    background-color: black;
+    opacity:95%;
+}
+
+/* ===================
+    Section Home
+   ===================*/
+.section-home{
+    background-image: url("./assets/launching.jpg");
+    padding: 15%;
+    text-align: center;
+    font-size: x-large;
+    font-family: 'Anton', sans-serif;
+    background-size: cover;
+}
+
+/* ===================
+    Section about
+ =====================*/
+.section-about {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.section-about > .detail-section {
+    width: 80%;
+}
+
+.section-about > .titre-section {
+    width: 80%;
+}
+
+.section-about > .titre-section > p {
+    font-family: 'Roboto', sans-serif;
+    font-size: medium;
+}
+
+.section-elonmusk {
+    width: 50%;
+    margin: auto;
+}
+
+.section-elonmusk > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.section-drone{
+    padding-bottom: 10%;
+    text-align: left;
+    background-image: url("./assets/Starship.jpg");
+    background-size: cover;
+}
+
+#p-drone{
+    font-size: small; 
+}
+
+#subsection-drone{
+    text-align: left;
+    width: 40%;
+    border-style: solid;
+    border-color: whitesmoke;
+    border-radius: 5px;
+    background-color: black;
+    padding: 10px;
+}
+
+
+/* ===================
+/* Section nos services
+   =================== */
+
+.section-service {
+    margin: auto;
+    width: 80%;
+    text-align: center;
+}
+
+.section-pour-un-service {
+    border: 1px solid green;
+	margin: 10px auto;
+    display:inline-flex; 
+    vertical-align: top;
+}
+
+.left-side-text-presenter-service{
+	vertical-align:middle;
+    flex: 1;
+    text-align: center;
+}
+
+.image-service{
+    height: 30vw;
+    width: 100%;
+    flex: 1;
+}
+
+/* ===================
+/* Section nos photos
+   =================== */
+.section-photos {
+    margin: auto; /* centre la section au centre de la page*/
+    text-align: center;
+    width: 80%;
+}
+
+/* Cette section est fait en "grid" */
+.groupe-photos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
+}
+
+.photo-wrap > img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===================
+/* Section contacte
+   =================== */
+.section-contacte {
+    margin: auto;
+    width: 80%;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+}
+
+.image-contacter {
+    width: 25%;
+    height: 25%;
+    margin: auto;
+}
+
+.contact-form {
+    margin: auto;
+    width: 50%;
+}
+
+.contact-form > * {
+    margin-bottom: 2em;
+}
+
+.contact-form > input[type=text], select, textarea {
+    width: 100%;
+    padding: 15px;
+}
+
+.contact-form > input[type=submit] {
+    background-color: green;
+    color: white;
+    padding: 20px 45px;
+    border-color: black;
+}
+
+/* =============
+    Footer
+  ==============*/
+.footer {
+    border-top: 2px solid;
+    margin-top: 2em;
+    bottom: 0;
+    padding: 2em;
+    text-align: center;
+}
+
+
+/* =============
+    Effects and animations 
+  ==============*/
+
+.color-change-anim {
+transition: color 0.5s ease-in-out;
+}
+
+.color-change-anim:hover {
+    color:mediumaquamarine;
+}
+
+.color-change-anim2 {
+transition: color 0.3s ease-out;
+}
+
+.color-change-anim2:hover {
+    color: palevioletred;
+}
+
+.size-anim {
+    transition: font-size 0.5s ease-in-out;
+}
+  
+.size-anim:hover {  
+    font-size: 100px;
+}
+
+.size-anim-small {
+    transition: font-size 0.5s ease-out;
+}
+  
+.size-anim-small:hover {  
+    font-size: 25px;
+}
+
+.mainImages:hover{
+    width:150%;
+    height: 45vw;
+}
+
+.mainImages2:hover{
+    width:105%;
+    height: 105%;
+}
+
+.background-color-change-anim {
+    transition: background-color 0.2s ease-in-out;
+}
+  
+.background-color-change-anim:hover {
+    background-color: black;
+    opacity:90%;
+}
