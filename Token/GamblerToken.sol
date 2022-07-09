@@ -4,33 +4,34 @@ pragma solidity >=0.4.22 <0.9.0;
 contract GamblerToken {
     address owner;
     mapping(address => uint256) public balances;
-    uint256 currentBudgetOfContract;
+    uint currentBudgetOfContract;
 
     event ReceivedFunds();
     
     constructor(){
-        owner = payable(msg.sender);
-        currentBudgetOfContract = 100; // Il faut transférer 100 ETH au smart contract lors de l'initialisation 
-        // balances[owner] = currentBudgetOfContract; // Autre facon de faire. A voir.
+        owner = 0xb28256D9Bd20904a2aaC1C41127f47c9Cab762f0;  //hard code pour les tests
+        currentBudgetOfContract = 0; 
     }
 
-    function deposit() payable public {
-        balances[msg.sender] += msg.value; // J'ai ajoute le += puisqu'on peut déposer à répétition dans le smart contract
+    receive() external payable { // on peut utiliser cette fonction pour transferer les ether au contrat
+        currentBudgetOfContract += msg.value; // et incrementer la variable en meme temps
+        emit ReceivedFunds();
     }
 
-    
-    function getBalance() public view returns (uint256){ // VERSION PAR DEFAUT. Similaire a ce qu on a vu dans le cours. 
-        return balances[msg.sender];
+    function deposit() external payable {
+        balances[msg.sender] += msg.value; 
     }
 
-    function getTotalBalanceInContract() public view returns (uint256){ 
-        // Balance totale du smart-contract. Inclut (1) les balances des joueurs et (2) ce que le contrat possede pour jouer contre les joueurs
-        return address(this).balance;
+    function addGain(address player, uint amount) public{
+        require(currentBudgetOfContract >= amount);
+        balances[player] += amount;
+        currentBudgetOfContract -= amount;
     }
 
-    function getCurrentBudgetOfContract() public view returns (uint256){
-        // Seulement la partie de la balance totale que le contrat peut utiliser comme sienne.
-        return currentBudgetOfContract;
+    function substractLost(address player, uint amount) public{
+        require(balances[player] >= amount, "not enough token in player balance");
+        balances[player] -= amount;
+        currentBudgetOfContract += amount;
     }
 
     function withdrawOwner() public payable{  
@@ -50,17 +51,20 @@ contract GamblerToken {
         require (success, "Failure to withdraw");
     }
 
-    function addGain(address player, uint amount) internal{
-        require(currentBudgetOfContract >= amount);
-        balances[player] += amount;
-        currentBudgetOfContract -= amount;
+
+
+    function getBalance() public view returns (uint256){ // VERSION PAR DEFAUT. Similaire a ce qu on a vu dans le cours. 
+        return balances[msg.sender];
     }
 
-    function substractLost(address player, uint amount) internal{
-        require(balances[player] >= amount, "not enough token in player balance");
-        balances[player] -= amount;
-        currentBudgetOfContract += amount;
+    function getTotalBalanceInContract() public view returns (uint256){ 
+        // Balance totale du smart-contract. Inclut (1) les balances des joueurs et (2) ce que le contrat possede pour jouer contre les joueurs
+        return address(this).balance;
+    }
 
+    function getCurrentBudgetOfContract() public view returns (uint256){
+        // Seulement la partie de la balance totale que le contrat peut utiliser comme sienne.
+        return currentBudgetOfContract;
     }
 
     // function selfDestruct() { // Besoin d'implementer/overload ?         
