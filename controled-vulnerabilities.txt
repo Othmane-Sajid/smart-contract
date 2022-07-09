@@ -1,0 +1,12 @@
+- Reinterancy : we followed the pattern Checks-Effects-Interactions 
+
+- Problèmes de Overflow (uint dépassé, peut devenir signed negative int, et donne une situation oû on peut passer des check qu'on ne 
+devrait pas pouvoir passer.
+	Solution dans anciennes versions Solidity : utiliser package SafeMath 
+	
+	Pour faire additions, multiplications, etc. utiliser safeMath (effectue les vérifications nécessaires pour l'overflow).
+
+https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/math/SafeMath.sol	
+
+
+
