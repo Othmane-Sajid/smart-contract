@@ -43,15 +43,13 @@ contract GamblerToken {
 
     function withdrawUser(address payable user) public payable{  
         require(msg.sender == user, "user and sender are not the same");
-        require(address(this).balance >= balances[msg.sender], "not enough token in contract");
+        require(currentBudgetOfContract >= 0, "not enough token in contract");
 
         uint256 balanceToSend = balances[msg.sender];
         balances[msg.sender] = 0;  
         (bool success, ) = user.call{value:balanceToSend}("");
         require (success, "Failure to withdraw");
     }
-
-
 
     function getBalance() public view returns (uint256){ // VERSION PAR DEFAUT. Similaire a ce qu on a vu dans le cours. 
         return balances[msg.sender];
