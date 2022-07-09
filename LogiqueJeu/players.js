@@ -30,6 +30,10 @@ Player = class Player{
     flip(){
         return this.choice();
     }
+
+    getAddress(){
+        return this.address;
+    }
 }
 
 
