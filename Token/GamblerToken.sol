@@ -14,23 +14,11 @@ contract GamblerToken {
         // balances[owner] = currentBudgetOfContract; // Autre facon de faire. A voir.
     }
 
-    receive() external payable { // Besoin d'implémenter une fonction receive pour pouvoir recevoir des ETH dans le contrat
-        // deposit() // ??
-        // emit ReceivedFunds(msg.sender, msg.value);
-        emit ReceivedFunds();
-    }
-
-
     function deposit() payable public {
-        // balances[msg.sender] = msg.value;
         balances[msg.sender] += msg.value; // J'ai ajoute le += puisqu'on peut déposer à répétition dans le smart contract
     }
 
-    // function getBalance(address user) public view returns(uint256){
-    //     require(msg.sender == user);
-    //     return balances[user];
-    // }
-
+    
     function getBalance() public view returns (uint256){ // VERSION PAR DEFAUT. Similaire a ce qu on a vu dans le cours. 
         return balances[msg.sender];
     }
@@ -45,49 +33,35 @@ contract GamblerToken {
         return currentBudgetOfContract;
     }
 
-    // function withdraw() public payable{
-    function withdrawAmount(uint amountToWithdraw) public payable{  
-        // Pattern checks-effects-interactions 
-
-        //checks 
-        require(msg.sender == owner);  // POURQUOI ca doit être le owner ?? Seulement le owner du contract peut initier les withdrawals ? À discuter. 
-        require(balances[msg.sender] >= amountToWithdraw, "Insufficient funds");
-
-        // effects 
-        balances[msg.sender] -= amountToWithdraw;
-
-        // interactions
-        //payable(msg.sender).transfer(address(this).balance); // J'ai remplacé .transfer par .call. C'est ce qui est recommandé maintenant https://consensys.github.io/smart-contract-best-practices/development-recommendations/general/external-calls/#dont-use-transfer-or-send
-        (bool success, ) = msg.sender.call{value: amountToWithdraw}("");
-
+    function withdrawOwner() public payable{  
+        require(msg.sender == owner);    
+        currentBudgetOfContract = 0;
+        (bool success, ) = msg.sender.call{value: address(this).balance}("");
         require (success, "Failure to withdraw");
     }
 
-   
-    function withdrawBalance() public payable{  
-        // Pour qu'un joueur retire la totalité de sa balance 
-        uint256 balanceOfUser = balances[msg.sender];
-        withdrawAmount(balanceOfUser);
-    }
-
-
-    function withdrawUser(address payable user) public payable returns (bool){  
+    function withdrawUser(address payable user) public payable{  
         require(msg.sender == user, "user and sender are not the same");
         require(address(this).balance >= balances[msg.sender], "not enough token in contract");
 
         uint256 balanceToSend = balances[msg.sender];
         balances[msg.sender] = 0;  
-        user.transfer(balanceToSend);
-        return true;
+        (bool success, ) = user.call{value:balanceToSend}("");
+        require (success, "Failure to withdraw");
     }
 
-    function payWinner(address winner, uint256 amount) public payable returns (bool){
-        require(balances[msg.sender] > amount, "not enough fund in sender balance");
-        balances[msg.sender] -= amount;
-        balances[winner] += amount;       
-        return true;
+    function addGain(address player, uint amount) internal{
+        require(currentBudgetOfContract >= amount);
+        balances[player] += amount;
+        currentBudgetOfContract -= amount;
     }
 
+    function substractLost(address player, uint amount) internal{
+        require(balances[player] >= amount, "not enough token in player balance");
+        balances[player] -= amount;
+        currentBudgetOfContract += amount;
+
+    }
 
     // function selfDestruct() { // Besoin d'implementer/overload ?         
     // }
@@ -99,4 +73,28 @@ contract GamblerToken {
         // 2- selfdestruct contract
         selfdestruct(payable(msg.sender));
     }
+
+    /* receive() external payable { // Besoin d'implémenter une fonction receive pour pouvoir recevoir des ETH dans le contrat
+        // deposit() // ??
+        // emit ReceivedFunds(msg.sender, msg.value);
+        emit ReceivedFunds();
+    } */
+
+    // function getBalance(address user) public view returns(uint256){
+    //     require(msg.sender == user);
+    //     return balances[user];
+    // }
+
+    /* function withdrawBalance() public payable{  
+        // Pour qu'un joueur retire la totalité de sa balance 
+        uint256 balanceOfUser = balances[msg.sender];
+        withdrawAmount(balanceOfUser);
+    } */
+
+        /* function payWinner(address winner, uint256 amount) public payable returns (bool){
+        require(balances[msg.sender] > amount, "not enough fund in sender balance");
+        balances[msg.sender] -= amount;
+        balances[winner] += amount;       
+        return true;
+    } */
 }
