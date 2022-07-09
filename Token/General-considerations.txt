@@ -1,0 +1,41 @@
+
+
+- Il existe une seule instance du smart-contract (UN SEUL OWNER. Disons que c'est nous deux).
+Initialisation : 
+Le smart-contract est déployé, puis on lui alloue une certaine quantité très grande de ETH.
+
+Méchanisme : 
+Les gens qui le souhaitent peuvent miser contre le contrat dans un jeu fair 
+(50 % de chances de gagner. i.e. pile ou face).
+
+Pour jouer, il faut déposer des ETH dans le contrat (balance du joueur mise à jour dans le mapping).
+
+*** Il faut distinguer entre : 
+        - Balance des joueurs (le mapping)
+        - Balance qui appartient véritablement au smart-contract (ce qui exclue les balances des joueurs)
+
+Donc, la balance totale du smart contract est la somme de : 
+        - La balance de chacun des joueurs (le mapping)
+        - La balance qui appartient véritablement au smart contract et qui pourrait être initialisée 
+          par exemple à 100 ETH, et qui pourrait augmenter ou diminuer graduellement.
+          
+    Disons par exemple que le smart-contract est initialisée avec 100 ETH. Au fur et à mesure que les parties 
+    sont effectuées, sa balance pourrait devenir 140 ETH si la chance est de notre côté, ou encore
+    la balance pourrait aller à 0 si la chance et du côté des joueurs. 
+
+
+Chaque joueur peut appeler la fonction play() pour jouer une partie, ce qui va augmenter ou diminuer sa balance.
+- Avant chaque play() :
+        - on vérifie que la balance du joueur est suffisante pour faire une partie. 
+        - on vérifie que la balance du smart-contract est suffisante pour faire une partie. 
+        - on tire le gagnant au hasard (le gagnant étant soit le joueur, soit le smart contract)
+- Après chaque play() : 
+        - la balance du joueur est mise à jour
+        - la balance du smart-contract est mise à jour. 
+
+
+> Si jamais la balance du smart-contract devient trop petite, on fait un 
+batchsend (withdrawals) des balances respectives de chaque joueur et puis le smart-contract est selfdestructed.
+
+
+> À tout moment, une personne peut withdraw une partie de ses ETH ou la totalité de ses ETH.
