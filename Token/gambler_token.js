@@ -66,7 +66,7 @@ contract("GamblerToken", function (accounts) {
   it("should withdraw user with 11 ether", async function () {
     const contract = await GamblerToken.deployed();
 
-    await contract.withdrawUser.sendTransaction(accounts[3],{
+    await contract.withdrawUser.sendTransaction({
       from: accounts[3],
       value: 0 //web3.utils.toWei("0.01", "ether")
     });
