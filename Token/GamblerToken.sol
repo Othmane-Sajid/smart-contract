@@ -4,121 +4,95 @@ pragma solidity >=0.4.22 <0.9.0;
 contract GamblerToken {
     address owner;
     mapping(address => uint256) public balances;
-    // mapping(address => password) private passwords; // a discuter
+    uint currentBudgetOfContract;
     address[] playersAddresses;
-    uint256 currentBudgetOfContract;
 
-    event ReceivedFundsByUser();
-    event ContractFundedByOwner();
-    
+    event ReceivedFunds();
+
     constructor(){
-        owner = 0xb28256D9Bd20904a2aaC1C41127f47c9Cab762f0;  //hard code pour les tests
-        // owner = msg.sender;
-        currentBudgetOfContract = 0; 
+        owner = msg.sender;
+        currentBudgetOfContract = 0;
     }
 
-    // Je crois que receive n'est plus nécessaire étant donné la nouvelle version de deposit()
-    receive() external payable { // on peut utiliser cette fonction pour transferer les ether au contrat
-        currentBudgetOfContract += msg.value; // et incrementer la variable en meme temps
+    /* La fonction reçoit les ethers du propriétaire du contract
+        currentBudgetOfContract représente le total d'ether qui appartient au contrat*/
+    receive() external payable {
+        require(msg.sender==owner);
+        currentBudgetOfContract += msg.value;
         emit ReceivedFunds();
     }
 
-    function deposit() external payable { // pourrait etre public au lieu de external 
-        if (msg.sender == owner) { // The owner is funding the contract
-            currentBudgetOfContract += msg.value;
-            emit ContractFundedByOwner();
-        } else { // A player is funding his account
-        balances[msg.sender] += msg.value; 
-        emit ReceivedFundsByUser();
+    /* Inscrit le nombres d'ethers transféré par les joueurs dans le mapping
+       Mais transfert réellement les ethers a l'adresse du contrat
+       Verifie-inscrit l'adresse du joueurs dans la liste playersAdresses*/
+    function deposit() external payable {
+        balances[msg.sender] += msg.value;
+        if(!exist(msg.sender)){
+            playersAddresses.push(msg.sender);
         }
     }
 
-    function addGain(address player, uint amount) public {
-        //checks-effects-interactions
-        // Techniquement, le require ne devrait pas etre necessaire, puisque le contrat ne doit pas joeur si il n a pas le budget pour couvrir une perte
-        require(currentBudgetOfContract >= amount); 
-        currentBudgetOfContract -= amount;
+    /* Le joueur gagne, on incremente son mapping
+       On decremente currentBudgetOfContract (le contrat a perdu)
+       Le contrat doit avoir les fonds pour payer sa defaite*/
+    function addGain(address player, uint amount) public{
+        require(currentBudgetOfContract >= amount, "not enough token in contract");
         balances[player] += amount;
+        currentBudgetOfContract -= amount;
     }
 
+     /* Le joueur perd, on decremente son mapping
+       On incremente currentBudgetOfContract (le contrat a gagne)
+       Le joueur doit avoir les fonds pour payer sa defaite*/
     function substractLost(address player, uint amount) public{
         require(balances[player] >= amount, "not enough token in player balance");
         balances[player] -= amount;
         currentBudgetOfContract += amount;
     }
 
-    function withdrawOwner() public payable{ 
-        //checks 
-        require(msg.sender == owner);    
-        //effects
-        currentBudgetOfContract = 0;
-        //interactions 
-        // (bool success, ) = msg.sender.call{value: address(this).balance}("");// Probleme de vol potentiel. Le owner devrait seulement retirer son budget 
-        (bool success, ) = msg.sender.call{value: currentBudgetOfContract}("");
+    /* Le joueur retire ses fonds
+       Au minimum le contrat doit ne rien perdre ne rien gagner
+       alors, currentBudgetOfContract >= 0 */
+    function withdrawUser(address user) public payable{
+        require(currentBudgetOfContract >= 0, "not enough token in contract");
+        uint256 balanceToSend = balances[user];
+        balances[user] = 0;
+        (bool success, ) = user.call{value:balanceToSend}("");
         require (success, "Failure to withdraw");
     }
 
-    function withdrawUser() public payable{  
-        //checks
-        // require(currentBudgetOfContract > 0, "not enough token in contract"); // PAS NECESSAIRE. Seulement la balance du user qui compte ici 
-        require(balances[msg.sender] > 0 , "Your balance is empty");
-        //effects
-        uint256 balanceToSend = balances[msg.sender];
-        balances[msg.sender] = 0;
-        //interactions  
-        (bool success, ) = msg.sender.call{value:balanceToSend}("");
-        require (success, "Failure to withdraw");
-    }
-
-
-    function getBalance() public view returns (uint256){ // VERSION PAR DEFAUT. Similaire a ce qu on a vu dans le cours. 
+    function getBalance() public view returns (uint256){
         return balances[msg.sender];
     }
 
-    function getTotalBalanceInContract() public view returns (uint256){ 
-        // Balance totale du smart-contract. Inclut (1) les balances des joueurs et (2) ce que le contrat possede pour jouer contre les joueurs
+    function getTotalBalanceInContract() public view returns (uint256){
         return address(this).balance;
     }
 
     function getCurrentBudgetOfContract() public view returns (uint256){
-        // Seulement la partie de la balance totale que le contrat peut utiliser comme sienne.
         return currentBudgetOfContract;
     }
 
-    // selfDestruct() est appelee notamment si le contrat n'a plus assez d'argent pour jouer contre les joueurs (il ne peut plus faire la mise minimale)
-    // AUTRE OPTION : si le smart contract n'A plus de budget, on envoie simplement un message du style "Sorry the game is unavaiable now. Please withdraw your funds"
-    // ce qui invite le joueur à lancer la prodécure normale de withdrawUser.
-    // Cette deuxième option règle le problème qu'on ne PEUT PAS itérer à travers un mapping, ni connaitre le nombre d'addresses.
+    /* La fonction retourne true si l'adresse est dans la l'array playersAdresses
+       C'est une fct utilitaire qui permet d'eviter les doublons d'adresses*/
+    function exist(address addr) private view returns(bool){
+        for(uint i =0; i < playersAddresses.length; i++){
+            if(playersAddresses[i] == addr){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /* La fonction est appelable uniquement par le proprio.
+       Retourne les fonds des joueurs qui ont leurs addresse dans l'array
+       Apres le contrat s'auto detruit*/
     function selfDestruct() public {
         require(msg.sender == owner);
-        // 1- send to each user his remaining funds in the mapping balances
-        // for ... withdraw
-
-        // 2- selfdestruct contract
+        for(uint i =0; i < playersAddresses.length; i++){
+            withdrawUser(playersAddresses[i]);
+        }
         selfdestruct(payable(msg.sender));
     }
 
-    /* receive() external payable { // Besoin d'implémenter une fonction receive pour pouvoir recevoir des ETH dans le contrat
-        // deposit() // ??
-        // emit ReceivedFunds(msg.sender, msg.value);
-        emit ReceivedFunds();
-    } */
-
-    // function getBalance(address user) public view returns(uint256){
-    //     require(msg.sender == user);
-    //     return balances[user];
-    // }
-
-    /* function withdrawBalance() public payable{  
-        // Pour qu'un joueur retire la totalité de sa balance 
-        uint256 balanceOfUser = balances[msg.sender];
-        withdrawAmount(balanceOfUser);
-    } */
-
-        /* function payWinner(address winner, uint256 amount) public payable returns (bool){
-        require(balances[msg.sender] > amount, "not enough fund in sender balance");
-        balances[msg.sender] -= amount;
-        balances[winner] += amount;       
-        return true;
-    } */
 }
