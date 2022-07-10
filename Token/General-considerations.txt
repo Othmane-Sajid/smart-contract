@@ -39,3 +39,9 @@ batchsend (withdrawals) des balances respectives de chaque joueur et puis le sma
 
 
 > À tout moment, une personne peut withdraw une partie de ses ETH ou la totalité de ses ETH.
+
+
+Idée qui peut simplifier les choses : 
+    - Disons que notre smart-contract est fait pour avoir un avantage sur les joueurs
+        - Permettre au joueur de faire une mise entre 1 ETH et 4 ETH (ou bien des mises fixes de 4 ETH par exemple)
+        - Le contrat, lui, mise toujours 5 ETH constamment (comme ca il a un avantage sur les joueurs).

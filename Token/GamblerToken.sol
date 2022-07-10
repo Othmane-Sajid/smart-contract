@@ -4,28 +4,40 @@ pragma solidity >=0.4.22 <0.9.0;
 contract GamblerToken {
     address owner;
     mapping(address => uint256) public balances;
-    uint currentBudgetOfContract;
+    address[] playersAddresses;
+    uint256 currentBudgetOfContract;
 
-    event ReceivedFunds();
+    event ReceivedFundsByUser();
+    event ContractFundedByOwner();
     
     constructor(){
         owner = 0xb28256D9Bd20904a2aaC1C41127f47c9Cab762f0;  //hard code pour les tests
+        // owner = msg.sender;
         currentBudgetOfContract = 0; 
     }
 
+    // Je crois que receive n'est plus nécessaire étant donné la nouvelle version de deposit()
     receive() external payable { // on peut utiliser cette fonction pour transferer les ether au contrat
         currentBudgetOfContract += msg.value; // et incrementer la variable en meme temps
         emit ReceivedFunds();
     }
 
-    function deposit() external payable {
+    function deposit() external payable { // pourrait etre public au lieu de external 
+        if (msg.sender == owner) { // The owner is funding the contract
+            currentBudgetOfContract += msg.value;
+            emit ContractFundedByOwner();
+        } else { // A player is funding his account
         balances[msg.sender] += msg.value; 
+        emit ReceivedFundsByUser();
+        }
     }
 
-    function addGain(address player, uint amount) public{
-        require(currentBudgetOfContract >= amount);
-        balances[player] += amount;
+    function addGain(address player, uint amount) public {
+        //checks-effects-interactions
+        // Techniquement, le require ne devrait pas etre necessaire, puisque le contrat ne doit pas joeur si il n a pas le budget pour couvrir une perte
+        require(currentBudgetOfContract >= amount); 
         currentBudgetOfContract -= amount;
+        balances[player] += amount;
     }
 
     function substractLost(address player, uint amount) public{
@@ -34,20 +46,29 @@ contract GamblerToken {
         currentBudgetOfContract += amount;
     }
 
-    function withdrawOwner() public payable{  
+    function withdrawOwner() public payable{ 
+        //checks 
         require(msg.sender == owner);    
+        //effects
         currentBudgetOfContract = 0;
-        (bool success, ) = msg.sender.call{value: address(this).balance}("");
+        //interactions 
+        // (bool success, ) = msg.sender.call{value: address(this).balance}("");// Probleme de vol potentiel. Le owner devrait seulement retirer son budget 
+        (bool success, ) = msg.sender.call{value: currentBudgetOfContract}("");
         require (success, "Failure to withdraw");
     }
 
     function withdrawUser() public payable{  
-        require(currentBudgetOfContract >= 0, "not enough token in contract");
+        //checks
+        // require(currentBudgetOfContract > 0, "not enough token in contract"); // PAS NECESSAIRE. Seulement la balance du user qui compte ici 
+        require(balances[msg.sender] > 0 , "Your balance is empty");
+        //effects
         uint256 balanceToSend = balances[msg.sender];
-        balances[msg.sender] = 0;  
+        balances[msg.sender] = 0;
+        //interactions  
         (bool success, ) = msg.sender.call{value:balanceToSend}("");
         require (success, "Failure to withdraw");
     }
+
 
     function getBalance() public view returns (uint256){ // VERSION PAR DEFAUT. Similaire a ce qu on a vu dans le cours. 
         return balances[msg.sender];
@@ -63,8 +84,10 @@ contract GamblerToken {
         return currentBudgetOfContract;
     }
 
-    // function selfDestruct() { // Besoin d'implementer/overload ?         
-    // }
+    // selfDestruct() est appelee notamment si le contrat n'a plus assez d'argent pour jouer contre les joueurs (il ne peut plus faire la mise minimale)
+    // AUTRE OPTION : si le smart contract n'A plus de budget, on envoie simplement un message du style "Sorry the game is unavaiable now. Please withdraw your funds"
+    // ce qui invite le joueur à lancer la prodécure normale de withdrawUser.
+    // Cette deuxième option règle le problème qu'on ne PEUT PAS itérer à travers un mapping, ni connaitre le nombre d'addresses.
     function selfDestruct() public {
         require(msg.sender == owner);
         // 1- send to each user his remaining funds in the mapping balances
