@@ -4,6 +4,7 @@ pragma solidity >=0.4.22 <0.9.0;
 contract GamblerToken {
     address owner;
     mapping(address => uint256) public balances;
+    // mapping(address => password) private passwords; // a discuter
     address[] playersAddresses;
     uint256 currentBudgetOfContract;
 

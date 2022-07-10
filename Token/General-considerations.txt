@@ -45,3 +45,6 @@ Idée qui peut simplifier les choses :
     - Disons que notre smart-contract est fait pour avoir un avantage sur les joueurs
         - Permettre au joueur de faire une mise entre 1 ETH et 4 ETH (ou bien des mises fixes de 4 ETH par exemple)
         - Le contrat, lui, mise toujours 5 ETH constamment (comme ca il a un avantage sur les joueurs).
+
+
+note-to-self : pour le withdraw, il faudrait peut etre passer par un systeme de password

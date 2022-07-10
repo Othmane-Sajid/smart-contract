@@ -151,7 +151,18 @@
     </div>
         
 
+    <div style="width: 20%; float:left">
+        #left content in here
+     </div>
+     
+     <div style="width: 80%; float:right">
+        #right content in there
+     </div>
+     
+
+
     <div id="playgame" class="section-contacte">
+        <div id="deposit" class="section-contacte" style="width: 45%; float:left">
         <div class="titre-centrer">
             <h1>
                 <a href="#bottom" class="color-change-anim">Deposit funds</a>
@@ -160,10 +171,11 @@
         <div class="image-contacter">
             <img src="https://www.aljazeera.com/wp-content/uploads/2021/09/AP21259065226093.jpg?resize=1170%2C780" alt="SpaceX-Team" style="width:100%">
         </div>
-            
 
         <form action="none" class="contact-form">
-            <p><h2>Please enter the amount of ETH you wish to deposit</h2></p>
+            <p><h2>To deposit in your account, please send the desired ETH amount to the address of the contract : 0x...
+                <br> and send the password that will be used to secure your account. 
+            </h2></p>
             <label for="amount">Amount</label>
             <input type="number" id="amount"> <br>
             <label for="ethAddress">Ethereum address (0x...)</label>
@@ -173,9 +185,63 @@
             <input type="Submit" class ="size-anim-small" value="Deposit ETH ">
         </form>
     </div>
-    <div class="footer">
-        <p>&copy; SmartContract-IFT4100 - 2022</p>
+    <div id="withdraw" class="section-contacte" style="width: 45%; float:right">
+        <div class="titre-centrer">
+            <h1>
+                <a href="#bottom" class="color-change-anim">Withdraw funds</a>
+            </h1>
+        </div>
+        <div class="image-contacter">
+            <img src="https://www.aljazeera.com/wp-content/uploads/2021/09/AP21259065226093.jpg?resize=1170%2C780" alt="SpaceX-Team" style="width:100%">
+        </div>
+
+        <form action="none" class="contact-form">
+            <p><h2>To withdraw your funds, please send a withdrawUser() request to the address of the contract : 0x...
+                <br> IDEE 2 : <br> 
+                To withdraw, type your address and the password associated with your account
+
+            </h2></p>
+            <label for="ethAddress">Ethereum address (0x...)</label>
+            <input type="text" id="ethAddressWithdraw" name="ethAddress">
+            <label for="password">password</label>
+            <input type="text" id="passwordWithdraw"> <br>
+
+            <!-- <label for="commentaire">Comments</label>
+            <textarea id="commentaire" style="height:120px"></textarea> -->
+            <input type="Submit" class ="size-anim-small" value="Deposit ETH ">
+        </form>
     </div>
+
+    <div id="playgame" class="section-contacte" style="float:center">
+        <div class="titre-centrer">
+            <h1>
+                <a href="#bottom" class="color-change-anim">Play a game</a>
+            </h1>
+        </div>
+        <div class="image-contacter">
+            <img src="https://www.aljazeera.com/wp-content/uploads/2021/09/AP21259065226093.jpg?resize=1170%2C780" alt="SpaceX-Team" style="width:100%">
+        </div>
+
+        <form action="none" class="contact-form">
+            <p><h2>To play a game, please write the amount of ETH you are willing to bet. The amount must be included between 1 ETH and 4 ETH</h2></p>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount"> <br>
+            <label for="ethAddress">Ethereum address (0x...)</label>
+            <input type="text" id="ethAddressPlay" name="ethAddress">
+            <label for="password">password</label>
+            <input type="text" id="passwordPlay" name="password">
+            <!-- <label for="commentaire">Comments</label>
+            <textarea id="commentaire" style="height:120px"></textarea> -->
+            <input type="Submit" class ="size-anim-small" value="Deposit ETH ">
+        </form>
+    </div>
+
+    </div>
+    
+
+    <!-- <div class="footer">
+        <p>&copy; SmartContract-IFT4100 - 2022</p>
+    </div> -->
 </body>
 
 </html>
