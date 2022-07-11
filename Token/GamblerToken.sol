@@ -9,18 +9,11 @@ contract GamblerToken {
 
     event ReceivedFunds();
 
-    constructor(){
+    constructor() payable{
         owner = msg.sender;
-        currentBudgetOfContract = 0;
+        currentBudgetOfContract = msg.value;
     }
 
-    /* La fonction reçoit les ethers du propriétaire du contract
-        currentBudgetOfContract représente le total d'ether qui appartient au contrat*/
-    receive() external payable {
-        require(msg.sender==owner);
-        currentBudgetOfContract += msg.value;
-        emit ReceivedFunds();
-    }
 
     /* Inscrit le nombres d'ethers transféré par les joueurs dans le mapping
        Mais transfert réellement les ethers a l'adresse du contrat
