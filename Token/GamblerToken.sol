@@ -14,10 +14,6 @@ contract GamblerToken {
         currentBudgetOfContract = msg.value;
     }
 
-
-    /* Inscrit le nombres d'ethers transféré par les joueurs dans le mapping
-       Mais transfert réellement les ethers a l'adresse du contrat
-       Verifie-inscrit l'adresse du joueurs dans la liste playersAdresses*/
     function deposit() external payable {
         balances[msg.sender] += msg.value;
         if(!exist(msg.sender)){
@@ -25,27 +21,22 @@ contract GamblerToken {
         }
     }
 
-    /* Le joueur gagne, on incremente son mapping
-       On decremente currentBudgetOfContract (le contrat a perdu)
-       Le contrat doit avoir les fonds pour payer sa defaite*/
-    function addGain(address player, uint amount) public{
-        require(currentBudgetOfContract >= amount, "not enough token in contract");
-        balances[player] += amount;
-        currentBudgetOfContract -= amount;
+    function addGain() public payable{
+        require(currentBudgetOfContract >= msg.value, "not enough token in contract");
+        balances[msg.sender] += msg.value;
+        currentBudgetOfContract -= msg.value;
     }
 
-     /* Le joueur perd, on decremente son mapping
-       On incremente currentBudgetOfContract (le contrat a gagne)
-       Le joueur doit avoir les fonds pour payer sa defaite*/
-    function substractLost(address player, uint amount) public{
-        require(balances[player] >= amount, "not enough token in player balance");
-        balances[player] -= amount;
-        currentBudgetOfContract += amount;
+    function substractLost() public payable{
+        require(balances[msg.sender] >= msg.value, "not enough token in player balance");
+        balances[msg.sender] -= msg.value;
+        currentBudgetOfContract += msg.value;
     }
 
-    /* Le joueur retire ses fonds
-       Au minimum le contrat doit ne rien perdre ne rien gagner
-       alors, currentBudgetOfContract >= 0 */
+    function withDraw() public payable{
+        this.withdrawUser(msg.sender);
+    }
+    
     function withdrawUser(address user) public payable{
         require(currentBudgetOfContract >= 0, "not enough token in contract");
         uint256 balanceToSend = balances[user];
