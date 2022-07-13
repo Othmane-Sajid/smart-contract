@@ -3,8 +3,7 @@ const btn0 = document.getElementById("btn0");
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
-
-btns = [btn0, btn1, btn2, btn3];
+const meta = document.getElementById("metamask");
 
 difficulty = [];
 
@@ -22,6 +21,8 @@ function play(bet){
     return "win"
     
 }
+
+btns = [btn0, btn1, btn2, btn3];
 
 
 btn0.addEventListener('click', function handleClick(){
@@ -44,7 +45,9 @@ btn3.addEventListener('click', function handleClick(){
     btn3.innerHTML = play(bet);
 }); 
 
-
+meta.addEventListener('click', function handleClick(){
+    ethereum.request({method: 'eth_requestAccounts'});
+});
 
 
 
