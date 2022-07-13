@@ -14,3 +14,4 @@ FOR VULNERABILITIES, READ :
 https://docs.soliditylang.org/en/v0.8.15/security-considerations.html#security-considerations
 https://consensys.github.io/smart-contract-best-practices/security-tools/ 
 
+
