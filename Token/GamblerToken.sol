@@ -8,6 +8,7 @@ contract GamblerToken {
     address[] playersAddresses;
 
     event ReceivedFunds();
+    event BalanceChange(address player, uint amount);
 
     constructor() payable{
         owner = msg.sender;
@@ -19,18 +20,19 @@ contract GamblerToken {
         if(!exist(msg.sender)){
             playersAddresses.push(msg.sender);
         }
+        emit BalanceChange(msg.sender, msg.value);
     }
 
-    function addGain() public payable{
-        require(currentBudgetOfContract >= msg.value, "not enough token in contract");
-        balances[msg.sender] += msg.value;
-        currentBudgetOfContract -= msg.value;
+    function addGain(uint amount) public payable{
+        require(currentBudgetOfContract >= amount, "not enough token in contract");
+        balances[msg.sender] += amount;
+        currentBudgetOfContract -= amount;
     }
 
-    function substractLost() public payable{
-        require(balances[msg.sender] >= msg.value, "not enough token in player balance");
-        balances[msg.sender] -= msg.value;
-        currentBudgetOfContract += msg.value;
+    function substractLost(uint amount) public payable{
+        require(balances[msg.sender] >= amount, "not enough token in player balance");
+        balances[msg.sender] -= amount;
+        currentBudgetOfContract += amount;
     }
 
     function withDraw() public payable{
