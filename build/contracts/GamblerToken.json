@@ -4,8 +4,7 @@
     {
       "inputs": [],
       "stateMutability": "payable",
-      "type": "constructor",
-      "payable": true
+      "type": "constructor"
     },
     {
       "anonymous": false,
@@ -55,24 +54,21 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
       "name": "fundProprietaryBudgetOfContract",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [],
       "name": "deposit",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -85,8 +81,7 @@
       "name": "addGain",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -99,16 +94,14 @@
       "name": "substractLost",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [],
       "name": "withDraw",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [
@@ -121,8 +114,7 @@
       "name": "withdrawUser",
       "outputs": [],
       "stateMutability": "payable",
-      "type": "function",
-      "payable": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -135,8 +127,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -149,8 +140,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -163,8 +153,7 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function",
-      "constant": true
+      "type": "function"
     },
     {
       "inputs": [],
@@ -7262,8 +7251,7 @@
     }
   },
   "schemaVersion": "3.4.7",
-  "updatedAt": "2022-07-14T05:56:38.018Z",
-  "networkType": "ethereum",
+  "updatedAt": "2022-07-14T18:18:59.085Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
