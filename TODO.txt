@@ -5,6 +5,10 @@ CLEAN UP :
 > Fusionner les bonnes choses respectives de helpers.js et interact.js dans un seul fichier 
 
 
+> Pour Upgradability, et autres bonnes pratiques, se baser sur le wizard OpenZeppelin : 
+    https://docs.openzeppelin.com/contracts/4.x/upgradeable
+> Devrait-on mettre Pausable aussi ? C'est utile question sécurité.
+
 
 - Events 
 
