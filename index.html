@@ -67,7 +67,7 @@
 
     <div id="connect-metamask" class="titre-section"> 
         <br><br><br>
-        <h1 class="color-change-anim">Please connect your account via metamask by pressing the connect button</h1>
+        <h1 class="color-change-anim">Please connect your account via metamask by pressing the connect button <br> <span style="color:lightblue"><u>(use Ropsten network)</u></span></h1>
         <!-- <button id = "connectButton" style: onclick="helpers.connect()"> Connect with metamask </button> -->
         <button id = "connectButton" style: onclick="bundle.connect()"> Connect with metamask </button>
         <h3 id="status-metamask" style="color:cyan"> Status : Not connected.</h3>
@@ -153,9 +153,9 @@
         <br><br><br><br><br><br>
 
         <!-- SHOULD ONLY BE VISIBLE AT THE MOMENT OF FUNDING THE CONTRACT. SHOULD BE MADE INVISIBLE ONCE ACCOUNT IS FUNDED -->
-        <H4> [RESERVED TO THE OWNER]. Fund the contract's budget OR self-destruct contract</H4>
+        <!-- <H4> [RESERVED TO THE OWNER]. Fund the contract's budget OR self-destruct contract</H4>
         <input type ="number" step="0.01" id="fundBudgetInput" placeholder="Please enter the amount to deposit">
-        <button id = "fundContractButton" style: onclick="bundle.fundProprietaryBudgetOfContract()"> Deposit ETH to fund the contract's budget</button>
+        <button id = "fundContractButton" style: onclick="bundle.fundProprietaryBudgetOfContract()"> Deposit ETH to fund the contract's budget</button> -->
         <!-- <button id = "selfDestructButton" style: onclick="bundle.selfDestruct()"> SELF DESTRUCT CONTRACT !!!!!</button> -->
 
     </div>

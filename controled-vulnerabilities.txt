@@ -3,8 +3,10 @@
 - Problèmes de Overflow (uint dépassé, peut devenir signed negative int, et donne une situation oû on peut passer des check qu'on ne 
 devrait pas pouvoir passer.
 	Solution dans anciennes versions Solidity : utiliser package SafeMath 
+		Pour faire additions, multiplications, etc. utiliser safeMath (effectue les vérifications nécessaires pour l'overflow).
+
+	Autre solution à considérer, mettre pragma solidity > une certaine version récente
 	
-	Pour faire additions, multiplications, etc. utiliser safeMath (effectue les vérifications nécessaires pour l'overflow).
 
 https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/math/SafeMath.sol	
 
@@ -15,3 +17,4 @@ https://docs.soliditylang.org/en/v0.8.15/security-considerations.html#security-c
 https://consensys.github.io/smart-contract-best-practices/security-tools/ 
 
 
+- Solidity-coverage 
