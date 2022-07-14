@@ -1,0 +1,13 @@
+CLEAN UP : 
+    Fichier gambler_token.js est un fichier de tests? mettre dans dossier "test"
+    Fichier deploy.js n'est pas necessaire il me semble 
+
+> Fusionner les bonnes choses respectives de helpers.js et interact.js dans un seul fichier 
+
+
+
+- Events 
+
+- Vulnerabilites
+
+

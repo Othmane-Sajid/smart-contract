@@ -9,10 +9,17 @@ contract GamblerToken {
 
     event ReceivedFunds();
     event BalanceChange(address player, uint amount);
+    event ContractFundedByOwner();
 
     constructor() payable{
         owner = msg.sender;
         currentBudgetOfContract = msg.value;
+    }
+
+    function fundProprietaryBudgetOfContract() external payable {
+        require(msg.sender == owner);
+        currentBudgetOfContract += msg.value;
+        emit ContractFundedByOwner();
     }
 
     function deposit() external payable {
@@ -25,8 +32,8 @@ contract GamblerToken {
 
     function addGain(uint amount) public payable{
         require(currentBudgetOfContract >= amount, "not enough token in contract");
-        balances[msg.sender] += amount;
         currentBudgetOfContract -= amount;
+        balances[msg.sender] += amount;
     }
 
     function substractLost(uint amount) public payable{
@@ -35,14 +42,17 @@ contract GamblerToken {
         currentBudgetOfContract += amount;
     }
 
-    function withDraw() public payable{
+    function withDraw() public payable{ 
         this.withdrawUser(msg.sender);
     }
     
     function withdrawUser(address user) public payable{
+        //checks
         require(currentBudgetOfContract >= 0, "not enough token in contract");
+        //effects
         uint256 balanceToSend = balances[user];
         balances[user] = 0;
+        //interactions
         (bool success, ) = user.call{value:balanceToSend}("");
         require (success, "Failure to withdraw");
     }
@@ -58,6 +68,10 @@ contract GamblerToken {
     function getCurrentBudgetOfContract() public view returns (uint256){
         return currentBudgetOfContract;
     }
+
+    // function getAddress() external view returns(address) {
+    //     return address(this);
+    // }
 
     /* La fonction retourne true si l'adresse est dans la l'array playersAdresses
        C'est une fct utilitaire qui permet d'eviter les doublons d'adresses*/

@@ -1,2 +1,4 @@
 outils.txt
 ToDeploy.txt
+# secrets.json \\ A METTRE AU FINAL. NE DEVRAIT PAS SE TROUVER SUR GITHUB
+node_modules
