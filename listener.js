@@ -9,25 +9,55 @@ const totalBalanceInContract = document.getElementById("getTotalBalanceInContrac
 const budgetOfContract = document.getElementById("getBudgetOfContract");
 
 budgetOfContract.addEventListener('click', function handleClick() {
-    helpers.getCurrentBudgetOfContract();
+    try{
+        helpers.getCurrentBudgetOfContract();
+    }catch(err){
+        console.log(err);
+    }
+    
 });
 
 totalBalanceInContract.addEventListener('click', function handleClick() {
-    helpers.getBalanceInContract();
+    try{
+        helpers.getBalanceInContract();
+    }catch(err){
+        console.log(err);
+    }
+    
 });
 
 accountBalance.addEventListener('click', function handleClick() {
-    helpers.getBalance();
+    try{
+        helpers.getBalance();
+    }catch(err){
+        console.log(err);
+    }
+    
 });
 
 withDraw.addEventListener('click', function handleClick() {
-    helpers.withdraw();
+    try{
+        helpers.withdraw();
+    }catch(err){
+        console.log(err);
+    }
+    
 });
 
 deposit.addEventListener('click', function handleClick() {
-    helpers.deposit();
+    try{
+        helpers.deposit();
+    }catch(err){
+        console.log(err);
+    }
+    
 });
 
 metamask.addEventListener('click', function handleClick() {
-    helpers.connect();
+    try{
+        helpers.connect();
+    }catch(err){
+        console.log(err);
+    }
+    
 });
