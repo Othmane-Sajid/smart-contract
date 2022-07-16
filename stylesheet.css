@@ -395,4 +395,5 @@ transition: color 0.3s ease-out;
     cursor:pointer;
     font-size: xx-large;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-radius: 8px;
  }
