@@ -184,6 +184,20 @@ const abi = [
 
 var account;
 
+async function addSmartContractListener() {
+  window.web3 = await new Web3(window.ethereum);
+  window.contract = await new window.web3.eth.Contract(abi,contractAddress);
+
+  window.contract.events.BalanceChange({}, (error, data) => {
+    if (error) {
+      console.log(error.message);
+    } else {
+      console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+    }
+  });
+}
+
+
 async function connect() {
     if (typeof window.ethereum !== "undefined" ) {
         console.log("Metamask is present ");
@@ -192,8 +206,11 @@ async function connect() {
         console.log("Connected to Metamask, account : " + account)
         // document.getElementById("status-metamask".innerHTML="Connected to metamask. Account :" + account);
         document.getElementById("status-metamask").innerHTML=`Connected to metamask. Account : ${account}`;
+    
+        addSmartContractListener();
     }
 }
+
 
 async function withdraw() {
 
@@ -233,8 +250,8 @@ async function deposit() {
     // await contract.store(42); // function in our simpleStorage contract    
 
     // VERSION 2 of connecter. Handles input as argument while previous one has trouble with it
-    window.web3 = await new Web3(window.ethereum)
-    window.contract = await new window.web3.eth.Contract(abi,contractAddress)
+    //window.web3 = await new Web3(window.ethereum)
+    //window.contract = await new window.web3.eth.Contract(abi,contractAddress)
 
     var amountToDeposit = document.getElementById("depositAmountInput").value;
     amountToDeposit = Web3.utils.toWei(amountToDeposit, 'ether'); 
@@ -312,6 +329,8 @@ async function fundProprietaryBudgetOfContract() {
         // await contract.deposit(account, {value: ethers.utils.parseEther(amountToDeposit)});
     }
 }
+
+
 
 
 // async function playRound(arguments...) {
