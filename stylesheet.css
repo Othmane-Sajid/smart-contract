@@ -382,3 +382,17 @@ transition: color 0.3s ease-out;
     background-color: black;
     opacity:90%;
 }
+
+/* =============
+    boutons du jeu
+  ==============*/
+
+.butt {
+    border: 1px outset blue;
+    background-color: lightBlue;
+    height:150px;
+    width:150px;
+    cursor:pointer;
+    font-size: xx-large;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ }

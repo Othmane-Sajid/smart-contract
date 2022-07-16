@@ -1,4 +1,4 @@
-Player = class Player{
+class Player{
         
     constructor(address, pennies){
         this.address = address;
@@ -35,5 +35,10 @@ Player = class Player{
         return this.address;
     }
 }
+
+module.exports ={
+    Player
+}
+
 
 
