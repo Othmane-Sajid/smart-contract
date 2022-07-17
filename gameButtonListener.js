@@ -72,8 +72,9 @@ class Player{
 
 function play(bet){
     adr0= "0x7";
-    let player = new Player(adr0, bet);
-    let gambler = new Player(adr0, bet);
+    let nbEssai = 100;
+    let player = new Player(adr0, nbEssai);
+    let gambler = new Player(adr0, nbEssai);
     
     let game = new Game();
     

@@ -327,7 +327,7 @@ async function addGain(amount){
   const signer = provider.getSigner();
   const contract = new ethers.Contract(contractAddress, abi, signer);
 
-  await contract.addGain(amount,{
+  await contract.addGain(Web3.utils.toWei(amount.toString(), 'ether'),{
     from: account
   });
   
@@ -338,7 +338,7 @@ async function substractLost(amount){
   const signer = provider.getSigner();
   const contract = new ethers.Contract(contractAddress, abi, signer);
   
-  await contract.substractLost(amount,{
+  await contract.substractLost(Web3.utils.toWei(amount.toString(), 'ether'),{
     from:account
   });
   

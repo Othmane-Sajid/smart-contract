@@ -73,8 +73,9 @@ class Player{
 
 function play(bet){
     adr0= "0x7";
-    let player = new Player(adr0, bet);
-    let gambler = new Player(adr0, bet);
+    let nbEssai = 100;
+    let player = new Player(adr0, nbEssai);
+    let gambler = new Player(adr0, nbEssai);
     
     let game = new Game();
     
@@ -446,7 +447,7 @@ async function addGain(amount){
   const signer = provider.getSigner();
   const contract = new ethers.Contract(contractAddress, abi, signer);
 
-  await contract.addGain(amount,{
+  await contract.addGain(Web3.utils.toWei(amount.toString(), 'ether'),{
     from: account
   });
   
@@ -457,7 +458,7 @@ async function substractLost(amount){
   const signer = provider.getSigner();
   const contract = new ethers.Contract(contractAddress, abi, signer);
   
-  await contract.substractLost(amount,{
+  await contract.substractLost(Web3.utils.toWei(amount.toString(), 'ether'),{
     from:account
   });
   
