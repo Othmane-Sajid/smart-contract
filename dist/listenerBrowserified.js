@@ -183,7 +183,6 @@ const abi = [
   ];
 
 var account;
-window.playerAcceptChallenge = false;
 
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
@@ -194,7 +193,7 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-      window.playerAcceptChallenge = true;
+      document.getElementById("play-game").style.display = "block";
     }
   });
 }

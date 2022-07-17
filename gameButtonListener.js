@@ -87,29 +87,29 @@ function play(bet){
 
 
 btn0.addEventListener('click', function handleClick(){
-    if(window.playerAcceptChallenge ){
-        let bet = parseInt(btn0.innerHTML);
-        btn0.innerHTML = play(bet);
-    }  
+    
+    let bet = parseInt(btn0.innerHTML);
+    btn0.innerHTML = play(bet);
+    
 });
 
 btn1.addEventListener('click', function handleClick(){
-    if(window.playerAcceptChallenge ){
-        let bet = parseInt(btn1.innerHTML);
-        btn1.innerHTML = play(bet);
-    }
+    
+    let bet = parseInt(btn1.innerHTML);
+    btn1.innerHTML = play(bet);
+    
 });
 
 btn2.addEventListener('click', function handleClick(){
-    if(window.playerAcceptChallenge ){
-        let bet = parseInt(btn2.innerHTML);
-        btn2.innerHTML = play(bet);
-    }
+
+    let bet = parseInt(btn2.innerHTML);
+    btn2.innerHTML = play(bet);
+    
 });
 
 btn3.addEventListener('click', function handleClick(){
-    if(window.playerAcceptChallenge ){
-        let bet = parseInt(btn3.innerHTML);
-        btn3.innerHTML = play(bet);
-    }
+    
+    let bet = parseInt(btn3.innerHTML);
+    btn3.innerHTML = play(bet);
+    
 }); 
