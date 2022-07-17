@@ -267,8 +267,13 @@ async function deposit() {
     // }
     else {
         // await contract.deposit().send({from : account, value: amountToDeposit});
-        document.getElementById("loaderWaitingConfirmation").style.display = "block";
-        await window.contract.methods.deposit().send({from:account, value:amountToDeposit})
+        try{
+          document.getElementById("loaderWaitingConfirmation").style.display = "block";
+          await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
+        }catch(err){
+          document.getElementById("loaderWaitingConfirmation").style.display = "none";
+        }
+        
         // await contract.deposit(account, {value: ethers.utils.parseEther(amountToDeposit)});
         
         
