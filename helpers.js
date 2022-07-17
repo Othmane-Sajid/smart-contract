@@ -192,6 +192,7 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      document.getElementById("loaderWaitingConfirmation").style.display = "none";
       document.getElementById("play-game").style.display = "block";
     }
   });
@@ -265,6 +266,7 @@ async function deposit() {
     // }
     else {
         // await contract.deposit().send({from : account, value: amountToDeposit});
+        document.getElementById("loaderWaitingConfirmation").style.display = "block";
         await window.contract.methods.deposit().send({from:account, value:amountToDeposit})
         // await contract.deposit(account, {value: ethers.utils.parseEther(amountToDeposit)});
         
