@@ -1,10 +1,11 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-const helpers = require("./helpers.js");
+const helper = require("./helpers.js");
 
 const btn0 = document.getElementById("btn0");
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
+
 
 class Game{
     play(p1, p2){
@@ -87,23 +88,31 @@ function play(bet){
 
 
 btn0.addEventListener('click', function handleClick(){
-    let bet = parseInt(btn0.innerHTML);
-    btn0.innerHTML = play(bet);
+    if(window.playerAcceptChallenge ){
+        let bet = parseInt(btn0.innerHTML);
+        btn0.innerHTML = play(bet);
+    }  
 });
 
 btn1.addEventListener('click', function handleClick(){
-    let bet = parseInt(btn1.innerHTML);
-    btn1.innerHTML = play(bet);
+    if(window.playerAcceptChallenge ){
+        let bet = parseInt(btn1.innerHTML);
+        btn1.innerHTML = play(bet);
+    }
 });
 
 btn2.addEventListener('click', function handleClick(){
-    let bet = parseInt(btn2.innerHTML);
-    btn2.innerHTML = play(bet);
+    if(window.playerAcceptChallenge ){
+        let bet = parseInt(btn2.innerHTML);
+        btn2.innerHTML = play(bet);
+    }
 });
 
 btn3.addEventListener('click', function handleClick(){
-    let bet = parseInt(btn3.innerHTML);
-    btn3.innerHTML = play(bet);
+    if(window.playerAcceptChallenge ){
+        let bet = parseInt(btn3.innerHTML);
+        btn3.innerHTML = play(bet);
+    }
 }); 
 },{"./helpers.js":2}],2:[function(require,module,exports){
 // TODO : Create event for METAMASK CONNECTED. 
@@ -290,6 +299,7 @@ const abi = [
   ];
 
 var account;
+window.playerAcceptChallenge = false;
 
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
@@ -300,6 +310,7 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      window.playerAcceptChallenge = true;
     }
   });
 }
@@ -312,8 +323,10 @@ async function connect() {
         account = userAccounts[0];
         console.log("Connected to Metamask, account : " + account)
         // document.getElementById("status-metamask".innerHTML="Connected to metamask. Account :" + account);
-        document.getElementById("status-metamask").innerHTML=`Connected to metamask. Account : ${account}`;
-    
+        var strConnect = String(account).substring(0, 5) + " ... " + String(account).substring(38);
+        document.getElementById("status-metamask").innerHTML="Connected to metamask." +  "<br>" + 
+                                                              `Account : ${strConnect}`;
+
         addSmartContractListener();
     }
 }
@@ -372,6 +385,8 @@ async function deposit() {
         // await contract.deposit().send({from : account, value: amountToDeposit});
         await window.contract.methods.deposit().send({from:account, value:amountToDeposit})
         // await contract.deposit(account, {value: ethers.utils.parseEther(amountToDeposit)});
+        
+        
     }
 }
 

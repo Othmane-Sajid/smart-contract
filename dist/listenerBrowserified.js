@@ -183,6 +183,7 @@ const abi = [
   ];
 
 var account;
+window.playerAcceptChallenge = false;
 
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
@@ -193,6 +194,7 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      window.playerAcceptChallenge = true;
     }
   });
 }
@@ -205,8 +207,10 @@ async function connect() {
         account = userAccounts[0];
         console.log("Connected to Metamask, account : " + account)
         // document.getElementById("status-metamask".innerHTML="Connected to metamask. Account :" + account);
-        document.getElementById("status-metamask").innerHTML=`Connected to metamask. Account : ${account}`;
-    
+        var strConnect = String(account).substring(0, 5) + " ... " + String(account).substring(38);
+        document.getElementById("status-metamask").innerHTML="Connected to metamask." +  "<br>" + 
+                                                              `Account : ${strConnect}`;
+
         addSmartContractListener();
     }
 }
@@ -265,6 +269,8 @@ async function deposit() {
         // await contract.deposit().send({from : account, value: amountToDeposit});
         await window.contract.methods.deposit().send({from:account, value:amountToDeposit})
         // await contract.deposit(account, {value: ethers.utils.parseEther(amountToDeposit)});
+        
+        
     }
 }
 

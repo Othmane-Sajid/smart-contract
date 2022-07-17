@@ -1,9 +1,10 @@
-const helpers = require("./helpers.js");
+const helper = require("./helpers.js");
 
 const btn0 = document.getElementById("btn0");
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
+
 
 class Game{
     play(p1, p2){
@@ -86,21 +87,29 @@ function play(bet){
 
 
 btn0.addEventListener('click', function handleClick(){
-    let bet = parseInt(btn0.innerHTML);
-    btn0.innerHTML = play(bet);
+    if(window.playerAcceptChallenge ){
+        let bet = parseInt(btn0.innerHTML);
+        btn0.innerHTML = play(bet);
+    }  
 });
 
 btn1.addEventListener('click', function handleClick(){
-    let bet = parseInt(btn1.innerHTML);
-    btn1.innerHTML = play(bet);
+    if(window.playerAcceptChallenge ){
+        let bet = parseInt(btn1.innerHTML);
+        btn1.innerHTML = play(bet);
+    }
 });
 
 btn2.addEventListener('click', function handleClick(){
-    let bet = parseInt(btn2.innerHTML);
-    btn2.innerHTML = play(bet);
+    if(window.playerAcceptChallenge ){
+        let bet = parseInt(btn2.innerHTML);
+        btn2.innerHTML = play(bet);
+    }
 });
 
 btn3.addEventListener('click', function handleClick(){
-    let bet = parseInt(btn3.innerHTML);
-    btn3.innerHTML = play(bet);
+    if(window.playerAcceptChallenge ){
+        let bet = parseInt(btn3.innerHTML);
+        btn3.innerHTML = play(bet);
+    }
 }); 
