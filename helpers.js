@@ -322,6 +322,29 @@ async function selfDestruct() {
     await contract.selfDestruct();
 }
 
+async function addGain(amount){
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, abi, signer);
+
+  await contract.addGain(amount,{
+    from: account
+  });
+  
+}
+
+async function substractLost(amount){
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(contractAddress, abi, signer);
+  
+  await contract.substractLost(amount,{
+    from:account
+  });
+  
+}
+
+
 async function fundProprietaryBudgetOfContract() {
     window.web3 = await new Web3(window.ethereum)
     window.contract = await new window.web3.eth.Contract(abi,contractAddress)
@@ -357,5 +380,7 @@ module.exports = {
     getBalanceInContract,
     getBalance,
     selfDestruct,
-    fundProprietaryBudgetOfContract
+    fundProprietaryBudgetOfContract,
+    addGain,
+    substractLost
 }

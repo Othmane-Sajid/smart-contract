@@ -79,8 +79,10 @@ function play(bet){
     
     let result = game.play(player, gambler);
     if(result[1].isBankrupt()){
-        return "loose"
+        helper.substractLost(bet);
+        return "lost"
     }
+    helper.addGain(bet);
     return "win"
     
 }
