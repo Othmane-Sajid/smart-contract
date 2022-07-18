@@ -183,6 +183,7 @@ const abi = [
 
 var account;
 
+
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
   window.contract = await new window.web3.eth.Contract(abi,contractAddress);
@@ -192,6 +193,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+    
+      window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
       document.getElementById("play-game").style.display = "block";
     }

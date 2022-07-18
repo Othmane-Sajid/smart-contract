@@ -184,6 +184,18 @@ const abi = [
 
 var account;
 
+function setGameButton(playerBet){
+  let betPerButton = playerBet / 4;
+  let betInEther = web3.utils.fromWei(betPerButton.toString(), 'ether');
+
+  let strlbl0 = "Your bet : " + betInEther.toString() +"<br>" + "Gambler bet : " + (betInEther * 0.5).toString();
+  document.getElementById("lab0").innerHTML = strlbl0;
+  document.getElementById("lab1").innerHTML = strlbl0;
+  document.getElementById("lab2").innerHTML = strlbl0;
+  document.getElementById("lab3").innerHTML = strlbl0;
+  
+}
+
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
   window.contract = await new window.web3.eth.Contract(abi,contractAddress);
@@ -193,6 +205,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      //setGameButton(data.returnValues[1]);
+      window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
       document.getElementById("play-game").style.display = "block";
     }
@@ -217,13 +231,6 @@ async function connect() {
 
 
 async function withdraw() {
-
-    // needs : 
-    // address
-    // contract ABI (blueprint to interact with contract)
-    // function 
-    // node connection 
-
     
     const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
     // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
@@ -232,30 +239,10 @@ async function withdraw() {
     // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
     const contract = new ethers.Contract(contractAddress, abi, signer); 
 
-    // await contract.store(42); // function in our simpleStorage contract    
     await contract.withDraw();
 }
 
 async function deposit() {
-    // needs : 
-    // address
-    // contract ABI (blueprint to interact with contract)
-    // function 
-    // node connection 
-
-    
-    // const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
-    // // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
-    // // this is going to get the connected account 
-    // const signer = provider.getSigner();
-    // // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
-    // const contract = new ethers.Contract(contractAddress, abi, signer); 
-
-    // await contract.store(42); // function in our simpleStorage contract    
-
-    // VERSION 2 of connecter. Handles input as argument while previous one has trouble with it
-    //window.web3 = await new Web3(window.ethereum)
-    //window.contract = await new window.web3.eth.Contract(abi,contractAddress)
 
     var amountToDeposit = document.getElementById("depositAmountInput").value;
     amountToDeposit = Web3.utils.toWei(amountToDeposit, 'ether'); 
@@ -266,17 +253,13 @@ async function deposit() {
 
     // }
     else {
-        // await contract.deposit().send({from : account, value: amountToDeposit});
+        
         try{
           document.getElementById("loaderWaitingConfirmation").style.display = "block";
           await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
         }catch(err){
           document.getElementById("loaderWaitingConfirmation").style.display = "none";
-        }
-        
-        // await contract.deposit(account, {value: ethers.utils.parseEther(amountToDeposit)});
-        
-        
+        }        
     }
 }
 
@@ -355,22 +338,13 @@ async function fundProprietaryBudgetOfContract() {
     if (amountToDeposit<= 0) {
         window.alert("The amount must be greater than 0.")
     }
-    // if ("metamask not connected ... ") {
 
-    // }
     else {
-        // await contract.deposit().send({from : account, value: amountToDeposit});
+        
         await window.contract.methods.fundProprietaryBudgetOfContract().send({from:account, value:amountToDeposit})
-        // await contract.deposit(account, {value: ethers.utils.parseEther(amountToDeposit)});
+        
     }
 }
-
-
-
-
-// async function playRound(arguments...) {
-
-// }
 
 
 module.exports = {

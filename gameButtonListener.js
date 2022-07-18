@@ -1,10 +1,11 @@
+
 const helper = require("./helpers.js");
 
 const btn0 = document.getElementById("btn0");
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
-
+const turn = 100;
 
 class Game{
     play(p1, p2){
@@ -70,20 +71,22 @@ class Player{
     }
 }
 
-function play(bet){
+function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     adr0= "0x7";
-    let nbEssai = 100;
-    let player = new Player(adr0, nbEssai);
-    let gambler = new Player(adr0, nbEssai);
+
+    let player = new Player(adr0, playerTurn);
+    let gambler = new Player(adr0, gamblerTurn);
     
     let game = new Game();
     
     let result = game.play(player, gambler);
+    console.log(playerBet);
     if(result[1].isBankrupt()){
-        helper.substractLost(bet);
+        
+        helper.substractLost(playerBet);
         return "lost"
     }
-    helper.addGain(bet);
+    helper.addGain(gamblerBet);
     return "win"
     
 }
@@ -91,28 +94,24 @@ function play(bet){
 
 btn0.addEventListener('click', function handleClick(){
     
-    let bet = parseInt(btn0.innerHTML);
-    btn0.innerHTML = play(bet);
+    btn0.innerHTML = play(turn, turn/2, window.playerBet, window.playerBet/2);
     
 });
 
 btn1.addEventListener('click', function handleClick(){
-    
-    let bet = parseInt(btn1.innerHTML);
-    btn1.innerHTML = play(bet);
+
+    btn1.innerHTML = play(turn, turn, window.playerBet, window.playerBet);
     
 });
 
 btn2.addEventListener('click', function handleClick(){
 
-    let bet = parseInt(btn2.innerHTML);
-    btn2.innerHTML = play(bet);
+    btn2.innerHTML = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
     
 });
 
 btn3.addEventListener('click', function handleClick(){
-    
-    let bet = parseInt(btn3.innerHTML);
-    btn3.innerHTML = play(bet);
+
+    btn3.innerHTML = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
     
 }); 
