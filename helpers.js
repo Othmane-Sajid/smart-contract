@@ -199,6 +199,27 @@ async function addSmartContractListener() {
       document.getElementById("play-game").style.display = "block";
     }
   });
+
+  /* window.contract.events.AddGainEvent({}, (error, data) => {
+    if (error) {
+      console.log(error.message);
+    } else {
+      console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+    
+      
+    }
+  }); */
+
+  /* window.contract.events.SubstractLostEvent({}, (error, data) => {
+    if (error) {
+      console.log(error.message);
+    } else {
+      console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+    
+      
+    }
+  }); */
+
 }
 
 
@@ -208,7 +229,7 @@ async function connect() {
         const userAccounts = await ethereum.request ({method: "eth_requestAccounts"});
         account = userAccounts[0];
         console.log("Connected to Metamask, account : " + account)
-        // document.getElementById("status-metamask".innerHTML="Connected to metamask. Account :" + account);
+    
         var strConnect = String(account).substring(0, 5) + " ... " + String(account).substring(38);
         document.getElementById("status-metamask").innerHTML="Connected to metamask." +  "<br>" + 
                                                               `Account : ${strConnect}`;

@@ -80,7 +80,7 @@ function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     let game = new Game();
     
     let result = game.play(player, gambler);
-    console.log(playerBet);
+
     if(result[1].isBankrupt()){
         
         helper.substractLost(playerBet);

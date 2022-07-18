@@ -8,8 +8,10 @@ contract GamblerToken {
     address[] playersAddresses;
 
     event ReceivedFunds();
-    event BalanceChange(address player, uint amount);
     event ContractFundedByOwner();
+    event BalanceChange(address player, uint amount);
+    event AddGainEvent(address player, uint balance);
+    event SubstractLostEvent(address player, uint balance);
 
     constructor() payable{
         owner = msg.sender;
@@ -34,12 +36,14 @@ contract GamblerToken {
         require(currentBudgetOfContract >= amount, "not enough token in contract");
         currentBudgetOfContract -= amount;
         balances[msg.sender] += amount;
+        emit AddGainEvent(msg.sender, balances[msg.sender]);
     }
 
     function substractLost(uint amount) public payable{
         require(balances[msg.sender] >= amount, "not enough token in player balance");
         balances[msg.sender] -= amount;
         currentBudgetOfContract += amount;
+        emit SubstractLostEvent(msg.sender, balances[msg.sender]);
     }
 
     function withDraw() public payable{ 
@@ -68,10 +72,6 @@ contract GamblerToken {
     function getCurrentBudgetOfContract() public view returns (uint256){
         return currentBudgetOfContract;
     }
-
-    // function getAddress() external view returns(address) {
-    //     return address(this);
-    // }
 
     /* La fonction retourne true si l'adresse est dans la l'array playersAdresses
        C'est une fct utilitaire qui permet d'eviter les doublons d'adresses*/
