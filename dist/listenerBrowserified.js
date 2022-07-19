@@ -300,21 +300,19 @@ async function deposit() {
 
     var amountToDeposit = document.getElementById("depositAmountInput").value;
     amountToDeposit = Web3.utils.toWei(amountToDeposit, 'ether'); 
-    if (amountToDeposit<= 0) {
-        window.alert("The amount must be greater than 0.") 
-    }
-    // if ("metamask not connected ... ") {
-
-    // }
-    else {
-        
-        try{
-          document.getElementById("loaderWaitingConfirmation").style.display = "block";
-          await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
-        }catch(err){
-          document.getElementById("loaderWaitingConfirmation").style.display = "none";
-        }        
-    }
+   
+    // Avec ce try-catch on va chercher l'adresse si le user est déjà connecté et qu'il a juste raffraichit la page (dans ce cas metamask maintient la connexion)
+    // Sinon on initie la connexion et le deposit
+    try{
+        window.web3 = await new Web3(window.ethereum);
+        window.contract = await new window.web3.eth.Contract(abi,contractAddress);
+        const userAccounts = await ethereum.request ({method: "eth_requestAccounts"});
+        account = userAccounts[0];
+        document.getElementById("loaderWaitingConfirmation").style.display = "block";
+        await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
+    }catch(err){
+        document.getElementById("loaderWaitingConfirmation").style.display = "none";
+    }        
 }
 
 
