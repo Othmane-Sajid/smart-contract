@@ -144,7 +144,7 @@ a, a:hover, a:focus, a:active {
    ===================*/
 .section-home{
     background-image: url("./assets/photos/metamask.png");
-    padding: 5%;
+    padding: 1%;
     text-align: center;
     font-size: x-large;
     font-family: 'Anton', sans-serif;
