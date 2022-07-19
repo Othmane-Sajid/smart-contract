@@ -301,8 +301,9 @@ async function deposit() {
     var amountToDeposit = document.getElementById("depositAmountInput").value;
     amountToDeposit = Web3.utils.toWei(amountToDeposit, 'ether'); 
    
-    // Avec ce try-catch on va chercher l'adresse si le user est déjà connecté et qu'il a juste raffraichit la page (dans ce cas metamask maintient la connexion)
-    // Sinon on initie la connexion et le deposit
+    // Avec ce try-catch on va chercher l'adresse si le user est déjà connecté et qu'il a juste raffraichit la page 
+    // (dans ce cas metamask maintient la connexion, alors le user ne devrait pas avoir à cliquer connect encore)
+    // Si metamask n'est pas connecté déjà on initie la connexion et le deposit tout de suite après
     try{
         window.web3 = await new Web3(window.ethereum);
         window.contract = await new window.web3.eth.Contract(abi,contractAddress);
