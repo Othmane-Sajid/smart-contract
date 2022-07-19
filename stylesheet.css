@@ -417,14 +417,6 @@ transition: color 0.3s ease-out;
     border-radius: 8px;
  }
 
- .section-interface{
-    background-color:#000000;
-    width:100%;
-    border-radius: 8px;
-    text-align: right;
- }
-
-
 
  /* =============
     loader source: https://www.w3schools.com/howto/howto_css_loader.asp

@@ -84,86 +84,47 @@ function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     if(result[1].isBankrupt()){
         
         helper.substractLost(playerBet);
-        return "lost"
+        return;
     }
     helper.addGain(gamblerBet);
-    return "win"
+    return;
     
-}
-
-
-function userWaitReturn(){
-    document.getElementById("loaderGameWaiting").style.display = "block";
-    document.getElementById("play-game").style.display = "none";
-
 }
 
 
 btn0.addEventListener('click', function handleClick(){
+    // easy mode
+    // lance play avec un avantage de 50 pour le joueur mais avec une mise du gambler 0.5 fois celle du joueur
+    // le joueur perd sa mise ou gagne la moitie de sa mise
+    window.Click = "btn0";
+    play(turn, turn/2, window.playerBet, window.playerBet/2);
     
-    userWaitReturn();
-
-    resultBtn0 = play(turn, turn/2, window.playerBet, window.playerBet/2);
-    btn0.innerHTML = resultbtn0;
-
-    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
-
-    if(resultbtn0 == "win"){   
-        solde += window.playerBet/2;  
-    }else{
-        solde -= window.playerBet
-    }
-    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 });
 
 btn1.addEventListener('click', function handleClick(){
-    
-    userWaitReturn();
-
-    resultBtn1 = play(turn, turn, window.playerBet, window.playerBet);
-    btn1.innerHTML = resultBtn1;
-    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
-
-    if(resultBtn1 == "win"){   
-        solde += window.playerBet;  
-    }else{
-        solde -= window.playerBet
-    }
-    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
+    // fair mode
+    // lance play avec le meme nombre de tour et la meme la mise
+    // le joueur gagne ou perd sa mise
+    window.Click = "btn1";
+    play(turn, turn, window.playerBet, window.playerBet);
     
 });
 
 btn2.addEventListener('click', function handleClick(){
-    
-    userWaitReturn();
-    
-    resultBtn2 = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
-    btn2.innerHTML = resultBtn2 ;
-    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
-
-    if(resultBtn2  == "win"){   
-        solde += window.playerBet * 1.5;  
-    }else{
-        solde -= window.playerBet
-    }
-    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
+    // hard mode
+    // gambler a un avantage de 1.5 fois le nombre de tour mais il mise 1.5 fois la mise du joueur
+    // le joueur pred sa mise ou gagne 1.5 fois sa mise
+    window.Click = "btn2";
+    play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
     
 });
 
 btn3.addEventListener('click', function handleClick(){
-
-    userWaitReturn();
-    
-    resultBtn3 = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
-    btn3.innerHTML = resultBtn3;
-    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
-
-    if(resultBtn3 == "win"){   
-        solde += window.playerBet * 2;  
-    }else{
-        solde -= window.playerBet
-    }
-    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
+    // very hard mode
+    // gambler a un avantage de 2 fois le nombre de tour mais il mise 2.0 fois la mise du joueur
+    // le joueur perd sa mise ou gagne 2 fois sa mise
+    window.Click = "btn3";
+    play(turn, turn * 2, window.playerBet, window.playerBet * 2);
     
 }); 

@@ -219,17 +219,8 @@ const abi = [
     }
   ];
 
-var account = "";
+var account;
 
-function playerIsConnected(){
-  return account != "";
-}
-
-function returnToGame(amount){
-  
-  document.getElementById("loaderGameWaiting").style.display = "none";
-  document.getElementById("play-game").style.display = "block";
-}
 
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
@@ -243,9 +234,7 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
-      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
-      document.getElementById("user-balance-game").innerHTML = roundBalance;
-      document.getElementById("play-game").style.display = "block";
+      window.alert("Wonderfull, now go to the Game");
     }
   });
 
@@ -253,10 +242,9 @@ async function addSmartContractListener() {
     if (error) {
       console.log(error.message);
     } else {
-      console.log("addGain : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
-      returnToGame(roundBalance);
-    
+      console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      window.alert("You Win, continue.");
+      document.getElementById(window.Click).innerHTML = "Win";
       
     }
   }); 
@@ -265,12 +253,12 @@ async function addSmartContractListener() {
     if (error) {
       console.log(error.message);
     } else {
-      console.log("substractLost : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
-      returnToGame(roundBalance);
+      console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      window.alert(" You lost it's sad, try again.");
+      document.getElementById(window.Click).innerHTML = "Lost";
       
     }
-  });
+  }); 
 
 }
 
@@ -293,8 +281,11 @@ async function connect() {
 
 async function withdraw() {
     
-    const provider = new ethers.providers.Web3Provider(window.ethereum); 
+    const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
+    // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
+    // this is going to get the connected account 
     const signer = provider.getSigner();
+    // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
     const contract = new ethers.Contract(contractAddress, abi, signer); 
 
     await contract.withDraw();
@@ -307,12 +298,17 @@ async function deposit() {
     if (amountToDeposit<= 0) {
         window.alert("The amount must be greater than 0.")
     }
-    if (account == "") {
-      window.alert("Connect your wallet!");
-      throw "Connect your wallet";
-    }
-    else {   
-      await window.contract.methods.deposit().send({from:account, value:amountToDeposit});           
+    // if ("metamask not connected ... ") {
+
+    // }
+    else {
+        
+        try{
+          document.getElementById("loaderWaitingConfirmation").style.display = "block";
+          await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
+        }catch(err){
+          document.getElementById("loaderWaitingConfirmation").style.display = "none";
+        }        
     }
 }
 
@@ -410,6 +406,5 @@ module.exports = {
     selfDestruct,
     fundProprietaryBudgetOfContract,
     addGain,
-    substractLost,
-    playerIsConnected
+    substractLost
 }

@@ -85,87 +85,48 @@ function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     if(result[1].isBankrupt()){
         
         helper.substractLost(playerBet);
-        return "lost"
+        return;
     }
     helper.addGain(gamblerBet);
-    return "win"
+    return;
     
-}
-
-
-function userWaitReturn(){
-    document.getElementById("loaderGameWaiting").style.display = "block";
-    document.getElementById("play-game").style.display = "none";
-
 }
 
 
 btn0.addEventListener('click', function handleClick(){
+    // easy mode
+    // lance play avec un avantage de 50 pour le joueur mais avec une mise du gambler 0.5 fois celle du joueur
+    // le joueur perd sa mise ou gagne la moitie de sa mise
+    window.Click = "btn0";
+    play(turn, turn/2, window.playerBet, window.playerBet/2);
     
-    userWaitReturn();
-
-    resultBtn0 = play(turn, turn/2, window.playerBet, window.playerBet/2);
-    btn0.innerHTML = resultbtn0;
-
-    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
-
-    if(resultbtn0 == "win"){   
-        solde += window.playerBet/2;  
-    }else{
-        solde -= window.playerBet
-    }
-    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 });
 
 btn1.addEventListener('click', function handleClick(){
-    
-    userWaitReturn();
-
-    resultBtn1 = play(turn, turn, window.playerBet, window.playerBet);
-    btn1.innerHTML = resultBtn1;
-    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
-
-    if(resultBtn1 == "win"){   
-        solde += window.playerBet;  
-    }else{
-        solde -= window.playerBet
-    }
-    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
+    // fair mode
+    // lance play avec le meme nombre de tour et la meme la mise
+    // le joueur gagne ou perd sa mise
+    window.Click = "btn1";
+    play(turn, turn, window.playerBet, window.playerBet);
     
 });
 
 btn2.addEventListener('click', function handleClick(){
-    
-    userWaitReturn();
-    
-    resultBtn2 = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
-    btn2.innerHTML = resultBtn2 ;
-    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
-
-    if(resultBtn2  == "win"){   
-        solde += window.playerBet * 1.5;  
-    }else{
-        solde -= window.playerBet
-    }
-    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
+    // hard mode
+    // gambler a un avantage de 1.5 fois le nombre de tour mais il mise 1.5 fois la mise du joueur
+    // le joueur pred sa mise ou gagne 1.5 fois sa mise
+    window.Click = "btn2";
+    play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
     
 });
 
 btn3.addEventListener('click', function handleClick(){
-
-    userWaitReturn();
-    
-    resultBtn3 = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
-    btn3.innerHTML = resultBtn3;
-    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
-
-    if(resultBtn3 == "win"){   
-        solde += window.playerBet * 2;  
-    }else{
-        solde -= window.playerBet
-    }
-    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
+    // very hard mode
+    // gambler a un avantage de 2 fois le nombre de tour mais il mise 2.0 fois la mise du joueur
+    // le joueur perd sa mise ou gagne 2 fois sa mise
+    window.Click = "btn3";
+    play(turn, turn * 2, window.playerBet, window.playerBet * 2);
     
 }); 
 },{"./helpers.js":2}],2:[function(require,module,exports){
@@ -390,17 +351,8 @@ const abi = [
     }
   ];
 
-var account = "";
+var account;
 
-function playerIsConnected(){
-  return account != "";
-}
-
-function returnToGame(amount){
-  
-  document.getElementById("loaderGameWaiting").style.display = "none";
-  document.getElementById("play-game").style.display = "block";
-}
 
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
@@ -414,9 +366,7 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
-      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
-      document.getElementById("user-balance-game").innerHTML = roundBalance;
-      document.getElementById("play-game").style.display = "block";
+      window.alert("Wonderfull, now go to the Game");
     }
   });
 
@@ -424,10 +374,9 @@ async function addSmartContractListener() {
     if (error) {
       console.log(error.message);
     } else {
-      console.log("addGain : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
-      returnToGame(roundBalance);
-    
+      console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      window.alert("You Win, continue.");
+      document.getElementById(window.Click).innerHTML = "Win";
       
     }
   }); 
@@ -436,12 +385,12 @@ async function addSmartContractListener() {
     if (error) {
       console.log(error.message);
     } else {
-      console.log("substractLost : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
-      returnToGame(roundBalance);
+      console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      window.alert(" You lost it's sad, try again.");
+      document.getElementById(window.Click).innerHTML = "Lost";
       
     }
-  });
+  }); 
 
 }
 
@@ -464,8 +413,11 @@ async function connect() {
 
 async function withdraw() {
     
-    const provider = new ethers.providers.Web3Provider(window.ethereum); 
+    const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
+    // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
+    // this is going to get the connected account 
     const signer = provider.getSigner();
+    // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
     const contract = new ethers.Contract(contractAddress, abi, signer); 
 
     await contract.withDraw();
@@ -478,12 +430,17 @@ async function deposit() {
     if (amountToDeposit<= 0) {
         window.alert("The amount must be greater than 0.")
     }
-    if (account == "") {
-      window.alert("Connect your wallet!");
-      throw "Connect your wallet";
-    }
-    else {   
-      await window.contract.methods.deposit().send({from:account, value:amountToDeposit});           
+    // if ("metamask not connected ... ") {
+
+    // }
+    else {
+        
+        try{
+          document.getElementById("loaderWaitingConfirmation").style.display = "block";
+          await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
+        }catch(err){
+          document.getElementById("loaderWaitingConfirmation").style.display = "none";
+        }        
     }
 }
 
@@ -581,8 +538,7 @@ module.exports = {
     selfDestruct,
     fundProprietaryBudgetOfContract,
     addGain,
-    substractLost,
-    playerIsConnected
+    substractLost
 }
 },{"ethers":342,"web3":563}],3:[function(require,module,exports){
 module.exports={

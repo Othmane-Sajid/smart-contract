@@ -28,24 +28,24 @@
                 <a href="#home" class="size-anim-small"> Connect with metamask</a>
             </li>
             <li class="dropdown">
-                <a id="depositDropDown" class="size-anim-small"> Deposit/Withdraw <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <a href="#services" class="size-anim-small"> Deposit/Withdraw <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                   </svg></a>
 
-                <!--  <div class="dropdown-content background-color-change-anim">
-                    
+                <div class="dropdown-content background-color-change-anim">
+                    <!-- <a href="#connect-metamask" class="size-anim-small" style= color:beige>Connect metamask</a> -->
                     <a href="#deposit" class="size-anim-small" style= color:beige>Deposit ETH</a>
                     <a href="#withdraw" class="size-anim-small" style= color:beige>Withdraw ETH</a>
-                </div>-->
+                </div>
             </li>
             <li>
 
-                <a id="rulesDropDown" class="size-anim-small">Rules of the game</a>
+                <a href="#rules" class="size-anim-small">Rules of the game</a>
 
             </li>
 
             <li>
-                <a id="gameDropDown" class="size-anim-small"> Play a game</a>
+                <a href="#form-play-game" class="size-anim-small"> Play a game</a>
             </li>
 
             <!-- <button id = "connectButton"> Connect with metamask </button> -->
@@ -60,13 +60,15 @@
     </div>
 
 
-    <button id="depositSection" class="section-interface">deposit - withdraw</button>
 
-    <div id="loaderWaitingConfirmation" class="section-contacte">
-        <div class="loader" id="loaderAnimation"></div>
-        Waiting for confirmation ...
-        <!-- YOU NEED TO MAKE A DEPOSIT FOR THE GAME TO APPEAR ! -->
-    </div>
+    <!-- <div id="connect-metamask" class="titre-section"> 
+        <br><br><br>
+        <h1 class="color-change-anim">Please connect your account via metamask by pressing the connect button <br> <span style="color:lightblue"><u>(use Ropsten network)</u></span></h1>
+        <button id = "connectButton"> Connect with metamask </button>
+        <h4 id="status-metamask" style="color:cyan"> Status : Not connected.</h4>
+
+    </div> -->
+
 
     <div id="deposit-withdraw">
         <div id="deposit" class="section-contacte" style="width: 45%; float:left">
@@ -95,7 +97,11 @@
             <!-- <button id = "depositButton" style: onclick="helpers.deposit()"> Deposit ETH </button> -->
             <button id = "depositButton"> Deposit ETH </button>
             
-            
+            <div id="loaderWaitingConfirmation" class="section-contacte">
+                <div class="loader" id="loaderAnimation"></div>
+                Waiting for confirmation ...
+                <!-- YOU NEED TO MAKE A DEPOSIT FOR THE GAME TO APPEAR ! -->
+            </div>
     
             <br><br><br><br><br><br>
         </div>
@@ -122,7 +128,9 @@
     </div>
 
 
-    <button id="rulesSection" class="section-interface">Rules of the game</button>
+    <p class="separator">
+        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    </p>
         
     <div id="rules" class="section-about">
         <div class="titre-section">
@@ -147,13 +155,15 @@
                 <li>
                     Very hard mode : The chance of winning is slim. However, you can double your bet (200 %).
                 </li>
-            </ul>       
-                        
+            </ul>
+            
         </div>
         </div>
     </div>
 
-    <button id="gameSection" class="section-interface">Gambler Ruin Game</button>
+    <p class="separator">
+        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    </p>
 
     <!-- <div id="loaderWaitingConfirmation" class="section-contacte">
         <div class="loader" id="loaderAnimation"></div>
@@ -162,11 +172,6 @@
     </div>
     <br><br><br> -->
     
-    <div id="loaderGameWaiting" class="section-contacte">
-        <div class="loader" id="loaderAnimation"></div>
-        Waiting for confirmation ...
-
-    </div>
 
     <div id="play-game" class="section-game">
         
@@ -175,7 +180,11 @@
         <div class="center-remember">
             <p>
                 <h5 class="remember">
-                still with : <span id="user-balance-game"> Your balance :</span>
+                remember: <br>
+                easy mode : you have more chance to win half of your bet, but you still can loose your bet.<br>
+                normal mode : you have the same chance to win or loose your bet<br>
+                hard mode : you can win 50% more than you bet, but still loose only your bet<br>
+                very hard mode : Gambler put 2 x your bet on the table, but still loose only your bet<br>
                 </h5>
                 
             </p> 
@@ -188,9 +197,8 @@
         </div>
         
     </div>
- 
+    <br><br>
 
-    <button id="accountSection" class="section-interface">Account</button>
 
     <div id="infosOnAccount"  class="section-contacte" style="clear:both;">
         <button id = "getAccountBalanceButton"> Display personal funds amount in contract </button>
@@ -201,7 +209,7 @@
 
         <button id = "getBudgetOfContract" > Display the proprietary budget of the contract (to bet against players) </button>
         <h3 id="proprietary-budget-contract" style="color:cyan"> Proprietary budget of the contract :</h3>
-        
+        <br><br><br><br><br><br>
 
         <!-- A ENLEVER AVANT DE REMETTRE LE DEVOIR. SHOULD ONLY BE VISIBLE AT THE MOMENT OF FUNDING THE CONTRACT. SHOULD BE MADE INVISIBLE ONCE ACCOUNT IS FUNDED
         <H4> [RESERVED TO THE OWNER]. Fund the contract's budget OR self-destruct contract</H4>
@@ -219,15 +227,8 @@
     <script src="./dist/listenerBrowserified.js" type="text/javascript"> </script>
     <script src="./dist/listenerGameButtonBrowserified.js" type="text/javascript"> </script>
     <script>
+        //document.getElementById("play-game").style.display = "none";
         document.getElementById("loaderWaitingConfirmation").style.display = "none";
-        document.getElementById("loaderGameWaiting").style.display = "none";
-        document.getElementById("play-game").style.display = "none";
-        document.getElementById("rules").style.display = "none";
-        document.getElementById("deposit-withdraw").style.display = "none";
-        document.getElementById("infosOnAccount").style.display = "none";
-        document.getElementById("gameSection").style.display = "none";
-        document.getElementById("rulesSection").style.display = "none";
-        document.getElementById("depositSection").style.display = "none";
     </script>
 </body>
 
