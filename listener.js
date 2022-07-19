@@ -16,6 +16,29 @@ const gameDropDown = document.getElementById("gameDropDown");
 const accountSection = document.getElementById("accountSection");
 
 
+function playerPlaceBet(){
+    if(helpers.playerIsConnected()){
+        let element = document.getElementById("deposit-withdraw");
+        if(element.style.display == "block"){
+            element.style.display = "none";
+        }else{
+            element.style.display = "block";
+        }
+    }else{
+        window.alert("connect to yours account with metamask");
+    }
+}
+
+function rules(){
+    let element = document.getElementById("rules");
+    if(element.style.display == "block"){
+        element.style.display = "none";
+    }else{
+        element.style.display = "block";
+    }
+}
+
+
 accountSection.addEventListener('click', function handleClick(){
     let element = document.getElementById("infosOnAccount");
     if(element.style.display == "block"){
@@ -27,59 +50,30 @@ accountSection.addEventListener('click', function handleClick(){
 
 
 gameSection.addEventListener('click', function handleClick(){
-    let element = document.getElementById("play-game");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    playerPlaceBet();
 });
 
 
 gameDropDown.addEventListener('click', function handleClick(){
-    let element = document.getElementById("play-game");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    playerPlaceBet();
 });
 
 rulesSection.addEventListener('click', function handleClick(){
-    let element = document.getElementById("rules");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    rules();
 });
 
 rulesDropDown.addEventListener('click', function handleClick(){
-    let element = document.getElementById("rules");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    rules();
 });
 
 
 depositSection.addEventListener('click', function handleClick(){
-    let element = document.getElementById("deposit-withdraw");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    playerPlaceBet();
+    
 });
 
 depositDropDown.addEventListener('click', function handleClick(){
-    let element = document.getElementById("deposit-withdraw");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    playerPlaceBet();
 });
 
 budgetOfContract.addEventListener('click', function handleClick() {
@@ -120,10 +114,13 @@ withDraw.addEventListener('click', function handleClick() {
 
 deposit.addEventListener('click', function handleClick() {
     try{
-        document.getElementById("loaderWaitingConfirmation").style.display = "block";
+        document.getElementById("deposit-withdraw").style.display = "none";
+        
         helpers.deposit();
+        document.getElementById("loaderWaitingConfirmation").style.display = "block";
     }catch(err){
         document.getElementById("loaderWaitingConfirmation").style.display = "none";
+        document.getElementById("deposit-withdraw").style.display = "block";
         console.log(err);
     }
     

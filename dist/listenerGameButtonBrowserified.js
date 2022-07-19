@@ -101,26 +101,71 @@ function userWaitReturn(){
 
 
 btn0.addEventListener('click', function handleClick(){
+    
     userWaitReturn();
-    btn0.innerHTML = play(turn, turn/2, window.playerBet, window.playerBet/2);
+
+    resultBtn0 = play(turn, turn/2, window.playerBet, window.playerBet/2);
+    btn0.innerHTML = resultbtn0;
+
+    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
+
+    if(resultbtn0 == "win"){   
+        solde += window.playerBet/2;  
+    }else{
+        solde -= window.playerBet
+    }
+    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 });
 
 btn1.addEventListener('click', function handleClick(){
+    
     userWaitReturn();
-    btn1.innerHTML = play(turn, turn, window.playerBet, window.playerBet);
+
+    resultBtn1 = play(turn, turn, window.playerBet, window.playerBet);
+    btn1.innerHTML = resultBtn1;
+    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
+
+    if(resultBtn1 == "win"){   
+        solde += window.playerBet;  
+    }else{
+        solde -= window.playerBet
+    }
+    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 });
 
 btn2.addEventListener('click', function handleClick(){
+    
     userWaitReturn();
-    btn2.innerHTML = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
+    
+    resultBtn2 = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
+    btn2.innerHTML = resultBtn2 ;
+    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
+
+    if(resultBtn2  == "win"){   
+        solde += window.playerBet * 1.5;  
+    }else{
+        solde -= window.playerBet
+    }
+    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 });
 
 btn3.addEventListener('click', function handleClick(){
+
     userWaitReturn();
-    btn3.innerHTML = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
+    
+    resultBtn3 = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
+    btn3.innerHTML = resultBtn3;
+    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
+
+    if(resultBtn3 == "win"){   
+        solde += window.playerBet * 2;  
+    }else{
+        solde -= window.playerBet
+    }
+    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 }); 
 },{"./helpers.js":2}],2:[function(require,module,exports){
@@ -347,8 +392,12 @@ const abi = [
 
 var account = "";
 
+function playerIsConnected(){
+  return account != "";
+}
+
 function returnToGame(amount){
-  document.getElementById("user-balance").innerHTML = amount;
+  
   document.getElementById("loaderGameWaiting").style.display = "none";
   document.getElementById("play-game").style.display = "block";
 }
@@ -365,7 +414,8 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
-      document.getElementById("user-balance").innerHTML = web3.utils.fromWei(data.returnValues[1]).toString();
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      document.getElementById("user-balance-game").innerHTML = roundBalance;
       document.getElementById("play-game").style.display = "block";
     }
   });
@@ -375,7 +425,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("addGain : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      returnToGame(roundBalance);
     
       
     }
@@ -386,7 +437,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("substractLost : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      returnToGame(roundBalance);
       
     }
   });
@@ -428,6 +480,7 @@ async function deposit() {
     }
     if (account == "") {
       window.alert("Connect your wallet!");
+      throw "Connect your wallet";
     }
     else {   
       await window.contract.methods.deposit().send({from:account, value:amountToDeposit});           
@@ -528,7 +581,8 @@ module.exports = {
     selfDestruct,
     fundProprietaryBudgetOfContract,
     addGain,
-    substractLost
+    substractLost,
+    playerIsConnected
 }
 },{"ethers":342,"web3":563}],3:[function(require,module,exports){
 module.exports={

@@ -62,6 +62,12 @@
 
     <button id="depositSection" class="section-interface">deposit - withdraw</button>
 
+    <div id="loaderWaitingConfirmation" class="section-contacte">
+        <div class="loader" id="loaderAnimation"></div>
+        Waiting for confirmation ...
+        <!-- YOU NEED TO MAKE A DEPOSIT FOR THE GAME TO APPEAR ! -->
+    </div>
+
     <div id="deposit-withdraw">
         <div id="deposit" class="section-contacte" style="width: 45%; float:left">
             <div class="titre-centrer">
@@ -89,11 +95,7 @@
             <!-- <button id = "depositButton" style: onclick="helpers.deposit()"> Deposit ETH </button> -->
             <button id = "depositButton"> Deposit ETH </button>
             
-            <div id="loaderWaitingConfirmation" class="section-contacte">
-                <div class="loader" id="loaderAnimation"></div>
-                Waiting for confirmation ...
-                <!-- YOU NEED TO MAKE A DEPOSIT FOR THE GAME TO APPEAR ! -->
-            </div>
+            
     
             <br><br><br><br><br><br>
         </div>
@@ -173,7 +175,7 @@
         <div class="center-remember">
             <p>
                 <h5 class="remember">
-                your have : <span id="user-balance"> Your balance :</span>
+                still with : <span id="user-balance-game"> Your balance :</span>
                 </h5>
                 
             </p> 
@@ -223,6 +225,9 @@
         document.getElementById("rules").style.display = "none";
         document.getElementById("deposit-withdraw").style.display = "none";
         document.getElementById("infosOnAccount").style.display = "none";
+        document.getElementById("gameSection").style.display = "none";
+        document.getElementById("rulesSection").style.display = "none";
+        document.getElementById("depositSection").style.display = "none";
     </script>
 </body>
 

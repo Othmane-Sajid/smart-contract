@@ -222,8 +222,12 @@ const abi = [
 
 var account = "";
 
+function playerIsConnected(){
+  return account != "";
+}
+
 function returnToGame(amount){
-  document.getElementById("user-balance").innerHTML = amount;
+  
   document.getElementById("loaderGameWaiting").style.display = "none";
   document.getElementById("play-game").style.display = "block";
 }
@@ -240,7 +244,8 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
-      document.getElementById("user-balance").innerHTML = web3.utils.fromWei(data.returnValues[1]).toString();
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      document.getElementById("user-balance-game").innerHTML = roundBalance;
       document.getElementById("play-game").style.display = "block";
     }
   });
@@ -250,7 +255,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("addGain : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      returnToGame(roundBalance);
     
       
     }
@@ -261,7 +267,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("substractLost : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      returnToGame(roundBalance);
       
     }
   });
@@ -303,6 +310,7 @@ async function deposit() {
     }
     if (account == "") {
       window.alert("Connect your wallet!");
+      throw "Connect your wallet";
     }
     else {   
       await window.contract.methods.deposit().send({from:account, value:amountToDeposit});           
@@ -403,7 +411,8 @@ module.exports = {
     selfDestruct,
     fundProprietaryBudgetOfContract,
     addGain,
-    substractLost
+    substractLost,
+    playerIsConnected
 }
 },{"ethers":342,"web3":563}],2:[function(require,module,exports){
 const helpers = require("./helpers.js");
@@ -424,6 +433,29 @@ const gameDropDown = document.getElementById("gameDropDown");
 const accountSection = document.getElementById("accountSection");
 
 
+function playerPlaceBet(){
+    if(helpers.playerIsConnected()){
+        let element = document.getElementById("deposit-withdraw");
+        if(element.style.display == "block"){
+            element.style.display = "none";
+        }else{
+            element.style.display = "block";
+        }
+    }else{
+        window.alert("connect to yours account with metamask");
+    }
+}
+
+function rules(){
+    let element = document.getElementById("rules");
+    if(element.style.display == "block"){
+        element.style.display = "none";
+    }else{
+        element.style.display = "block";
+    }
+}
+
+
 accountSection.addEventListener('click', function handleClick(){
     let element = document.getElementById("infosOnAccount");
     if(element.style.display == "block"){
@@ -435,59 +467,30 @@ accountSection.addEventListener('click', function handleClick(){
 
 
 gameSection.addEventListener('click', function handleClick(){
-    let element = document.getElementById("play-game");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    playerPlaceBet();
 });
 
 
 gameDropDown.addEventListener('click', function handleClick(){
-    let element = document.getElementById("play-game");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    playerPlaceBet();
 });
 
 rulesSection.addEventListener('click', function handleClick(){
-    let element = document.getElementById("rules");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    rules();
 });
 
 rulesDropDown.addEventListener('click', function handleClick(){
-    let element = document.getElementById("rules");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    rules();
 });
 
 
 depositSection.addEventListener('click', function handleClick(){
-    let element = document.getElementById("deposit-withdraw");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    playerPlaceBet();
+    
 });
 
 depositDropDown.addEventListener('click', function handleClick(){
-    let element = document.getElementById("deposit-withdraw");
-    if(element.style.display == "block"){
-        element.style.display = "none";
-    }else{
-        element.style.display = "block";
-    }
+    playerPlaceBet();
 });
 
 budgetOfContract.addEventListener('click', function handleClick() {
@@ -528,10 +531,13 @@ withDraw.addEventListener('click', function handleClick() {
 
 deposit.addEventListener('click', function handleClick() {
     try{
-        document.getElementById("loaderWaitingConfirmation").style.display = "block";
+        document.getElementById("deposit-withdraw").style.display = "none";
+        
         helpers.deposit();
+        document.getElementById("loaderWaitingConfirmation").style.display = "block";
     }catch(err){
         document.getElementById("loaderWaitingConfirmation").style.display = "none";
+        document.getElementById("deposit-withdraw").style.display = "block";
         console.log(err);
     }
     

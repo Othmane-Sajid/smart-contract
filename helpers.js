@@ -221,8 +221,12 @@ const abi = [
 
 var account = "";
 
+function playerIsConnected(){
+  return account != "";
+}
+
 function returnToGame(amount){
-  document.getElementById("user-balance").innerHTML = amount;
+  
   document.getElementById("loaderGameWaiting").style.display = "none";
   document.getElementById("play-game").style.display = "block";
 }
@@ -239,7 +243,8 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
-      document.getElementById("user-balance").innerHTML = web3.utils.fromWei(data.returnValues[1]).toString();
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      document.getElementById("user-balance-game").innerHTML = roundBalance;
       document.getElementById("play-game").style.display = "block";
     }
   });
@@ -249,7 +254,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("addGain : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      returnToGame(roundBalance);
     
       
     }
@@ -260,7 +266,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("substractLost : " + data.returnValues[1] + " : " + data.returnValues[0]);
-      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
+      roundBalance = web3.utils.fromWei(data.returnValues[1]).toString() + " ether for this round";
+      returnToGame(roundBalance);
       
     }
   });
@@ -302,6 +309,7 @@ async function deposit() {
     }
     if (account == "") {
       window.alert("Connect your wallet!");
+      throw "Connect your wallet";
     }
     else {   
       await window.contract.methods.deposit().send({from:account, value:amountToDeposit});           
@@ -402,5 +410,6 @@ module.exports = {
     selfDestruct,
     fundProprietaryBudgetOfContract,
     addGain,
-    substractLost
+    substractLost,
+    playerIsConnected
 }

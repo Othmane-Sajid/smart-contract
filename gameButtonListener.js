@@ -100,25 +100,70 @@ function userWaitReturn(){
 
 
 btn0.addEventListener('click', function handleClick(){
+    
     userWaitReturn();
-    btn0.innerHTML = play(turn, turn/2, window.playerBet, window.playerBet/2);
+
+    resultBtn0 = play(turn, turn/2, window.playerBet, window.playerBet/2);
+    btn0.innerHTML = resultbtn0;
+
+    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
+
+    if(resultbtn0 == "win"){   
+        solde += window.playerBet/2;  
+    }else{
+        solde -= window.playerBet
+    }
+    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 });
 
 btn1.addEventListener('click', function handleClick(){
+    
     userWaitReturn();
-    btn1.innerHTML = play(turn, turn, window.playerBet, window.playerBet);
+
+    resultBtn1 = play(turn, turn, window.playerBet, window.playerBet);
+    btn1.innerHTML = resultBtn1;
+    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
+
+    if(resultBtn1 == "win"){   
+        solde += window.playerBet;  
+    }else{
+        solde -= window.playerBet
+    }
+    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 });
 
 btn2.addEventListener('click', function handleClick(){
+    
     userWaitReturn();
-    btn2.innerHTML = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
+    
+    resultBtn2 = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
+    btn2.innerHTML = resultBtn2 ;
+    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
+
+    if(resultBtn2  == "win"){   
+        solde += window.playerBet * 1.5;  
+    }else{
+        solde -= window.playerBet
+    }
+    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 });
 
 btn3.addEventListener('click', function handleClick(){
+
     userWaitReturn();
-    btn3.innerHTML = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
+    
+    resultBtn3 = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
+    btn3.innerHTML = resultBtn3;
+    solde = parseFloat(document.getElementById("user-balance-game").innerHTML);
+
+    if(resultBtn3 == "win"){   
+        solde += window.playerBet * 2;  
+    }else{
+        solde -= window.playerBet
+    }
+    document.getElementById("user-balance-game").innerHTML = solde.toFixed(5).toString();
     
 }); 
