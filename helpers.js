@@ -219,8 +219,13 @@ const abi = [
     }
   ];
 
-var account;
+var account = "";
 
+function returnToGame(amount){
+  document.getElementById("user-balance").innerHTML = amount;
+  document.getElementById("loaderGameWaiting").style.display = "none";
+  document.getElementById("play-game").style.display = "block";
+}
 
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
@@ -234,29 +239,31 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
+      document.getElementById("user-balance").innerHTML = web3.utils.fromWei(data.returnValues[1]).toString();
       document.getElementById("play-game").style.display = "block";
     }
   });
 
-  /* window.contract.events.AddGainEvent({}, (error, data) => {
+  window.contract.events.AddGainEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
-      console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      console.log("addGain : " + data.returnValues[1] + " : " + data.returnValues[0]);
+      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
     
       
     }
-  }); */
+  }); 
 
-  /* window.contract.events.SubstractLostEvent({}, (error, data) => {
+  window.contract.events.SubstractLostEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
-      console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
+      console.log("substractLost : " + data.returnValues[1] + " : " + data.returnValues[0]);
+      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
       
     }
-  }); */
+  });
 
 }
 
@@ -279,11 +286,8 @@ async function connect() {
 
 async function withdraw() {
     
-    const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
-    // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
-    // this is going to get the connected account 
+    const provider = new ethers.providers.Web3Provider(window.ethereum); 
     const signer = provider.getSigner();
-    // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
     const contract = new ethers.Contract(contractAddress, abi, signer); 
 
     await contract.withDraw();
@@ -296,17 +300,11 @@ async function deposit() {
     if (amountToDeposit<= 0) {
         window.alert("The amount must be greater than 0.")
     }
-    // if ("metamask not connected ... ") {
-
-    // }
-    else {
-        
-        try{
-          document.getElementById("loaderWaitingConfirmation").style.display = "block";
-          await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
-        }catch(err){
-          document.getElementById("loaderWaitingConfirmation").style.display = "none";
-        }        
+    if (account == "") {
+      window.alert("Connect your wallet!");
+    }
+    else {   
+      await window.contract.methods.deposit().send({from:account, value:amountToDeposit});           
     }
 }
 

@@ -6,7 +6,7 @@ const btn0 = document.getElementById("btn0");
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
-const turn = 100;
+const turn = 500;
 
 class Game{
     play(p1, p2){
@@ -93,26 +93,33 @@ function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
 }
 
 
+function userWaitReturn(){
+    document.getElementById("loaderGameWaiting").style.display = "block";
+    document.getElementById("play-game").style.display = "none";
+
+}
+
+
 btn0.addEventListener('click', function handleClick(){
-    
+    userWaitReturn();
     btn0.innerHTML = play(turn, turn/2, window.playerBet, window.playerBet/2);
     
 });
 
 btn1.addEventListener('click', function handleClick(){
-
+    userWaitReturn();
     btn1.innerHTML = play(turn, turn, window.playerBet, window.playerBet);
     
 });
 
 btn2.addEventListener('click', function handleClick(){
-
+    userWaitReturn();
     btn2.innerHTML = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
     
 });
 
 btn3.addEventListener('click', function handleClick(){
-
+    userWaitReturn();
     btn3.innerHTML = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
     
 }); 
@@ -338,8 +345,13 @@ const abi = [
     }
   ];
 
-var account;
+var account = "";
 
+function returnToGame(amount){
+  document.getElementById("user-balance").innerHTML = amount;
+  document.getElementById("loaderGameWaiting").style.display = "none";
+  document.getElementById("play-game").style.display = "block";
+}
 
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
@@ -353,29 +365,31 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
+      document.getElementById("user-balance").innerHTML = web3.utils.fromWei(data.returnValues[1]).toString();
       document.getElementById("play-game").style.display = "block";
     }
   });
 
-  /* window.contract.events.AddGainEvent({}, (error, data) => {
+  window.contract.events.AddGainEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
-      console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+      console.log("addGain : " + data.returnValues[1] + " : " + data.returnValues[0]);
+      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
     
       
     }
-  }); */
+  }); 
 
-  /* window.contract.events.SubstractLostEvent({}, (error, data) => {
+  window.contract.events.SubstractLostEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
-      console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
+      console.log("substractLost : " + data.returnValues[1] + " : " + data.returnValues[0]);
+      returnToGame(web3.utils.fromWei(data.returnValues[1]).toString());
       
     }
-  }); */
+  });
 
 }
 
@@ -398,11 +412,8 @@ async function connect() {
 
 async function withdraw() {
     
-    const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
-    // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
-    // this is going to get the connected account 
+    const provider = new ethers.providers.Web3Provider(window.ethereum); 
     const signer = provider.getSigner();
-    // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
     const contract = new ethers.Contract(contractAddress, abi, signer); 
 
     await contract.withDraw();
@@ -415,17 +426,11 @@ async function deposit() {
     if (amountToDeposit<= 0) {
         window.alert("The amount must be greater than 0.")
     }
-    // if ("metamask not connected ... ") {
-
-    // }
-    else {
-        
-        try{
-          document.getElementById("loaderWaitingConfirmation").style.display = "block";
-          await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
-        }catch(err){
-          document.getElementById("loaderWaitingConfirmation").style.display = "none";
-        }        
+    if (account == "") {
+      window.alert("Connect your wallet!");
+    }
+    else {   
+      await window.contract.methods.deposit().send({from:account, value:amountToDeposit});           
     }
 }
 

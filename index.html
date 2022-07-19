@@ -28,24 +28,24 @@
                 <a href="#home" class="size-anim-small"> Connect with metamask</a>
             </li>
             <li class="dropdown">
-                <a href="#services" class="size-anim-small"> Deposit/Withdraw <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <a id="depositDropDown" class="size-anim-small"> Deposit/Withdraw <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                   </svg></a>
 
-                <div class="dropdown-content background-color-change-anim">
-                    <!-- <a href="#connect-metamask" class="size-anim-small" style= color:beige>Connect metamask</a> -->
+                <!--  <div class="dropdown-content background-color-change-anim">
+                    
                     <a href="#deposit" class="size-anim-small" style= color:beige>Deposit ETH</a>
                     <a href="#withdraw" class="size-anim-small" style= color:beige>Withdraw ETH</a>
-                </div>
+                </div>-->
             </li>
             <li>
 
-                <a href="#rules" class="size-anim-small">Rules of the game</a>
+                <a id="rulesDropDown" class="size-anim-small">Rules of the game</a>
 
             </li>
 
             <li>
-                <a href="#form-play-game" class="size-anim-small"> Play a game</a>
+                <a id="gameDropDown" class="size-anim-small"> Play a game</a>
             </li>
 
             <!-- <button id = "connectButton"> Connect with metamask </button> -->
@@ -60,15 +60,7 @@
     </div>
 
 
-
-    <!-- <div id="connect-metamask" class="titre-section"> 
-        <br><br><br>
-        <h1 class="color-change-anim">Please connect your account via metamask by pressing the connect button <br> <span style="color:lightblue"><u>(use Ropsten network)</u></span></h1>
-        <button id = "connectButton"> Connect with metamask </button>
-        <h4 id="status-metamask" style="color:cyan"> Status : Not connected.</h4>
-
-    </div> -->
-
+    <button id="depositSection" class="section-interface">deposit - withdraw</button>
 
     <div id="deposit-withdraw">
         <div id="deposit" class="section-contacte" style="width: 45%; float:left">
@@ -128,34 +120,38 @@
     </div>
 
 
-    <p class="separator">
-        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    </p>
+    <button id="rulesSection" class="section-interface">Rules of the game</button>
         
     <div id="rules" class="section-about">
         <div class="titre-section">
             <h1 class="color-change-anim">Rules of the game</h1>
-            <p id="section-rules" style="text-align:center;">
+            <p id="section-rules" style="text-align:left;">
                 To play, you need to deposit an amount of ETH that you wish to bet. The game will only appear if you have deposited ETH in your account.
-                <br> The game is simple. You will bet a certain amount of ETH, and the contract will bet an amount either equal or larger than the size of your bet.
+                The game is simple. You will bet a certain amount of ETH, and the contract will bet an amount either equal or larger than the size of your bet.
 
                 <br><br> There are 4 game modes (difficulties). 
                 <br>Each game mode has a specific probability of winning and a corresponding reward : 
-                <span style="text-align:center;">
-                <br><br> > Easy mode : You have more probabilities to win. However, in event of a win, your reward is equivalent to 50 % of the size of your bet.
-                <br> >> Normal mode : Your chance to win (or lose) is equal to 50 %. The reward in the event of a win amounts to 100 % of your bet.
-                <br> >>> Hard mode : The chance of winning is less than 50 %. But you can win a reward equal to 150 % of your bet.
-                <br> >>>> Very hard mode : The chance of winning is slim. However, you can double your bet (200 %). 
-                </span>
             </p>
-            
+            <ul style="text-align:left;">
+                <li>
+                    Easy mode : You have more probabilities to win. However, in event of a win, your reward is equivalent to 50 % of the size of your bet.
+                </li>
+                <li>
+                    Normal mode : Your chance to win (or lose) is equal to 50 %. The reward in the event of a win amounts to 100 % of your bet.
+                </li>
+                <li>
+                    Hard mode : The chance of winning is less than 50 %. But you can win a reward equal to 150 % of your bet.
+                </li>
+                <li>
+                    Very hard mode : The chance of winning is slim. However, you can double your bet (200 %).
+                </li>
+            </ul>       
+                        
         </div>
         </div>
     </div>
 
-    <p class="separator">
-        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    </p>
+    <button id="gameSection" class="section-interface">Gambler Ruin Game</button>
 
     <!-- <div id="loaderWaitingConfirmation" class="section-contacte">
         <div class="loader" id="loaderAnimation"></div>
@@ -164,6 +160,11 @@
     </div>
     <br><br><br> -->
     
+    <div id="loaderGameWaiting" class="section-contacte">
+        <div class="loader" id="loaderAnimation"></div>
+        Waiting for confirmation ...
+
+    </div>
 
     <div id="play-game" class="section-game">
         
@@ -172,11 +173,7 @@
         <div class="center-remember">
             <p>
                 <h5 class="remember">
-                remember: <br>
-                easy mode : you have more chance to win half of your bet, but you still can loose your bet.<br>
-                normal mode : you have the same chance to win or loose your bet<br>
-                hard mode : you can win 50% more than you bet, but still loose only your bet<br>
-                very hard mode : Gambler put 2 x your bet on the table, but still loose only your bet<br>
+                your have : <span id="user-balance"> Your balance :</span>
                 </h5>
                 
             </p> 
@@ -189,8 +186,9 @@
         </div>
         
     </div>
-    <br><br>
+ 
 
+    <button id="accountSection" class="section-interface">Account</button>
 
     <div id="infosOnAccount"  class="section-contacte" style="clear:both;">
         <button id = "getAccountBalanceButton"> Display personal funds amount in contract </button>
@@ -201,7 +199,7 @@
 
         <button id = "getBudgetOfContract" > Display the proprietary budget of the contract (to bet against players) </button>
         <h3 id="proprietary-budget-contract" style="color:cyan"> Proprietary budget of the contract :</h3>
-        <br><br><br><br><br><br>
+        
 
         <!-- A ENLEVER AVANT DE REMETTRE LE DEVOIR. SHOULD ONLY BE VISIBLE AT THE MOMENT OF FUNDING THE CONTRACT. SHOULD BE MADE INVISIBLE ONCE ACCOUNT IS FUNDED
         <H4> [RESERVED TO THE OWNER]. Fund the contract's budget OR self-destruct contract</H4>
@@ -219,8 +217,12 @@
     <script src="./dist/listenerBrowserified.js" type="text/javascript"> </script>
     <script src="./dist/listenerGameButtonBrowserified.js" type="text/javascript"> </script>
     <script>
-        document.getElementById("play-game").style.display = "none";
         document.getElementById("loaderWaitingConfirmation").style.display = "none";
+        document.getElementById("loaderGameWaiting").style.display = "none";
+        document.getElementById("play-game").style.display = "none";
+        document.getElementById("rules").style.display = "none";
+        document.getElementById("deposit-withdraw").style.display = "none";
+        document.getElementById("infosOnAccount").style.display = "none";
     </script>
 </body>
 
