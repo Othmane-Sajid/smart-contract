@@ -16,12 +16,17 @@ body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     color: white;
-    background-color: #000000;
+    background-color:black;
 }
 
 p {
     text-align: justify;
     text-justify: inter-word;
+}
+
+.separator {
+    text-align: center;
+    clear:both;
 }
 
 .titre-centrer {
@@ -138,12 +143,13 @@ a, a:hover, a:focus, a:active {
     Section Home
    ===================*/
 .section-home{
-    background-image: url("./assets/launching.jpg");
-    padding: 15%;
+    background-image: url("./assets/photos/metamask.png");
+    padding: 5%;
     text-align: center;
     font-size: x-large;
     font-family: 'Anton', sans-serif;
     background-size: cover;
+    background-color: #abb8c3;
 }
 
 /* ===================
@@ -154,6 +160,12 @@ a, a:hover, a:focus, a:active {
     width: 100%;
     height: 100%;
     text-align: center;
+}
+
+#section-rules {
+    font-family: monospace;
+    font-size:x-large;
+    /* font-style: oblique; */
 }
 
 .section-about > .detail-section {
@@ -262,6 +274,8 @@ a, a:hover, a:focus, a:active {
     border-radius: 10px;
     padding: 12px;
     text-align: center;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .image-contacter {
@@ -302,7 +316,7 @@ input[type='number']{
 } 
 
 
-#connectButton, button {
+button {
     /* border: none; */
     color: white;
     padding: 15px 32px;
@@ -313,6 +327,10 @@ input[type='number']{
     margin: 4px 2px;
     cursor: pointer;
     background-color:burlywood;
+}
+
+#connectButton {
+    background-color:teal;
 }
 
 
@@ -337,7 +355,7 @@ transition: color 0.5s ease-in-out;
 }
 
 .color-change-anim:hover {
-    color:mediumaquamarine;
+    color:palevioletred;
 }
 
 .color-change-anim2 {
@@ -375,12 +393,13 @@ transition: color 0.3s ease-out;
 }
 
 .background-color-change-anim {
-    transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.4s ease-in-out;
 }
   
 .background-color-change-anim:hover {
-    background-color: black;
+    background-color:palevioletred ;
     opacity:90%;
+    border-color: #000000;
 }
 
 /* =============

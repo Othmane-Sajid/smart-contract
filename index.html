@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Smart contract </title>
+    <title>Gambler Ruin Smart </title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="stylesheet.css">
     <!-- Google font -->
@@ -15,24 +15,17 @@
 
 <body>
     
-    <!-- <script src="./helpers.js" type="text/javascript"> </script> -->
-    <!--<script src="./dist/bundle.js" type="text/javascript"> </script>-->
+    <!-- <script src="./helpers.js" type="text/javascript"> </script>
+    <script src="./dist/bundle.js" type="text/javascript"> </script> -->
     
-    
-
 
     <div class="navbar background-nav-bar">
         <ul>
             <li class="navbar-logo">
-                <img src="assets/spacex-logo.png" alt="Space-X-Logo">
+                <img src="assets/photos/eth-logo2.jpg" alt="Ethereum Logo">
             </li>
             <li>
-                <a href="#home" class="size-anim-small"> Home</a>
-            </li>
-            <li>
-
-                <a href="#rules" class="size-anim-small">Rules of the game</a>
-
+                <a href="#home" class="size-anim-small"> Connect with metamask</a>
             </li>
             <li class="dropdown">
                 <a href="#services" class="size-anim-small"> Deposit/Withdraw <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
@@ -40,47 +33,136 @@
                   </svg></a>
 
                 <div class="dropdown-content background-color-change-anim">
-                    <a href="#connect-metamask" class="size-anim-small" style= color:beige>Connect metamask</a>
+                    <!-- <a href="#connect-metamask" class="size-anim-small" style= color:beige>Connect metamask</a> -->
                     <a href="#deposit" class="size-anim-small" style= color:beige>Deposit ETH</a>
                     <a href="#withdraw" class="size-anim-small" style= color:beige>Withdraw ETH</a>
-
                 </div>
             </li>
             <li>
+
+                <a href="#rules" class="size-anim-small">Rules of the game</a>
+
+            </li>
+
+            <li>
                 <a href="#form-play-game" class="size-anim-small"> Play a game</a>
             </li>
+
+            <!-- <button id = "connectButton"> Connect with metamask </button> -->
         </ul>
     </div>
 
     <div id="home" class="section-home">
-        <h1 class="size-anim color-change-anim">Gambler Ruin Smart Contract</h1>
+        <!-- <h1 class="size-anim color-change-anim">Gambler Ruin Smart Contract</h1> -->
+        <h1 class="color-change-anim">Gambler Ruin Smart Contract</h1>
+        <button id = "connectButton" class="color-change-anim2"> CONNECT WITH METAMASK <br> <span style="color:darkblue"><u>(Please use Ropsten network)</u></span>
+        <br> <h4 id="status-metamask" style="color:bisque"> Status : Not connected.</h4></button>
+    </div>
+
+
+
+    <!-- <div id="connect-metamask" class="titre-section"> 
+        <br><br><br>
+        <h1 class="color-change-anim">Please connect your account via metamask by pressing the connect button <br> <span style="color:lightblue"><u>(use Ropsten network)</u></span></h1>
+        <button id = "connectButton"> Connect with metamask </button>
+        <h4 id="status-metamask" style="color:cyan"> Status : Not connected.</h4>
+
+    </div> -->
+
+
+    <div id="deposit-withdraw">
+        <div id="deposit" class="section-contacte" style="width: 45%; float:left">
+            <div class="titre-centrer">
+                <h1>
+                    <!-- <a href="#bottom" class="color-change-anim">Deposit funds</a> -->
+                    <h1 class="color-change-anim">Deposit funds</h1>
+                </h1>
+            </div>
+            <div class="image-contacter">
+                <img src="./assets/photos/ethereum-logo.png"  alt="eth" style="width:50%;">
+            </div>
+    
+            <h2>First connect your metamask account and then select the amount of ETH you wish to bet before clicking on the button "Deposit ETH".
+                <br><i>(The amount must be included between 0.1 and 1</i>
+            </h2>
+            <!-- <input type ="number" step="0.1" min="0.1" max="1" oninput="validity.valid||(value='');" id="depositAmountInput" placeholder="Enter amount to bet"> -->
+            <!-- <input type ="number" step="0.1" min="0.1" max="1" id="depositAmountInput" placeholder="Enter amount to bet"> -->
+
+            <select name="Amount to deposit" id="depositAmountInput">
+                <option value="0.1">0.1</option> <option value="0.2">0.2</option> <option value="0.3">0.3</option>
+                <option value="0.4">0.4</option> <option value="0.5">0.5</option> <option value="0.6">0.6</option>
+                <option value="0.7">0.7</option> <option value="0.8">0.8</option> <option value="0.9">0.9</option> <option value="1">1</option>
+              </select>
+
+            <!-- <button id = "depositButton" style: onclick="helpers.deposit()"> Deposit ETH </button> -->
+            <button id = "depositButton"> Deposit ETH </button>
+            
+            <div id="loaderWaitingConfirmation" class="section-contacte">
+                <div class="loader" id="loaderAnimation"></div>
+                Waiting for confirmation ...
+                <!-- YOU NEED TO MAKE A DEPOSIT FOR THE GAME TO APPEAR ! -->
+            </div>
+    
+            <br><br><br><br><br><br>
+        </div>
+
+        <div id="withdraw" class="section-contacte" style="width: 45%; float:right">
+            <div class="titre-centrer">
+                <h1>
+                    <!-- <a href="#bottom" class="color-change-anim">Withdraw funds</a> -->
+                    <h1 class="color-change-anim">Withdraw funds</h1>
+    
+                </h1>
+            </div>
+            <div class="image-contacter">
+                <img src="./assets/photos/ethereum-logo.png"  alt="eth" style="width:50%;">
+            </div>
+    
+            <p><h2>To withdraw your funds, first connect your metamask account using the "Connect" button, and then click on the "Withdraw" button.
+            </h2></p>
+            <!-- <button id = "withdrawButton" style: onclick="helpers.withdraw()"> Withdraw </button> -->
+            <button id = "withdrawButton"> Withdraw </button>
+            
+        </div>
 
     </div>
+
+
+    <p class="separator">
+        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    </p>
+        
     <div id="rules" class="section-about">
         <div class="titre-section">
             <h1 class="color-change-anim">Rules of the game</h1>
-            <p class="background-color-change-anim">  
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis tellus et risus pharetra vulputate. Morbi vel sagittis felis, eu pellentesque lorem. Morbi in dolor eu ligula mollis commodo. Nulla euismod urna interdum, bibendum turpis nec, elementum massa. Phasellus eget venenatis enim, in cursus orci. Vestibulum rhoncus quis sapien eget hendrerit. Aliquam quis ultricies erat. In eu semper justo. Maecenas libero magna, porttitor at felis sit amet, interdum pellentesque arcu. Vivamus eu neque pellentesque, tempor mauris ut, aliquet enim. Donec mattis faucibus mauris nec tempus. Curabitur egestas augue non lacus pretium sodales. Quisque quis nisl id ante tempor maximus. Suspendisse ac dapibus lectus.
+            <p id="section-rules" style="text-align:center;">
+                To play, you need to deposit an amount of ETH that you wish to bet. The game will only appear if you have deposited ETH in your account.
+                <br> The game is simple. You will bet a certain amount of ETH, and the contract will bet an amount either equal or larger than the size of your bet.
+
+                <br><br> There are 4 game modes (difficulties). 
+                <br>Each game mode has a specific probability of winning and a corresponding reward : 
+                <span style="text-align:center;">
+                <br><br> > Easy mode : You have more probabilities to win. However, in event of a win, your reward is equivalent to 50 % of the size of your bet.
+                <br> >> Normal mode : Your chance to win (or lose) is equal to 50 %. The reward in the event of a win amounts to 100 % of your bet.
+                <br> >>> Hard mode : The chance of winning is less than 50 %. But you can win a reward equal to 150 % of your bet.
+                <br> >>>> Very hard mode : The chance of winning is slim. However, you can double your bet (200 %). 
+                </span>
             </p>
             
         </div>
         </div>
     </div>
 
-    <div id="connect-metamask" class="titre-section"> 
-        <br><br><br>
-        <h1 class="color-change-anim">Please connect your account via metamask by pressing the connect button <br> <span style="color:lightblue"><u>(use Ropsten network)</u></span></h1>
-        <!-- <button id = "connectButton" style: onclick="helpers.connect()"> Connect with metamask </button> -->
-        <button id = "connectButton"> Connect with metamask </button>
-        <h4 id="status-metamask" style="color:cyan"> Status : Not connected.</h4>
+    <p class="separator">
+        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    </p>
 
-    </div>
-
-
-    <div id="loaderWaitingConfirmation" class="section-contacte">
+    <!-- <div id="loaderWaitingConfirmation" class="section-contacte">
         <div class="loader" id="loaderAnimation"></div>
         Waiting for confirmation ...
+        YOU NEED TO MAKE A DEPOSIT FOR THE GAME TO APPEAR !
     </div>
+    <br><br><br> -->
     
 
     <div id="play-game" class="section-game">
@@ -106,100 +188,30 @@
             <button type="button" style="background-color: rgb(235, 54, 22); color: black;" class=butt id="btn3">play</button>
         </div>
         
-
-
     </div>
+    <br><br>
 
 
-    <div id="playgame" class="section-contacte">
-        
-        <div id="deposit" class="section-contacte" style="width: 45%; float:left">
-        <div class="titre-centrer">
-            <h1>
-                <!-- <a href="#bottom" class="color-change-anim">Deposit funds</a> -->
-                <h1 class="color-change-anim">Deposit funds</h1>
-
-            </h1>
-        </div>
-        <div class="image-contacter">
-            <img src="./assets/photos/bank-building.jpg" alt="bank" style="width:100%">
-        </div>
-
-        <h2>To deposit in your account, please write the amount of ETH you wish to deposit. And click on the button "Deposit ETH"
-            <br> These funds will be available to bet on a game.  
-        </h2>
-        <input type ="number" step="0.1" min="0.1" max="1" oninput="validity.valid||(value='');" id="depositAmountInput" placeholder="enter your bet">
-        <!-- <button id = "depositButton" style: onclick="helpers.deposit()"> Deposit ETH </button> -->
-        <button id = "depositButton"> Deposit ETH </button>
-
-        <br><br><br><br><br><br>
-        
-
-        <!-- <form action="none" class="contact-form">
-            <p><h2>To deposit in your account, please write the amount of ETH you wish to deposit.
-                <br> These funds will be available to bet on a game.  
-            </h2></p>
-            <label for="amount">Amount</label>
-            <input type="number" step="0.01" id="amount"> <br>
-            <input type="Submit" class ="size-anim-small" value="Deposit ETH ">
-        </form>
-        <br><br><br><br><br><br> -->
-    </div>
-    <div id="withdraw" class="section-contacte" style="width: 45%; float:right">
-        <div class="titre-centrer">
-            <h1>
-                <!-- <a href="#bottom" class="color-change-anim">Withdraw funds</a> -->
-                <h1 class="color-change-anim">Withdraw funds</h1>
-
-            </h1>
-        </div>
-        <div class="image-contacter">
-            <img src="./assets/photos/bank-building.jpg" alt="SpaceX-Team" style="width:100%">
-        </div>
-
-        <p><h2>To withdraw your funds, first connect your metamask account using the "Connect" button, and then click on the "Withdraw" button.
-        </h2></p>
-        <!-- <button id = "withdrawButton" style: onclick="helpers.withdraw()"> Withdraw </button> -->
-        <button id = "withdrawButton"> Withdraw </button>
-
-
-        <!-- <form action="none" class="contact-form">
-            <p><h2>To withdraw your funds, first connect your metamask account using the "Connect" button, and then click on the "Withdraw" button.
-            </h2></p>
-            <label for="ethAddress">Ethereum address (0x...)</label>
-            <input type="text" id="ethAddressWithdraw" name="ethAddress">
-
-            <label for="commentaire">Comments</label>
-            <textarea id="commentaire" style="height:120px"></textarea>
-            <input type="Submit" class ="size-anim-small" value="Deposit ETH ">
-        </form> -->
-        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        
-    </div>
-
-    <div id="infosOnAccount" class="section-contacte">
+    <div id="infosOnAccount"  class="section-contacte" style="clear:both;">
         <button id = "getAccountBalanceButton"> Display personal funds amount in contract </button>
         <h3 id="user-balance" style="color:cyan"> Your balance :</h3>
 
         <button id = "getTotalBalanceInContract" > Display total amount of ETH deposited in contract </button>
         <h3 id="total-balance" style="color:cyan"> Total balance in contract : </h3>
 
-        <button id = "getBudgetOfContract" > Display the proprietary budget of the contract </button>
+        <button id = "getBudgetOfContract" > Display the proprietary budget of the contract (to bet against players) </button>
         <h3 id="proprietary-budget-contract" style="color:cyan"> Proprietary budget of the contract :</h3>
         <br><br><br><br><br><br>
 
-        <!-- SHOULD ONLY BE VISIBLE AT THE MOMENT OF FUNDING THE CONTRACT. SHOULD BE MADE INVISIBLE ONCE ACCOUNT IS FUNDED -->
-        <!-- <H4> [RESERVED TO THE OWNER]. Fund the contract's budget OR self-destruct contract</H4>
+        <!-- A ENLEVER AVANT DE REMETTRE LE DEVOIR. SHOULD ONLY BE VISIBLE AT THE MOMENT OF FUNDING THE CONTRACT. SHOULD BE MADE INVISIBLE ONCE ACCOUNT IS FUNDED
+        <H4> [RESERVED TO THE OWNER]. Fund the contract's budget OR self-destruct contract</H4>
         <input type ="number" step="0.01" id="fundBudgetInput" placeholder="Please enter the amount to deposit">
-        <button id = "fundContractButton" style: onclick="bundle.fundProprietaryBudgetOfContract()"> Deposit ETH to fund the contract's budget</button> -->
-        <!-- <button id = "selfDestructButton" style: onclick="bundle.selfDestruct()"> SELF DESTRUCT CONTRACT !!!!!</button> -->
+        <button id = "fundContractButton"> Deposit ETH to fund the contract's budget</button>
+        <button id = "selfDestructButton" onclick="bundle.selfDestruct()"> SELF DESTRUCT CONTRACT !!!!!</button> -->
 
     </div>
 
-
     
-    
-
     <div class="footer">
         <p>&copy; Gambler Ruin Smart Contract - IFT4100 - 2022</p>
     </div>

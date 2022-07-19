@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity >=0.8.0 <0.9.0;
 
 contract GamblerToken {
     address owner;
@@ -18,8 +18,12 @@ contract GamblerToken {
         currentBudgetOfContract = msg.value;
     }
 
-    function fundProprietaryBudgetOfContract() external payable {
+    modifier isOwner {
         require(msg.sender == owner);
+        _;
+    }
+
+    function fundProprietaryBudgetOfContract() external payable isOwner{
         currentBudgetOfContract += msg.value;
         emit ContractFundedByOwner();
     }
@@ -73,7 +77,7 @@ contract GamblerToken {
         return currentBudgetOfContract;
     }
 
-    /* La fonction retourne true si l'adresse est dans la l'array playersAdresses
+    /* La fonction retourne true si l'adresse est dans l'array playersAdresses
        C'est une fct utilitaire qui permet d'eviter les doublons d'adresses*/
     function exist(address addr) private view returns(bool){
         for(uint i =0; i < playersAddresses.length; i++){
@@ -85,14 +89,12 @@ contract GamblerToken {
     }
 
     /* La fonction est appelable uniquement par le proprio.
-       Retourne les fonds des joueurs qui ont leurs addresse dans l'array
+       Retourne les fonds des joueurs qui ont leurs addresses dans l'array
        Apres le contrat s'auto detruit*/
-    function selfDestruct() public {
-        require(msg.sender == owner);
+    function selfDestruct() public isOwner {
         for(uint i =0; i < playersAddresses.length; i++){
             withdrawUser(playersAddresses[i]);
         }
         selfdestruct(payable(msg.sender));
     }
-
 }

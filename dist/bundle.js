@@ -6,13 +6,32 @@ const { ethers } = require("ethers");
 var Web3 = require('web3');
 
 // const contractAddress = "0x8dfDd5Ce848f71F52ee89F57DCe681AB52E92127"; //Address of contract deployed on Ropsten testnet
-const contractAddress = "0xeFB72829f36428953Fb94658D147Fc2E2cB6fA67"; //Address of second version (small modifs on contract, mainly added the fund method)
+const contractAddress = "0x205D6F8E737bF2891E025D1FbfF67132578A938F"; //Address of second version (small modifs on contract, mainly added the fund method)
 const abi = [
     {
       "inputs": [],
       "stateMutability": "payable",
       "type": "constructor",
       "payable": true
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "balance",
+          "type": "uint256"
+        }
+      ],
+      "name": "AddGainEvent",
+      "type": "event"
     },
     {
       "anonymous": false,
@@ -43,6 +62,25 @@ const abi = [
       "anonymous": false,
       "inputs": [],
       "name": "ReceivedFunds",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "player",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "balance",
+          "type": "uint256"
+        }
+      ],
+      "name": "SubstractLostEvent",
       "type": "event"
     },
     {
