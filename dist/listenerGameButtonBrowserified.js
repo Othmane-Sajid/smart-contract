@@ -137,14 +137,8 @@ const { ethers } = require("ethers");
 var Web3 = require('web3');
 
 // const contractAddress = "0x8dfDd5Ce848f71F52ee89F57DCe681AB52E92127"; //Address of contract deployed on Ropsten testnet
-const contractAddress = "0x205D6F8E737bF2891E025D1FbfF67132578A938F"; //Address of second version (small modifs on contract, mainly added the fund method)
+const contractAddress = "0x46a5aFfEbE081FF02559D995f6034859C4670622"; //Address of second version (small modifs on contract, mainly added the fund method)
 const abi = [
-    {
-      "inputs": [],
-      "stateMutability": "payable",
-      "type": "constructor",
-      "payable": true
-    },
     {
       "anonymous": false,
       "inputs": [
@@ -191,6 +185,38 @@ const abi = [
     },
     {
       "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "version",
+          "type": "uint8"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
       "inputs": [],
       "name": "ReceivedFunds",
       "type": "event"
@@ -233,6 +259,61 @@ const abi = [
       "stateMutability": "view",
       "type": "function",
       "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "currentBudgetOfContract",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "inputs": [],
@@ -350,7 +431,6 @@ const abi = [
       "type": "function"
     }
   ];
-
 var account;
 
 

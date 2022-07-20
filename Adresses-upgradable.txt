@@ -1,0 +1,14 @@
+Gambler normal non upgradable
+0xfc0565040Ce8eb38Ef0DA6cc0B5587081f30Dd00
+
+
+Gambler upgradable : 
+0xCDee3796Fa729877b9F2070d1Df70dC80c734f0D
+
+
+Proxy admin (NO MORE USED AFTER ADDING OWNABLE)
+0x7DDf4BB309d430da7f57edfe9fCb86E199D0BB08
+
+
+Transparent upgradable proxy 
+0x7A79b887b4e6d25206f552d7Fc93Ee6CFFe30b8d

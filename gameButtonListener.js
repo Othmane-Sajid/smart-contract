@@ -99,7 +99,6 @@ btn0.addEventListener('click', function handleClick(){
     window.Click = "btn0";
     play(turn, turn/2, window.playerBet, window.playerBet/2);
     
-    
 });
 
 btn1.addEventListener('click', function handleClick(){

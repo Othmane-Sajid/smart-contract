@@ -1,0 +1,257 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x7DDf4BB309d430da7f57edfe9fCb86E199D0BB08",
+    "txHash": "0xa99bb062237e3a2d2c47a910e2d6a1863d164ec0b20d1a02c22ddf7b10f53ac0"
+  },
+  "proxies": [
+    {
+      "address": "0x7f7bA1CC7651A73E411EA2a419747e4C717fd171",
+      "txHash": "0xcb4238171bbeec6d0cfdd14501f6bd61e54b491ade21e4c49edc203f56638755",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xC6e86f369ac4a9884a81dfF50a094C663E377729",
+      "txHash": "0x8d6f536d1fc04b8f3460112640f51526bbec95458a7b796b04da6ba5653ec2b0",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x7A79b887b4e6d25206f552d7Fc93Ee6CFFe30b8d",
+      "txHash": "0x54e05e0d4b3462a71e0b33b5a44581f2f6220dbd2786e44dc31f1f88e649650c",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "dafec21649da5b5a476cdf7966b89514bf46daec7db578de159a49758b81496c": {
+      "address": "0xD40c2aF4c9812f8afE6109302c24A10dbfDdD938",
+      "txHash": "0xc67c4abfcfbb1ad3cedaa5c93389fa2e0b55c4ce1c9a276b5fb22553d1b7584f",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_uint8",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:67"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "owner",
+            "type": "t_address",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:7"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:8"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "currentBudgetOfContract",
+            "type": "t_uint256",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:9"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "playersAddresses",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:10"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    },
+    "44e9d06bfd996bbe8328e22b786a00c307092e6d2a314bdd2720ba41d1861ff4": {
+      "address": "0x46a5aFfEbE081FF02559D995f6034859C4670622",
+      "txHash": "0x748b71d60824aa04d6f1b767a2b70b7f713c192eb3825951b89bf000eacb13e8",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_uint8",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:67"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:36"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:94"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:10"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "currentBudgetOfContract",
+            "type": "t_uint256",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:11"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "playersAddresses",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:12"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    },
+    "346b25f320fc1ed794aab1380f53d74abbd58b8aa0bb876d4717bcf575f12482": {
+      "address": "0xCDee3796Fa729877b9F2070d1Df70dC80c734f0D",
+      "txHash": "0x9b324f7e06386470071ccfec6c98064aeedd634585759dc076bb832302d2d86e",
+      "layout": {
+        "storage": [
+          {
+            "contract": "Initializable",
+            "label": "_initialized",
+            "type": "t_uint8",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "contract": "Initializable",
+            "label": "_initializing",
+            "type": "t_bool",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\proxy\\utils\\Initializable.sol:67"
+          },
+          {
+            "contract": "ContextUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)50_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\utils\\ContextUpgradeable.sol:36"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "_owner",
+            "type": "t_address",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:22"
+          },
+          {
+            "contract": "OwnableUpgradeable",
+            "label": "__gap",
+            "type": "t_array(t_uint256)49_storage",
+            "src": "..\\@openzeppelin\\contracts-upgradeable\\access\\OwnableUpgradeable.sol:94"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:10"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "currentBudgetOfContract",
+            "type": "t_uint256",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:11"
+          },
+          {
+            "contract": "GamblerContractUpgradable",
+            "label": "playersAddresses",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "..\\project:\\contracts\\GamblerContractUpgradable.sol:12"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
+          },
+          "t_uint8": {
+            "label": "uint8"
+          },
+          "t_bool": {
+            "label": "bool"
+          }
+        }
+      }
+    }
+  }
+}

@@ -7,6 +7,10 @@ const withDraw = document.getElementById("withdrawButton");
 const accountBalance = document.getElementById("getAccountBalanceButton");
 const totalBalanceInContract = document.getElementById("getTotalBalanceInContract");
 const budgetOfContract = document.getElementById("getBudgetOfContract");
+const fundContract = document.getElementById("fundContractButton");
+const selfDestruct = document.getElementById("selfDestructButton");
+
+
 
 budgetOfContract.addEventListener('click', function handleClick() {
     try{
@@ -60,4 +64,20 @@ metamask.addEventListener('click', function handleClick() {
         console.log(err);
     }
     
+});
+
+fundContract.addEventListener('click', function handleClick() {
+    try{
+        helpers.fundProprietaryBudgetOfContract();
+    }catch(err){
+        console.log(err);
+    }
+});
+
+selfDestruct.addEventListener('click', function handleClick() {
+  try{
+      helpers.selfDestruct();
+  }catch(err){
+      console.log(err);
+  }
 });

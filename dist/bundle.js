@@ -6,14 +6,8 @@ const { ethers } = require("ethers");
 var Web3 = require('web3');
 
 // const contractAddress = "0x8dfDd5Ce848f71F52ee89F57DCe681AB52E92127"; //Address of contract deployed on Ropsten testnet
-const contractAddress = "0x205D6F8E737bF2891E025D1FbfF67132578A938F"; //Address of second version (small modifs on contract, mainly added the fund method)
+const contractAddress = "0xD40c2aF4c9812f8afE6109302c24A10dbfDdD938"; //Address of second version (small modifs on contract, mainly added the fund method)
 const abi = [
-    {
-      "inputs": [],
-      "stateMutability": "payable",
-      "type": "constructor",
-      "payable": true
-    },
     {
       "anonymous": false,
       "inputs": [
@@ -60,6 +54,19 @@ const abi = [
     },
     {
       "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "version",
+          "type": "uint8"
+        }
+      ],
+      "name": "Initialized",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
       "inputs": [],
       "name": "ReceivedFunds",
       "type": "event"
@@ -102,6 +109,41 @@ const abi = [
       "stateMutability": "view",
       "type": "function",
       "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "currentBudgetOfContract",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "inputs": [],
