@@ -91,12 +91,17 @@ function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     
 }
 
+function manageSpinnerOn(){
+    $('#cover-spin').show(0);
+}
+
 
 btn0.addEventListener('click', function handleClick(){
     // easy mode
     // lance play avec un avantage de 50 pour le joueur mais avec une mise du gambler 0.5 fois celle du joueur
     // le joueur perd sa mise ou gagne la moitie de sa mise
     window.Click = "btn0";
+    manageSpinnerOn();
     play(turn, turn/2, window.playerBet, window.playerBet/2);
     
 });
@@ -106,6 +111,7 @@ btn1.addEventListener('click', function handleClick(){
     // lance play avec le meme nombre de tour et la meme la mise
     // le joueur gagne ou perd sa mise
     window.Click = "btn1";
+    manageSpinnerOn();
     play(turn, turn, window.playerBet, window.playerBet);
     
 });
@@ -115,6 +121,7 @@ btn2.addEventListener('click', function handleClick(){
     // gambler a un avantage de 1.5 fois le nombre de tour mais il mise 1.5 fois la mise du joueur
     // le joueur pred sa mise ou gagne 1.5 fois sa mise
     window.Click = "btn2";
+    manageSpinnerOn();
     play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
     
 });
@@ -124,6 +131,7 @@ btn3.addEventListener('click', function handleClick(){
     // gambler a un avantage de 2 fois le nombre de tour mais il mise 2.0 fois la mise du joueur
     // le joueur perd sa mise ou gagne 2 fois sa mise
     window.Click = "btn3";
+    manageSpinnerOn();
     play(turn, turn * 2, window.playerBet, window.playerBet * 2);
     
 }); 

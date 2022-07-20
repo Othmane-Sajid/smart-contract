@@ -50,6 +50,7 @@ withDraw.addEventListener('click', function handleClick() {
 
 deposit.addEventListener('click', function handleClick() {
     try{
+        $('#cover-spin').show(0);
         helpers.deposit();
     }catch(err){
         console.log(err);

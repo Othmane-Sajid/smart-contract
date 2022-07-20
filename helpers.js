@@ -304,6 +304,9 @@ const abi = [
 
 var account;
 
+function manageSpinnerOff(){
+  $('#cover-spin').hide(0);
+}
 
 async function addSmartContractListener() {
   window.web3 = await new Web3(window.ethereum);
@@ -316,7 +319,8 @@ async function addSmartContractListener() {
       console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
-      document.getElementById("loaderWaitingConfirmation").style.display = "none";
+
+      manageSpinnerOff();
       window.alert("Wonderfull, now go to the Game");
     }
   });
@@ -326,6 +330,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+
+      manageSpinnerOff();
       window.alert("You Win, continue.");
       document.getElementById(window.Click).innerHTML = "Win";
       
@@ -337,6 +343,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
+
+      manageSpinnerOff();
       window.alert(" You lost it's sad, try again.");
       document.getElementById(window.Click).innerHTML = "Lost";
       
@@ -393,10 +401,10 @@ async function deposit() {
       window.contract = await new window.web3.eth.Contract(abi,contractAddress);
       const userAccounts = await ethereum.request ({method: "eth_requestAccounts"});
       account = userAccounts[0];
-      document.getElementById("loaderWaitingConfirmation").style.display = "block";
+      
       await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
   }catch(err){
-      document.getElementById("loaderWaitingConfirmation").style.display = "none";
+    manageSpinnerOff();
   }        
 }
 
