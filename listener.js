@@ -7,8 +7,8 @@ const withDraw = document.getElementById("withdrawButton");
 const accountBalance = document.getElementById("getAccountBalanceButton");
 const totalBalanceInContract = document.getElementById("getTotalBalanceInContract");
 const budgetOfContract = document.getElementById("getBudgetOfContract");
-const fundContract = document.getElementById("fundContractButton");
-const selfDestruct = document.getElementById("selfDestructButton");
+// const fundContract = document.getElementById("fundContractButton");
+// const selfDestruct = document.getElementById("selfDestructButton");
 
 
 
@@ -66,18 +66,18 @@ metamask.addEventListener('click', function handleClick() {
     
 });
 
-fundContract.addEventListener('click', function handleClick() {
-    try{
-        helpers.fundProprietaryBudgetOfContract();
-    }catch(err){
-        console.log(err);
-    }
-});
+// fundContract.addEventListener('click', function handleClick() {
+//     try{
+//         helpers.fundProprietaryBudgetOfContract();
+//     }catch(err){
+//         console.log(err);
+//     }
+// });
 
-selfDestruct.addEventListener('click', function handleClick() {
-  try{
-      helpers.selfDestruct();
-  }catch(err){
-      console.log(err);
-  }
-});
+// selfDestruct.addEventListener('click', function handleClick() {
+//   try{
+//       helpers.selfDestruct();
+//   }catch(err){
+//       console.log(err);
+//   }
+// });
