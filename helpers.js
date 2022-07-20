@@ -7,7 +7,7 @@ var Web3 = require('web3');
 // const contractAddress = "0x8dfDd5Ce848f71F52ee89F57DCe681AB52E92127"; //Address of contract deployed on Ropsten testnet
 // const contractAddress = "0x205D6F8E737bF2891E025D1FbfF67132578A938F"; //Address of second version (small modifs on contract, mainly added the fund method)
 
-const contractAddress = "0x46a5aFfEbE081FF02559D995f6034859C4670622"; //Address of second version (small modifs on contract, mainly added the fund method)
+const contractAddress = "0x7A79b887b4e6d25206f552d7Fc93Ee6CFFe30b8d"; //Address of second version (small modifs on contract, mainly added the fund method)
 const abi = [
     {
       "anonymous": false,
