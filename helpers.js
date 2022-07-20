@@ -234,29 +234,31 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
-      document.getElementById("play-game").style.display = "block";
+      window.alert("Wonderfull, now go to the Game");
     }
   });
 
-  /* window.contract.events.AddGainEvent({}, (error, data) => {
+  window.contract.events.AddGainEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
       console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
+      window.alert("You Win, continue.");
+      document.getElementById(window.Click).innerHTML = "Win";
       
     }
-  }); */
+  }); 
 
-  /* window.contract.events.SubstractLostEvent({}, (error, data) => {
+  window.contract.events.SubstractLostEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
       console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
+      window.alert(" You lost it's sad, try again.");
+      document.getElementById(window.Click).innerHTML = "Lost";
       
     }
-  }); */
+  }); 
 
 }
 

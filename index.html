@@ -135,19 +135,27 @@
     <div id="rules" class="section-about">
         <div class="titre-section">
             <h1 class="color-change-anim">Rules of the game</h1>
-            <p id="section-rules" style="text-align:center;">
+            <p id="section-rules" style="text-align:left;">
                 To play, you need to deposit an amount of ETH that you wish to bet. The game will only appear if you have deposited ETH in your account.
-                <br> The game is simple. You will bet a certain amount of ETH, and the contract will bet an amount either equal or larger than the size of your bet.
+                The game is simple. You will bet a certain amount of ETH, and the contract will bet an amount either equal or larger than the size of your bet.
 
                 <br><br> There are 4 game modes (difficulties). 
                 <br>Each game mode has a specific probability of winning and a corresponding reward : 
-                <span style="text-align:center;">
-                <br><br> > Easy mode : You have more probabilities to win. However, in event of a win, your reward is equivalent to 50 % of the size of your bet.
-                <br> >> Normal mode : Your chance to win (or lose) is equal to 50 %. The reward in the event of a win amounts to 100 % of your bet.
-                <br> >>> Hard mode : The chance of winning is less than 50 %. But you can win a reward equal to 150 % of your bet.
-                <br> >>>> Very hard mode : The chance of winning is slim. However, you can double your bet (200 %). 
-                </span>
             </p>
+            <ul style="text-align:left;">
+                <li>
+                    Easy mode : You have more probabilities to win. However, in event of a win, your reward is equivalent to 50 % of the size of your bet.
+                </li>
+                <li>
+                    Normal mode : Your chance to win (or lose) is equal to 50 %. The reward in the event of a win amounts to 100 % of your bet.
+                </li>
+                <li>
+                    Hard mode : The chance of winning is less than 50 %. But you can win a reward equal to 150 % of your bet.
+                </li>
+                <li>
+                    Very hard mode : The chance of winning is slim. However, you can double your bet (200 %).
+                </li>
+            </ul>
             
         </div>
         </div>
@@ -219,7 +227,7 @@
     <script src="./dist/listenerBrowserified.js" type="text/javascript"> </script>
     <script src="./dist/listenerGameButtonBrowserified.js" type="text/javascript"> </script>
     <script>
-        document.getElementById("play-game").style.display = "none";
+        //document.getElementById("play-game").style.display = "none";
         document.getElementById("loaderWaitingConfirmation").style.display = "none";
     </script>
 </body>

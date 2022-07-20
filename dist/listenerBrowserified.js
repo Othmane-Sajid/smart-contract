@@ -235,29 +235,31 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
-      document.getElementById("play-game").style.display = "block";
+      window.alert("Wonderfull, now go to the Game");
     }
   });
 
-  /* window.contract.events.AddGainEvent({}, (error, data) => {
+  window.contract.events.AddGainEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
       console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
+      window.alert("You Win, continue.");
+      document.getElementById(window.Click).innerHTML = "Win";
       
     }
-  }); */
+  }); 
 
-  /* window.contract.events.SubstractLostEvent({}, (error, data) => {
+  window.contract.events.SubstractLostEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
       console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
+      window.alert(" You lost it's sad, try again.");
+      document.getElementById(window.Click).innerHTML = "Lost";
       
     }
-  }); */
+  }); 
 
 }
 
@@ -279,88 +281,71 @@ async function connect() {
 
 
 async function withdraw() {
-
-    try{
     
-        const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
-        // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
-        // this is going to get the connected account 
-        const signer = provider.getSigner();
-        // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
-        const contract = new ethers.Contract(contractAddress, abi, signer); 
+    const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
+    // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
+    // this is going to get the connected account 
+    const signer = provider.getSigner();
+    // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
+    const contract = new ethers.Contract(contractAddress, abi, signer); 
 
-        await contract.withDraw();
-
-    }catch(err){
-        if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
-    }
+    await contract.withDraw();
 }
 
 async function deposit() {
 
     var amountToDeposit = document.getElementById("depositAmountInput").value;
     amountToDeposit = Web3.utils.toWei(amountToDeposit, 'ether'); 
-   
-    // Avec ce try-catch on va chercher l'adresse si le user est déjà connecté et qu'il a juste raffraichit la page 
-    // (dans ce cas metamask maintient la connexion, alors le user ne devrait pas avoir à cliquer connect encore)
-    // Si metamask n'est pas connecté déjà on initie la connexion et le deposit tout de suite après
-    try{
-        window.web3 = await new Web3(window.ethereum);
-        window.contract = await new window.web3.eth.Contract(abi,contractAddress);
-        const userAccounts = await ethereum.request ({method: "eth_requestAccounts"});
-        account = userAccounts[0];
-        document.getElementById("loaderWaitingConfirmation").style.display = "block";
-        await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
-    }catch(err){
-        document.getElementById("loaderWaitingConfirmation").style.display = "none";
-    }        
+    if (amountToDeposit<= 0) {
+        window.alert("The amount must be greater than 0.")
+    }
+    // if ("metamask not connected ... ") {
+
+    // }
+    else {
+        
+        try{
+          document.getElementById("loaderWaitingConfirmation").style.display = "block";
+          await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
+        }catch(err){
+          document.getElementById("loaderWaitingConfirmation").style.display = "none";
+        }        
+    }
 }
 
 
 async function getBalance() {
-    try{
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, abi, signer); 
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, abi, signer); 
 
-        balanceOfUser = await contract.getBalance()
-        balanceOfUser = Web3.utils.fromWei(balanceOfUser.toString(), 'ether'); 
+    balanceOfUser = await contract.getBalance()
+    balanceOfUser = Web3.utils.fromWei(balanceOfUser.toString(), 'ether'); 
 
-        document.getElementById("user-balance").innerHTML=`Your balance : ${balanceOfUser}`;
-    }catch(err){
-        if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
-    }
+    document.getElementById("user-balance").innerHTML=`Your balance : ${balanceOfUser}`;
 
 }
 
 async function getBalanceInContract() {
-    try{
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, abi, signer); 
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, abi, signer); 
 
-        totalBalanceInContract = await contract.getTotalBalanceInContract();
-        totalBalanceInContract = Web3.utils.fromWei(totalBalanceInContract.toString(), 'ether'); 
+    totalBalanceInContract = await contract.getTotalBalanceInContract();
+    totalBalanceInContract = Web3.utils.fromWei(totalBalanceInContract.toString(), 'ether'); 
 
-        document.getElementById("total-balance").innerHTML=`Total balance in contract : ${totalBalanceInContract}`;
-    }catch(err){
-        if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
-    }    
+    document.getElementById("total-balance").innerHTML=`Total balance in contract : ${totalBalanceInContract}`;
 }
 
 async function getCurrentBudgetOfContract() {
-    try{
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const contract = new ethers.Contract(contractAddress, abi, signer); 
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, abi, signer); 
 
-        currentBudgetOfContract = await contract.getCurrentBudgetOfContract();
-        currentBudgetOfContract = Web3.utils.fromWei(currentBudgetOfContract.toString(), 'ether'); 
+    currentBudgetOfContract = await contract.getCurrentBudgetOfContract();
+    currentBudgetOfContract = Web3.utils.fromWei(currentBudgetOfContract.toString(), 'ether'); 
 
-        document.getElementById("proprietary-budget-contract").innerHTML=`Propietary budget of the contract : ${currentBudgetOfContract}`;
-    }catch(err){
-        if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
-    }
+    document.getElementById("proprietary-budget-contract").innerHTML=`Propietary budget of the contract : ${currentBudgetOfContract}`;
 }
 
 async function selfDestruct() {
@@ -434,7 +419,6 @@ const withDraw = document.getElementById("withdrawButton");
 const accountBalance = document.getElementById("getAccountBalanceButton");
 const totalBalanceInContract = document.getElementById("getTotalBalanceInContract");
 const budgetOfContract = document.getElementById("getBudgetOfContract");
-// const fundContract = document.getElementById("fundContractButton");
 
 budgetOfContract.addEventListener('click', function handleClick() {
     try{
@@ -489,17 +473,6 @@ metamask.addEventListener('click', function handleClick() {
     }
     
 });
-
-// fundContract.addEventListener('click', function handleClick() {
-//     try{
-//         helpers.fundProprietaryBudgetOfContract();
-//     }catch(err){
-//         console.log(err);
-//     }
-// });
-
-
-
 },{"./helpers.js":1}],3:[function(require,module,exports){
 module.exports={
     "name": "goerli",

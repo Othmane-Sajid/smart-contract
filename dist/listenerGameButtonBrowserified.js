@@ -6,7 +6,7 @@ const btn0 = document.getElementById("btn0");
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
-const turn = 100;
+const turn = 500;
 
 class Game{
     play(p1, p2){
@@ -85,35 +85,48 @@ function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     if(result[1].isBankrupt()){
         
         helper.substractLost(playerBet);
-        return "lost"
+        return;
     }
     helper.addGain(gamblerBet);
-    return "win"
+    return;
     
 }
 
 
 btn0.addEventListener('click', function handleClick(){
+    // easy mode
+    // lance play avec un avantage de 50 pour le joueur mais avec une mise du gambler 0.5 fois celle du joueur
+    // le joueur perd sa mise ou gagne la moitie de sa mise
+    window.Click = "btn0";
+    play(turn, turn/2, window.playerBet, window.playerBet/2);
     
-    btn0.innerHTML = play(turn, turn/2, window.playerBet, window.playerBet/2);
     
 });
 
 btn1.addEventListener('click', function handleClick(){
-
-    btn1.innerHTML = play(turn, turn, window.playerBet, window.playerBet);
+    // fair mode
+    // lance play avec le meme nombre de tour et la meme la mise
+    // le joueur gagne ou perd sa mise
+    window.Click = "btn1";
+    play(turn, turn, window.playerBet, window.playerBet);
     
 });
 
 btn2.addEventListener('click', function handleClick(){
-
-    btn2.innerHTML = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
+    // hard mode
+    // gambler a un avantage de 1.5 fois le nombre de tour mais il mise 1.5 fois la mise du joueur
+    // le joueur pred sa mise ou gagne 1.5 fois sa mise
+    window.Click = "btn2";
+    play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
     
 });
 
 btn3.addEventListener('click', function handleClick(){
-
-    btn3.innerHTML = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
+    // very hard mode
+    // gambler a un avantage de 2 fois le nombre de tour mais il mise 2.0 fois la mise du joueur
+    // le joueur perd sa mise ou gagne 2 fois sa mise
+    window.Click = "btn3";
+    play(turn, turn * 2, window.playerBet, window.playerBet * 2);
     
 }); 
 },{"./helpers.js":2}],2:[function(require,module,exports){
@@ -353,29 +366,31 @@ async function addSmartContractListener() {
     
       window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
       document.getElementById("loaderWaitingConfirmation").style.display = "none";
-      document.getElementById("play-game").style.display = "block";
+      window.alert("Wonderfull, now go to the Game");
     }
   });
 
-  /* window.contract.events.AddGainEvent({}, (error, data) => {
+  window.contract.events.AddGainEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
       console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
+      window.alert("You Win, continue.");
+      document.getElementById(window.Click).innerHTML = "Win";
       
     }
-  }); */
+  }); 
 
-  /* window.contract.events.SubstractLostEvent({}, (error, data) => {
+  window.contract.events.SubstractLostEvent({}, (error, data) => {
     if (error) {
       console.log(error.message);
     } else {
       console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
+      window.alert(" You lost it's sad, try again.");
+      document.getElementById(window.Click).innerHTML = "Lost";
       
     }
-  }); */
+  }); 
 
 }
 

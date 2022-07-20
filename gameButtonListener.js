@@ -84,10 +84,10 @@ function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     if(result[1].isBankrupt()){
         
         helper.substractLost(playerBet);
-        return "lost"
+        return;
     }
     helper.addGain(gamblerBet);
-    return "win"
+    return;
     
 }
 
@@ -96,7 +96,9 @@ btn0.addEventListener('click', function handleClick(){
     // easy mode
     // lance play avec un avantage de 50 pour le joueur mais avec une mise du gambler 0.5 fois celle du joueur
     // le joueur perd sa mise ou gagne la moitie de sa mise
-    btn0.innerHTML = play(turn, turn/2, window.playerBet, window.playerBet/2);
+    window.Click = "btn0";
+    play(turn, turn/2, window.playerBet, window.playerBet/2);
+    
     
 });
 
@@ -104,7 +106,8 @@ btn1.addEventListener('click', function handleClick(){
     // fair mode
     // lance play avec le meme nombre de tour et la meme la mise
     // le joueur gagne ou perd sa mise
-    btn1.innerHTML = play(turn, turn, window.playerBet, window.playerBet);
+    window.Click = "btn1";
+    play(turn, turn, window.playerBet, window.playerBet);
     
 });
 
@@ -112,7 +115,8 @@ btn2.addEventListener('click', function handleClick(){
     // hard mode
     // gambler a un avantage de 1.5 fois le nombre de tour mais il mise 1.5 fois la mise du joueur
     // le joueur pred sa mise ou gagne 1.5 fois sa mise
-    btn2.innerHTML = play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
+    window.Click = "btn2";
+    play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
     
 });
 
@@ -120,6 +124,7 @@ btn3.addEventListener('click', function handleClick(){
     // very hard mode
     // gambler a un avantage de 2 fois le nombre de tour mais il mise 2.0 fois la mise du joueur
     // le joueur perd sa mise ou gagne 2 fois sa mise
-    btn3.innerHTML = play(turn, turn * 2, window.playerBet, window.playerBet * 2);
+    window.Click = "btn3";
+    play(turn, turn * 2, window.playerBet, window.playerBet * 2);
     
 }); 
