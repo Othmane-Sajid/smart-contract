@@ -414,7 +414,7 @@ async function deposit() {
       window.contract = await new window.web3.eth.Contract(abi,contractAddress);
       const userAccounts = await ethereum.request ({method: "eth_requestAccounts"});
       account = userAccounts[0];
-      
+      addSmartContractListener();
       await window.contract.methods.deposit().send({from:account, value:amountToDeposit});
   }catch(err){
     manageSpinnerOff();
