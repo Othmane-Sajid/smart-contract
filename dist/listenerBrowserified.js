@@ -1,14 +1,10 @@
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-// TODO : Create event for METAMASK CONNECTED. 
-// Si une fonction autre que connect est appelee, il faut verifier si metamask est connecte avant de run()
 
 const { ethers } = require("ethers");
 var Web3 = require('web3');
 
-// const contractAddress = "0x8dfDd5Ce848f71F52ee89F57DCe681AB52E92127"; //Address of contract deployed on Ropsten testnet
-// const contractAddress = "0x205D6F8E737bF2891E025D1FbfF67132578A938F"; //Address of second version (small modifs on contract, mainly added the fund method)
 
-const contractAddress = "0x7A79b887b4e6d25206f552d7Fc93Ee6CFFe30b8d"; //Address of second version (small modifs on contract, mainly added the fund method)
+const contractAddress = "0x7A79b887b4e6d25206f552d7Fc93Ee6CFFe30b8d"; 
 const abi = [
     {
       "anonymous": false,
@@ -342,9 +338,6 @@ async function addSmartContractListener() {
       manageSpinnerOff();
       document.getElementById("message-win").style.display = "block";
       document.getElementById("message-loss").style.display = "none";
-
-      // window.alert("You Win, continue.");
-      // document.getElementById(window.Click).innerHTML = "Win";
       
     }
   }); 
@@ -358,9 +351,6 @@ async function addSmartContractListener() {
       manageSpinnerOff();
       document.getElementById("message-win").style.display = "none";
       document.getElementById("message-loss").style.display = "block";
-
-      // window.alert(" You lost it's sad, try again.");
-      // document.getElementById(window.Click).innerHTML = "Lost";
       
     }
   }); 
@@ -388,11 +378,8 @@ async function withdraw() {
 
   try{
   
-      const provider = new ethers.providers.Web3Provider(window.ethereum); // Designs metamask as our provider. So we can connect to the user's metamask 
-      // everytime someone executes a transaction, he needs to SIGN it. So we can get it from the provider (i.e. metamask of the user)
-      // this is going to get the connected account 
+      const provider = new ethers.providers.Web3Provider(window.ethereum); 
       const signer = provider.getSigner();
-      // indicates that we are going to interact with the contract at contractAddress, using this abi, and any function called is going to be called by the signer (the person signed in with metamask)
       const contract = new ethers.Contract(contractAddress, abi, signer); 
 
       await contract.withDraw();
@@ -407,9 +394,6 @@ async function deposit() {
   var amountToDeposit = document.getElementById("depositAmountInput").value;
   amountToDeposit = Web3.utils.toWei(amountToDeposit, 'ether'); 
  
-  // Avec ce try-catch on va chercher l'adresse si le user est déjà connecté et qu'il a juste raffraichit la page 
-  // (dans ce cas metamask maintient la connexion, alors le user ne devrait pas avoir à cliquer connect encore)
-  // Si metamask n'est pas connecté déjà on initie la connexion et le deposit tout de suite après
   try{
       window.web3 = await new Web3(window.ethereum);
       window.contract = await new window.web3.eth.Contract(abi,contractAddress);
@@ -509,11 +493,9 @@ async function fundProprietaryBudgetOfContract() {
     if (amountToDeposit<= 0) {
         window.alert("The amount must be greater than 0.")
     }
-
-    else {
-        
+    else {   
         await window.contract.methods.fundProprietaryBudgetOfContract().send({from:account, value:amountToDeposit})
-        
+      
     }
 }
 
@@ -528,20 +510,14 @@ async function startGameInit() {
     balanceOfUser = await contract.getBalance()
     balanceOfUser = Web3.utils.fromWei(balanceOfUser.toString(), 'ether'); 
 
-    // window.playerBet = (balanceOfUser / 4)
-    // console.log("[FROM INIT] balanceOfUser " + balanceOfUser)
-    // console.log("[FROM INIT] window.playerbet " + window.playerBet)
-
     document.getElementById("user-balance").innerHTML=`Your balance : ${balanceOfUser}`;
 
     if (balanceOfUser > 0 ) {
       document.getElementById("start-game").style.display = "none";
       document.getElementById("play-game").style.display = "block";
-      // if ( ! isActiveSmartContractListener) {addSmartContractListener();}
+      
       addSmartContractListener();
-      // window.playerBet = balanceOfUser / 4
-      // console.log("[FROM INIT] balanceOfUser " + balanceOfUser)
-      // console.log("[FROM INIT] window.playerbet " + window.playerBet)
+
     } else {
       window.alert("Your balance is empty. You need to add funds to your balance.")
       document.getElementById("start-game").style.display = "block";
