@@ -474,7 +474,7 @@ transition: color 0.3s ease-out;
     position:fixed;
     width:100%;
     left:0;right:0;top:0;bottom:0;
-    background-color: rgba(202, 196, 196, 0.7);
+    background-color: rgba(233, 230, 230, 0.7);
     z-index:9999;
     display:none;
 }
@@ -494,12 +494,12 @@ transition: color 0.3s ease-out;
     display:block;
     position:absolute;
     left:48%;top:40%;
-    width:40px;height:40px;
+    width:50px;height:50px;
     border-style:solid;
     border-color:black;
     border-top-color:transparent;
-    border-width: 4px;
+    border-width: 10px;
     border-radius:50%;
-    -webkit-animation: spin .8s linear infinite;
-    animation: spin .8s linear infinite;
+    -webkit-animation: spin s linear infinite;
+    animation: spin 1s linear infinite;
 }

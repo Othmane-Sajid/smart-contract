@@ -9,25 +9,26 @@ const btn3 = document.getElementById("btn3");
 const turn = 500;
 
 class Game{
+
     play(p1, p2){
         
         let players = new Array(p1, p2);
-        var turn = players[0].choice();
+        var nbOfFlip = players[0].choice();
 
         while (!(players[0].isBankrupt() || players[1].isBankrupt())){
         
-            var player_bet = players[(turn + 1) % 2].choice();
-            var player_flip = players[turn % 2].flip();
+            var player_bet = players[(nbOfFlip + 1) % 2].choice();
+            var player_flip = players[nbOfFlip % 2].flip();
 
             if (player_flip == player_bet){        
-                players[(turn + 1) % 2].addOnePennie(); 
-                players[turn % 2].substractOnePennie();
+                players[(nbOfFlip + 1) % 2].addOnePennie(); 
+                players[nbOfFlip % 2].substractOnePennie();
             }else{
-                players[(turn + 1) % 2].substractOnePennie();
-                players[turn % 2].addOnePennie();
+                players[(nbOfFlip + 1) % 2].substractOnePennie();
+                players[nbOfFlip % 2].addOnePennie();
             }
             
-            turn += 1;           
+            nbOfFlip += 1;           
         }   
         return players;
         
@@ -104,9 +105,9 @@ async function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     let result = game.play(player, gambler);
 
     try{
-        if(result[1].isBankrupt()){
+        if(result[0].isBankrupt()){
             
-            await helper.substractLost(playerBet);
+            await helper.substractLost(playerBet);    
             return;
         }
         await helper.addGain(gamblerBet);
@@ -18765,8 +18766,8 @@ var assertIsString = function (input) {
 };
 exports.assertIsString = assertIsString;
 
-}).call(this)}).call(this,{"isBuffer":require("../../../../../../../../../../Users/othma/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../../../../Users/othma/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":731,"./internal":67}],66:[function(require,module,exports){
+}).call(this)}).call(this,{"isBuffer":require("../../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{"../../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":731,"./internal":67}],66:[function(require,module,exports){
 "use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -21246,8 +21247,8 @@ var TransactionFactory = /** @class */ (function () {
 }());
 exports.default = TransactionFactory;
 
-}).call(this)}).call(this,{"isBuffer":require("../../../../../../../../Users/othma/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{".":74,"../../../../../../../../Users/othma/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":731,"ethereumjs-util":87}],77:[function(require,module,exports){
+}).call(this)}).call(this,{"isBuffer":require("../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{".":74,"../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":731,"ethereumjs-util":87}],77:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.N_DIV_2 = exports.isAccessList = exports.isAccessListBuffer = exports.Capability = void 0;
@@ -21422,7 +21423,7 @@ arguments[4][63][0].apply(exports,arguments)
 arguments[4][64][0].apply(exports,arguments)
 },{"./bytes":82,"./externals":84,"./helpers":86,"buffer":647,"create-hash":296,"dup":64,"ethereum-cryptography/keccak":337}],86:[function(require,module,exports){
 arguments[4][65][0].apply(exports,arguments)
-},{"../../../../../../../../../../Users/othma/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":731,"./internal":88,"dup":65}],87:[function(require,module,exports){
+},{"../../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":731,"./internal":88,"dup":65}],87:[function(require,module,exports){
 arguments[4][66][0].apply(exports,arguments)
 },{"./account":80,"./address":81,"./bytes":82,"./constants":83,"./externals":84,"./hash":85,"./internal":88,"./object":89,"./signature":90,"./types":91,"dup":66}],88:[function(require,module,exports){
 arguments[4][67][0].apply(exports,arguments)
@@ -83172,8 +83173,8 @@ var assertIsString = function (input) {
 };
 exports.assertIsString = assertIsString;
 
-}).call(this)}).call(this,{"isBuffer":require("../../../../../../../../../Users/othma/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"../../../../../../../../../Users/othma/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":731,"./internal":517}],516:[function(require,module,exports){
+}).call(this)}).call(this,{"isBuffer":require("../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
+},{"../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":731,"./internal":517}],516:[function(require,module,exports){
 arguments[4][66][0].apply(exports,arguments)
 },{"./account":509,"./address":510,"./bytes":511,"./constants":512,"./externals":513,"./hash":514,"./internal":517,"./object":518,"./signature":519,"./types":520,"dup":66}],517:[function(require,module,exports){
 arguments[4][67][0].apply(exports,arguments)
@@ -87713,7 +87714,7 @@ HttpProvider.prototype.supportsSubscriptions = function () {
 };
 module.exports = HttpProvider;
 
-},{"http":793,"https":727,"web3-core-helpers":490,"xhr2-cookies":573}],543:[function(require,module,exports){
+},{"http":793,"https":727,"web3-core-helpers":490,"xhr2-cookies":574}],543:[function(require,module,exports){
 /*
     This file is part of web3.js.
 
@@ -89739,7 +89740,7 @@ arguments[4][63][0].apply(exports,arguments)
 arguments[4][64][0].apply(exports,arguments)
 },{"./bytes":553,"./externals":555,"./helpers":557,"buffer":647,"create-hash":296,"dup":64,"ethereum-cryptography/keccak":337}],557:[function(require,module,exports){
 arguments[4][515][0].apply(exports,arguments)
-},{"../../../../../../../../../Users/othma/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":731,"./internal":559,"dup":515}],558:[function(require,module,exports){
+},{"../../../../../../../../../../usr/local/lib/node_modules/browserify/node_modules/is-buffer/index.js":731,"./internal":559,"dup":515}],558:[function(require,module,exports){
 arguments[4][66][0].apply(exports,arguments)
 },{"./account":551,"./address":552,"./bytes":553,"./constants":554,"./externals":555,"./hash":556,"./internal":559,"./object":560,"./signature":561,"./types":562,"dup":66}],559:[function(require,module,exports){
 arguments[4][67][0].apply(exports,arguments)
@@ -90134,7 +90135,256 @@ function xhrRequest (opt, cb) {
   return req
 }
 
-},{"./normalize-response":570,"xhr":578}],572:[function(require,module,exports){
+},{"./normalize-response":570,"xhr":572}],572:[function(require,module,exports){
+"use strict";
+var window = require("global/window")
+var isFunction = require("is-function")
+var parseHeaders = require("parse-headers")
+var xtend = require("xtend")
+
+module.exports = createXHR
+// Allow use of default import syntax in TypeScript
+module.exports.default = createXHR;
+createXHR.XMLHttpRequest = window.XMLHttpRequest || noop
+createXHR.XDomainRequest = "withCredentials" in (new createXHR.XMLHttpRequest()) ? createXHR.XMLHttpRequest : window.XDomainRequest
+
+forEachArray(["get", "put", "post", "patch", "head", "delete"], function(method) {
+    createXHR[method === "delete" ? "del" : method] = function(uri, options, callback) {
+        options = initParams(uri, options, callback)
+        options.method = method.toUpperCase()
+        return _createXHR(options)
+    }
+})
+
+function forEachArray(array, iterator) {
+    for (var i = 0; i < array.length; i++) {
+        iterator(array[i])
+    }
+}
+
+function isEmpty(obj){
+    for(var i in obj){
+        if(obj.hasOwnProperty(i)) return false
+    }
+    return true
+}
+
+function initParams(uri, options, callback) {
+    var params = uri
+
+    if (isFunction(options)) {
+        callback = options
+        if (typeof uri === "string") {
+            params = {uri:uri}
+        }
+    } else {
+        params = xtend(options, {uri: uri})
+    }
+
+    params.callback = callback
+    return params
+}
+
+function createXHR(uri, options, callback) {
+    options = initParams(uri, options, callback)
+    return _createXHR(options)
+}
+
+function _createXHR(options) {
+    if(typeof options.callback === "undefined"){
+        throw new Error("callback argument missing")
+    }
+
+    var called = false
+    var callback = function cbOnce(err, response, body){
+        if(!called){
+            called = true
+            options.callback(err, response, body)
+        }
+    }
+
+    function readystatechange() {
+        if (xhr.readyState === 4) {
+            setTimeout(loadFunc, 0)
+        }
+    }
+
+    function getBody() {
+        // Chrome with requestType=blob throws errors arround when even testing access to responseText
+        var body = undefined
+
+        if (xhr.response) {
+            body = xhr.response
+        } else {
+            body = xhr.responseText || getXml(xhr)
+        }
+
+        if (isJson) {
+            try {
+                body = JSON.parse(body)
+            } catch (e) {}
+        }
+
+        return body
+    }
+
+    function errorFunc(evt) {
+        clearTimeout(timeoutTimer)
+        if(!(evt instanceof Error)){
+            evt = new Error("" + (evt || "Unknown XMLHttpRequest Error") )
+        }
+        evt.statusCode = 0
+        return callback(evt, failureResponse)
+    }
+
+    // will load the data & process the response in a special response object
+    function loadFunc() {
+        if (aborted) return
+        var status
+        clearTimeout(timeoutTimer)
+        if(options.useXDR && xhr.status===undefined) {
+            //IE8 CORS GET successful response doesn't have a status field, but body is fine
+            status = 200
+        } else {
+            status = (xhr.status === 1223 ? 204 : xhr.status)
+        }
+        var response = failureResponse
+        var err = null
+
+        if (status !== 0){
+            response = {
+                body: getBody(),
+                statusCode: status,
+                method: method,
+                headers: {},
+                url: uri,
+                rawRequest: xhr
+            }
+            if(xhr.getAllResponseHeaders){ //remember xhr can in fact be XDR for CORS in IE
+                response.headers = parseHeaders(xhr.getAllResponseHeaders())
+            }
+        } else {
+            err = new Error("Internal XMLHttpRequest Error")
+        }
+        return callback(err, response, response.body)
+    }
+
+    var xhr = options.xhr || null
+
+    if (!xhr) {
+        if (options.cors || options.useXDR) {
+            xhr = new createXHR.XDomainRequest()
+        }else{
+            xhr = new createXHR.XMLHttpRequest()
+        }
+    }
+
+    var key
+    var aborted
+    var uri = xhr.url = options.uri || options.url
+    var method = xhr.method = options.method || "GET"
+    var body = options.body || options.data
+    var headers = xhr.headers = options.headers || {}
+    var sync = !!options.sync
+    var isJson = false
+    var timeoutTimer
+    var failureResponse = {
+        body: undefined,
+        headers: {},
+        statusCode: 0,
+        method: method,
+        url: uri,
+        rawRequest: xhr
+    }
+
+    if ("json" in options && options.json !== false) {
+        isJson = true
+        headers["accept"] || headers["Accept"] || (headers["Accept"] = "application/json") //Don't override existing accept header declared by user
+        if (method !== "GET" && method !== "HEAD") {
+            headers["content-type"] || headers["Content-Type"] || (headers["Content-Type"] = "application/json") //Don't override existing accept header declared by user
+            body = JSON.stringify(options.json === true ? body : options.json)
+        }
+    }
+
+    xhr.onreadystatechange = readystatechange
+    xhr.onload = loadFunc
+    xhr.onerror = errorFunc
+    // IE9 must have onprogress be set to a unique function.
+    xhr.onprogress = function () {
+        // IE must die
+    }
+    xhr.onabort = function(){
+        aborted = true;
+    }
+    xhr.ontimeout = errorFunc
+    xhr.open(method, uri, !sync, options.username, options.password)
+    //has to be after open
+    if(!sync) {
+        xhr.withCredentials = !!options.withCredentials
+    }
+    // Cannot set timeout with sync request
+    // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
+    // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
+    if (!sync && options.timeout > 0 ) {
+        timeoutTimer = setTimeout(function(){
+            if (aborted) return
+            aborted = true//IE9 may still call readystatechange
+            xhr.abort("timeout")
+            var e = new Error("XMLHttpRequest timeout")
+            e.code = "ETIMEDOUT"
+            errorFunc(e)
+        }, options.timeout )
+    }
+
+    if (xhr.setRequestHeader) {
+        for(key in headers){
+            if(headers.hasOwnProperty(key)){
+                xhr.setRequestHeader(key, headers[key])
+            }
+        }
+    } else if (options.headers && !isEmpty(options.headers)) {
+        throw new Error("Headers cannot be set on an XDomainRequest object")
+    }
+
+    if ("responseType" in options) {
+        xhr.responseType = options.responseType
+    }
+
+    if ("beforeSend" in options &&
+        typeof options.beforeSend === "function"
+    ) {
+        options.beforeSend(xhr)
+    }
+
+    // Microsoft Edge browser sends "undefined" when send is called with undefined value.
+    // XMLHttpRequest spec says to pass null as body to indicate no body
+    // See https://github.com/naugtur/xhr/issues/100.
+    xhr.send(body || null)
+
+    return xhr
+
+
+}
+
+function getXml(xhr) {
+    // xhr.responseXML will throw Exception "InvalidStateError" or "DOMException"
+    // See https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseXML.
+    try {
+        if (xhr.responseType === "document") {
+            return xhr.responseXML
+        }
+        var firefoxBugTakenEffect = xhr.responseXML && xhr.responseXML.documentElement.nodeName === "parsererror"
+        if (xhr.responseType === "" && !firefoxBugTakenEffect) {
+            return xhr.responseXML
+        }
+    } catch (e) {}
+
+    return null
+}
+
+function noop() {}
+
+},{"global/window":348,"is-function":382,"parse-headers":441,"xtend":579}],573:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -90180,7 +90430,7 @@ var SyntaxError = /** @class */ (function (_super) {
 }(Error));
 exports.SyntaxError = SyntaxError;
 
-},{}],573:[function(require,module,exports){
+},{}],574:[function(require,module,exports){
 "use strict";
 function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
@@ -90190,7 +90440,7 @@ __export(require("./xml-http-request"));
 var xml_http_request_event_target_1 = require("./xml-http-request-event-target");
 exports.XMLHttpRequestEventTarget = xml_http_request_event_target_1.XMLHttpRequestEventTarget;
 
-},{"./xml-http-request":577,"./xml-http-request-event-target":575}],574:[function(require,module,exports){
+},{"./xml-http-request":578,"./xml-http-request-event-target":576}],575:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var ProgressEvent = /** @class */ (function () {
@@ -90206,7 +90456,7 @@ var ProgressEvent = /** @class */ (function () {
 }());
 exports.ProgressEvent = ProgressEvent;
 
-},{}],575:[function(require,module,exports){
+},{}],576:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var XMLHttpRequestEventTarget = /** @class */ (function () {
@@ -90248,7 +90498,7 @@ var XMLHttpRequestEventTarget = /** @class */ (function () {
 }());
 exports.XMLHttpRequestEventTarget = XMLHttpRequestEventTarget;
 
-},{}],576:[function(require,module,exports){
+},{}],577:[function(require,module,exports){
 (function (Buffer){(function (){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -90329,7 +90579,7 @@ var XMLHttpRequestUpload = /** @class */ (function (_super) {
 exports.XMLHttpRequestUpload = XMLHttpRequestUpload;
 
 }).call(this)}).call(this,require("buffer").Buffer)
-},{"./xml-http-request-event-target":575,"buffer":647}],577:[function(require,module,exports){
+},{"./xml-http-request-event-target":576,"buffer":647}],578:[function(require,module,exports){
 (function (process,Buffer){(function (){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
@@ -90779,256 +91029,7 @@ XMLHttpRequest.prototype.nodejsHttpsAgent = https.globalAgent;
 XMLHttpRequest.prototype.nodejsBaseUrl = null;
 
 }).call(this)}).call(this,require('_process'),require("buffer").Buffer)
-},{"./errors":572,"./progress-event":574,"./xml-http-request-event-target":575,"./xml-http-request-upload":576,"_process":753,"buffer":647,"cookiejar":293,"http":793,"https":727,"os":741,"url":814}],578:[function(require,module,exports){
-"use strict";
-var window = require("global/window")
-var isFunction = require("is-function")
-var parseHeaders = require("parse-headers")
-var xtend = require("xtend")
-
-module.exports = createXHR
-// Allow use of default import syntax in TypeScript
-module.exports.default = createXHR;
-createXHR.XMLHttpRequest = window.XMLHttpRequest || noop
-createXHR.XDomainRequest = "withCredentials" in (new createXHR.XMLHttpRequest()) ? createXHR.XMLHttpRequest : window.XDomainRequest
-
-forEachArray(["get", "put", "post", "patch", "head", "delete"], function(method) {
-    createXHR[method === "delete" ? "del" : method] = function(uri, options, callback) {
-        options = initParams(uri, options, callback)
-        options.method = method.toUpperCase()
-        return _createXHR(options)
-    }
-})
-
-function forEachArray(array, iterator) {
-    for (var i = 0; i < array.length; i++) {
-        iterator(array[i])
-    }
-}
-
-function isEmpty(obj){
-    for(var i in obj){
-        if(obj.hasOwnProperty(i)) return false
-    }
-    return true
-}
-
-function initParams(uri, options, callback) {
-    var params = uri
-
-    if (isFunction(options)) {
-        callback = options
-        if (typeof uri === "string") {
-            params = {uri:uri}
-        }
-    } else {
-        params = xtend(options, {uri: uri})
-    }
-
-    params.callback = callback
-    return params
-}
-
-function createXHR(uri, options, callback) {
-    options = initParams(uri, options, callback)
-    return _createXHR(options)
-}
-
-function _createXHR(options) {
-    if(typeof options.callback === "undefined"){
-        throw new Error("callback argument missing")
-    }
-
-    var called = false
-    var callback = function cbOnce(err, response, body){
-        if(!called){
-            called = true
-            options.callback(err, response, body)
-        }
-    }
-
-    function readystatechange() {
-        if (xhr.readyState === 4) {
-            setTimeout(loadFunc, 0)
-        }
-    }
-
-    function getBody() {
-        // Chrome with requestType=blob throws errors arround when even testing access to responseText
-        var body = undefined
-
-        if (xhr.response) {
-            body = xhr.response
-        } else {
-            body = xhr.responseText || getXml(xhr)
-        }
-
-        if (isJson) {
-            try {
-                body = JSON.parse(body)
-            } catch (e) {}
-        }
-
-        return body
-    }
-
-    function errorFunc(evt) {
-        clearTimeout(timeoutTimer)
-        if(!(evt instanceof Error)){
-            evt = new Error("" + (evt || "Unknown XMLHttpRequest Error") )
-        }
-        evt.statusCode = 0
-        return callback(evt, failureResponse)
-    }
-
-    // will load the data & process the response in a special response object
-    function loadFunc() {
-        if (aborted) return
-        var status
-        clearTimeout(timeoutTimer)
-        if(options.useXDR && xhr.status===undefined) {
-            //IE8 CORS GET successful response doesn't have a status field, but body is fine
-            status = 200
-        } else {
-            status = (xhr.status === 1223 ? 204 : xhr.status)
-        }
-        var response = failureResponse
-        var err = null
-
-        if (status !== 0){
-            response = {
-                body: getBody(),
-                statusCode: status,
-                method: method,
-                headers: {},
-                url: uri,
-                rawRequest: xhr
-            }
-            if(xhr.getAllResponseHeaders){ //remember xhr can in fact be XDR for CORS in IE
-                response.headers = parseHeaders(xhr.getAllResponseHeaders())
-            }
-        } else {
-            err = new Error("Internal XMLHttpRequest Error")
-        }
-        return callback(err, response, response.body)
-    }
-
-    var xhr = options.xhr || null
-
-    if (!xhr) {
-        if (options.cors || options.useXDR) {
-            xhr = new createXHR.XDomainRequest()
-        }else{
-            xhr = new createXHR.XMLHttpRequest()
-        }
-    }
-
-    var key
-    var aborted
-    var uri = xhr.url = options.uri || options.url
-    var method = xhr.method = options.method || "GET"
-    var body = options.body || options.data
-    var headers = xhr.headers = options.headers || {}
-    var sync = !!options.sync
-    var isJson = false
-    var timeoutTimer
-    var failureResponse = {
-        body: undefined,
-        headers: {},
-        statusCode: 0,
-        method: method,
-        url: uri,
-        rawRequest: xhr
-    }
-
-    if ("json" in options && options.json !== false) {
-        isJson = true
-        headers["accept"] || headers["Accept"] || (headers["Accept"] = "application/json") //Don't override existing accept header declared by user
-        if (method !== "GET" && method !== "HEAD") {
-            headers["content-type"] || headers["Content-Type"] || (headers["Content-Type"] = "application/json") //Don't override existing accept header declared by user
-            body = JSON.stringify(options.json === true ? body : options.json)
-        }
-    }
-
-    xhr.onreadystatechange = readystatechange
-    xhr.onload = loadFunc
-    xhr.onerror = errorFunc
-    // IE9 must have onprogress be set to a unique function.
-    xhr.onprogress = function () {
-        // IE must die
-    }
-    xhr.onabort = function(){
-        aborted = true;
-    }
-    xhr.ontimeout = errorFunc
-    xhr.open(method, uri, !sync, options.username, options.password)
-    //has to be after open
-    if(!sync) {
-        xhr.withCredentials = !!options.withCredentials
-    }
-    // Cannot set timeout with sync request
-    // not setting timeout on the xhr object, because of old webkits etc. not handling that correctly
-    // both npm's request and jquery 1.x use this kind of timeout, so this is being consistent
-    if (!sync && options.timeout > 0 ) {
-        timeoutTimer = setTimeout(function(){
-            if (aborted) return
-            aborted = true//IE9 may still call readystatechange
-            xhr.abort("timeout")
-            var e = new Error("XMLHttpRequest timeout")
-            e.code = "ETIMEDOUT"
-            errorFunc(e)
-        }, options.timeout )
-    }
-
-    if (xhr.setRequestHeader) {
-        for(key in headers){
-            if(headers.hasOwnProperty(key)){
-                xhr.setRequestHeader(key, headers[key])
-            }
-        }
-    } else if (options.headers && !isEmpty(options.headers)) {
-        throw new Error("Headers cannot be set on an XDomainRequest object")
-    }
-
-    if ("responseType" in options) {
-        xhr.responseType = options.responseType
-    }
-
-    if ("beforeSend" in options &&
-        typeof options.beforeSend === "function"
-    ) {
-        options.beforeSend(xhr)
-    }
-
-    // Microsoft Edge browser sends "undefined" when send is called with undefined value.
-    // XMLHttpRequest spec says to pass null as body to indicate no body
-    // See https://github.com/naugtur/xhr/issues/100.
-    xhr.send(body || null)
-
-    return xhr
-
-
-}
-
-function getXml(xhr) {
-    // xhr.responseXML will throw Exception "InvalidStateError" or "DOMException"
-    // See https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/responseXML.
-    try {
-        if (xhr.responseType === "document") {
-            return xhr.responseXML
-        }
-        var firefoxBugTakenEffect = xhr.responseXML && xhr.responseXML.documentElement.nodeName === "parsererror"
-        if (xhr.responseType === "" && !firefoxBugTakenEffect) {
-            return xhr.responseXML
-        }
-    } catch (e) {}
-
-    return null
-}
-
-function noop() {}
-
-},{"global/window":348,"is-function":382,"parse-headers":441,"xtend":579}],579:[function(require,module,exports){
+},{"./errors":573,"./progress-event":575,"./xml-http-request-event-target":576,"./xml-http-request-upload":577,"_process":753,"buffer":647,"cookiejar":293,"http":793,"https":727,"os":741,"url":814}],579:[function(require,module,exports){
 module.exports = extend
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;

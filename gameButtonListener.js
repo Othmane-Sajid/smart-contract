@@ -8,25 +8,26 @@ const btn3 = document.getElementById("btn3");
 const turn = 500;
 
 class Game{
+
     play(p1, p2){
         
         let players = new Array(p1, p2);
-        var turn = players[0].choice();
+        var nbOfFlip = players[0].choice();
 
         while (!(players[0].isBankrupt() || players[1].isBankrupt())){
         
-            var player_bet = players[(turn + 1) % 2].choice();
-            var player_flip = players[turn % 2].flip();
+            var player_bet = players[(nbOfFlip + 1) % 2].choice();
+            var player_flip = players[nbOfFlip % 2].flip();
 
             if (player_flip == player_bet){        
-                players[(turn + 1) % 2].addOnePennie(); 
-                players[turn % 2].substractOnePennie();
+                players[(nbOfFlip + 1) % 2].addOnePennie(); 
+                players[nbOfFlip % 2].substractOnePennie();
             }else{
-                players[(turn + 1) % 2].substractOnePennie();
-                players[turn % 2].addOnePennie();
+                players[(nbOfFlip + 1) % 2].substractOnePennie();
+                players[nbOfFlip % 2].addOnePennie();
             }
             
-            turn += 1;           
+            nbOfFlip += 1;           
         }   
         return players;
         
@@ -103,9 +104,9 @@ async function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     let result = game.play(player, gambler);
 
     try{
-        if(result[1].isBankrupt()){
+        if(result[0].isBankrupt()){
             
-            await helper.substractLost(playerBet);
+            await helper.substractLost(playerBet);    
             return;
         }
         await helper.addGain(gamblerBet);
