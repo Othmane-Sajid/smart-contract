@@ -329,7 +329,7 @@ button {
     background-color:burlywood;
 }
 
-#connectButton {
+#connectButton, #startGameButton {
     background-color:teal;
 }
 

@@ -303,12 +303,19 @@ const abi = [
   ];
 
 var account;
+var isActiveSmartContractListener = false;
 
 function manageSpinnerOff(){
   $('#cover-spin').hide(0);
 }
 
 async function addSmartContractListener() {
+
+  if (isActiveSmartContractListener) {
+    return;
+  }
+
+  isActiveSmartContractListener = true;
   window.web3 = await new Web3(window.ethereum);
   window.contract = await new window.web3.eth.Contract(abi,contractAddress);
 
@@ -332,8 +339,11 @@ async function addSmartContractListener() {
       console.log("addGain a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
 
       manageSpinnerOff();
-      window.alert("You Win, continue.");
-      document.getElementById(window.Click).innerHTML = "Win";
+      document.getElementById("message-win").style.display = "block";
+      document.getElementById("message-loss").style.display = "none";
+
+      // window.alert("You Win, continue.");
+      // document.getElementById(window.Click).innerHTML = "Win";
       
     }
   }); 
@@ -345,8 +355,11 @@ async function addSmartContractListener() {
       console.log("substractLost a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
 
       manageSpinnerOff();
-      window.alert(" You lost it's sad, try again.");
-      document.getElementById(window.Click).innerHTML = "Lost";
+      document.getElementById("message-win").style.display = "none";
+      document.getElementById("message-loss").style.display = "block";
+
+      // window.alert(" You lost it's sad, try again.");
+      // document.getElementById(window.Click).innerHTML = "Lost";
       
     }
   }); 
@@ -419,6 +432,7 @@ async function getBalance() {
       balanceOfUser = Web3.utils.fromWei(balanceOfUser.toString(), 'ether'); 
 
       document.getElementById("user-balance").innerHTML=`Your balance : ${balanceOfUser}`;
+      return balanceOfUser;
   }catch(err){
       if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
   }
@@ -449,6 +463,7 @@ async function getCurrentBudgetOfContract() {
       currentBudgetOfContract = Web3.utils.fromWei(currentBudgetOfContract.toString(), 'ether'); 
 
       document.getElementById("proprietary-budget-contract").innerHTML=`Propietary budget of the contract : ${currentBudgetOfContract}`;
+      return currentBudgetOfContract;
   }catch(err){
       if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
   }
@@ -484,7 +499,6 @@ async function substractLost(amount){
   
 }
 
-
 async function fundProprietaryBudgetOfContract() {
     window.web3 = await new Web3(window.ethereum)
     window.contract = await new window.web3.eth.Contract(abi,contractAddress)
@@ -503,6 +517,43 @@ async function fundProprietaryBudgetOfContract() {
 }
 
 
+async function startGameInit() {
+
+  try{
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(contractAddress, abi, signer); 
+
+    balanceOfUser = await contract.getBalance()
+    balanceOfUser = Web3.utils.fromWei(balanceOfUser.toString(), 'ether'); 
+
+    // window.playerBet = (balanceOfUser / 4)
+    // console.log("[FROM INIT] balanceOfUser " + balanceOfUser)
+    // console.log("[FROM INIT] window.playerbet " + window.playerBet)
+
+    document.getElementById("user-balance").innerHTML=`Your balance : ${balanceOfUser}`;
+
+    if (balanceOfUser > 0 ) {
+      document.getElementById("start-game").style.display = "none";
+      document.getElementById("play-game").style.display = "block";
+      // if ( ! isActiveSmartContractListener) {addSmartContractListener();}
+      addSmartContractListener();
+      // window.playerBet = balanceOfUser / 4
+      // console.log("[FROM INIT] balanceOfUser " + balanceOfUser)
+      // console.log("[FROM INIT] window.playerbet " + window.playerBet)
+    } else {
+      window.alert("Your balance is empty. You need to add funds to your balance.")
+      document.getElementById("start-game").style.display = "block";
+      document.getElementById("play-game").style.display = "none";
+    }
+
+  }catch(err){
+      if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
+  }
+
+}
+
+
 module.exports = {
     connect,
     deposit,
@@ -513,6 +564,8 @@ module.exports = {
     selfDestruct,
     fundProprietaryBudgetOfContract,
     addGain,
-    substractLost
+    substractLost,
+    startGameInit
 }
+
 

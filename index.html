@@ -5,6 +5,7 @@
 
     <title>Gambler Ruin Smart </title>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="stylesheet.css">
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -131,7 +132,7 @@
             </p>
             <ul style="text-align:left;">
                 <li>
-                    Easy mode : You have more probabilities to win. However, in event of a win, your reward is equivalent to 50 % of the size of your bet.
+                    Easy mode : You have more than 50 % probability to win. However, in event of a win, your reward is equivalent to 50 % of the size of your bet.
                 </li>
                 <li>
                     Normal mode : Your chance to win (or lose) is equal to 50 %. The reward in the event of a win amounts to 100 % of your bet.
@@ -150,16 +151,21 @@
     <p class="separator">
         ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     </p>
-    
 
-    <div id="play-game" class="section-game">
+    <div id="start-game" class="section-game titre-section" style="display:block">
+        <h1 class="color-change-anim">Play a game</h1>
+        <button id = "startGameButton" class="color-change-anim2" style="font-size: 50px;width: 80%"> 
+            CLICK HERE TO START A GAME </button>
+    </div>
+    
+    <div id="play-game" class="section-game" style="display:none">
         
         <h1 class="color-change-anim">Play a game</h1>
         
         <div class="center-remember">
             <p>
                 <h5 class="remember">
-                remember: <br>
+                Reminder: <br>
                 easy mode : you have more chance to win half of your bet, but you still can loose your bet.<br>
                 normal mode : you have the same chance to win or loose your bet<br>
                 hard mode : you can win 50% more than you bet, but still loose only your bet<br>
@@ -168,16 +174,37 @@
                 
             </p> 
         </div>
+
         <div>
-            <button type="button" style="background-color: #00ff2a; color: black;" class=butt id="btn0">play</button>
-            <button type="button"  style="background-color: rgb(10, 135, 207); color: black;" class=butt id="btn1">play</button>
-            <button type="button" style="background-color: #f19318; color: black;" class=butt id="btn2">play</button>
-            <button type="button" style="background-color: rgb(235, 54, 22); color: black;" class=butt id="btn3">play</button>
+            <h3> Please select the % of your balance that you want to bet on the next game
+                <br> and then click on one of the 4 colored buttons to start a game.
+            </h3>
+            <select name="Percentage-of-balance-to-bet" id="percentBetInput" style="max-width:70%">
+                <option value="0.1">10 %</option> <option value="0.2">20 %</option> <option value="0.3">30 %</option>
+                <option value="0.4">40 %</option> <option value="0.5">50 %</option> <option value="0.6">60 %</option>
+                <option value="0.7">70 %</option> <option value="0.8">80 %</option> <option value="0.9">90 %</option> <option value="1">100 %</option>
+              </select> <br><br>
         </div>
+
+        <div>
+            <button type="button" style="background-color: #00ff2a; color: black;" class=butt id="btn0">Play <br> (easy mode)</button>
+            <button type="button"  style="background-color: rgb(10, 135, 207); color: black;" class=butt id="btn1">Play <br> (normal mode)</button>
+            <button type="button" style="background-color: #f19318; color: black;" class=butt id="btn2">Play <br> (hard mode)</button>
+            <button type="button" style="background-color: rgb(235, 54, 22); color: black;" class=butt id="btn3">Play <br> (Very hard mode)</button>
         
+        </div>
+
+        <div> <br><br>
+            <!-- <h2 id="message-amount-bet-play" style="display:block">By clicking on any of the colored buttons, you will be betting the selected % of your balance.</h2> -->
+            <h2 id="message-win" style="display:none ; color:#00ff2a"> Congratulations ! You have won this game.</h2>
+            <h2 id="message-loss" style="display:none ; color:red"> You have lost this game. Better luck next time !</h2>
+        </div>
     </div>
     <br><br>
 
+    <p class="separator">
+        ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    </p>
 
     <div id="infosOnAccount"  class="section-contacte" style="clear:both;">
         <button id = "getAccountBalanceButton"> Display personal funds amount in contract </button>
