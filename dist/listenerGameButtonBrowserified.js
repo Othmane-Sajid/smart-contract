@@ -8,6 +8,7 @@ const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
 const turn = 500;
 
+
 class Game{
 
     play(p1, p2){
@@ -73,26 +74,7 @@ class Player{
     }
 }
 
-// OLD VERSION 
-// function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
-//     adr0= "0x7";
 
-//     let player = new Player(adr0, playerTurn);
-//     let gambler = new Player(adr0, gamblerTurn);
-    
-//     let game = new Game();
-    
-//     let result = game.play(player, gambler);
-
-//     if(result[1].isBankrupt()){
-        
-//         helper.substractLost(playerBet);
-//         return;
-//     }
-//     helper.addGain(gamblerBet);
-//     return;
-    
-// }
 
 async function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
     adr0= "0x7";
@@ -120,10 +102,6 @@ async function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
 
 function manageSpinnerOn(){
     $('#cover-spin').show(0);
-}
-
-function manageSpinnerOff(){
-    $('#cover-spin').hide(0);
 }
 
 async function isContractSolvableToBet(playerBet, multiplier) {
@@ -231,38 +209,7 @@ btn3.addEventListener('click', async function handleClick(){
 
 
 
-//OLD VERSION 
-// btn1.addEventListener('click', function handleClick(){
-//     // fair mode
-//     // lance play avec le meme nombre de tour et la meme la mise
-//     // le joueur gagne ou perd sa mise
-//     window.Click = "btn1";
-//     manageSpinnerOn();
-//     play(turn, turn, window.playerBet, window.playerBet);
-// });
 
-
-
-// btn2.addEventListener('click', function handleClick(){
-//     // hard mode
-//     // gambler a un avantage de 1.5 fois le nombre de tour mais il mise 1.5 fois la mise du joueur
-//     // le joueur pred sa mise ou gagne 1.5 fois sa mise
-//     window.Click = "btn2";
-//     manageSpinnerOn();
-//     play(turn, turn * 1.5, window.playerBet, window.playerBet * 1.5);
-    
-// });
-
-
-// btn3.addEventListener('click', function handleClick(){
-//     // very hard mode
-//     // gambler a un avantage de 2 fois le nombre de tour mais il mise 2.0 fois la mise du joueur
-//     // le joueur perd sa mise ou gagne 2 fois sa mise
-//     window.Click = "btn3";
-//     manageSpinnerOn();
-//     play(turn, turn * 2, window.playerBet, window.playerBet * 2);
-    
-// }); 
 },{"./helpers.js":2}],2:[function(require,module,exports){
 // TODO : Create event for METAMASK CONNECTED. 
 // Si une fonction autre que connect est appelee, il faut verifier si metamask est connecte avant de run()
