@@ -103,8 +103,12 @@ function manageSpinnerOn(){
     $('#cover-spin').show(0);
 }
 
+function manageSpinnerOff(){
+    $('#cover-spin').hide(0);
+  }
+
 async function isContractSolvableToBet(playerBet, multiplier) {
-    //Verifies if the contract can afford to bet and returns a bool
+    //Verifies if the contract can afford to bet and returns a boolean
     let budgetOfContract = await helper.getCurrentBudgetOfContract();
     console.log("BUDGET OF CONTRACT " + budgetOfContract);
 
