@@ -15,3 +15,6 @@ CLEAN UP :
 - Vulnerabilites
 
 
+
+
+-- ARRONDIR CE QUI APPARAIT DANS "YOUR BALANCE" et les autres
