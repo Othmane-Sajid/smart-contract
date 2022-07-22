@@ -3,7 +3,7 @@ const { ethers } = require("ethers");
 var Web3 = require('web3');
 
 
-const {contractAddress, abi} = require('./contract-info.js');
+const {contractAddress, abi} = require('./contract-info.json');
 
 
 // const contractAddress = require("./contract-info.json").contractAddress;
@@ -126,7 +126,7 @@ async function getBalance() {
       balanceOfUser = await contract.getBalance()
       balanceOfUser = Web3.utils.fromWei(balanceOfUser.toString(), 'ether'); 
 
-      document.getElementById("user-balance").innerHTML=`Your balance : ${balanceOfUser}`;
+      document.getElementById("user-balance").innerHTML=`Your balance : ${parseFloat(balanceOfUser).toFixed(4)}`;
       return balanceOfUser;
   }catch(err){
       if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
@@ -142,7 +142,7 @@ async function getBalanceInContract() {
       totalBalanceInContract = await contract.getTotalBalanceInContract();
       totalBalanceInContract = Web3.utils.fromWei(totalBalanceInContract.toString(), 'ether'); 
 
-      document.getElementById("total-balance").innerHTML=`Total balance in contract : ${totalBalanceInContract}`;
+      document.getElementById("total-balance").innerHTML=`Total balance in contract : ${parseFloat(totalBalanceInContract).toFixed(4)}`;
   }catch(err){
       if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
   }    
@@ -157,7 +157,7 @@ async function getCurrentBudgetOfContract() {
       currentBudgetOfContract = await contract.getCurrentBudgetOfContract();
       currentBudgetOfContract = Web3.utils.fromWei(currentBudgetOfContract.toString(), 'ether'); 
 
-      document.getElementById("proprietary-budget-contract").innerHTML=`Propietary budget of the contract : ${currentBudgetOfContract}`;
+      document.getElementById("proprietary-budget-contract").innerHTML=`Propietary budget of the contract : ${parseFloat(currentBudgetOfContract).toFixed(4)}`;
       return currentBudgetOfContract;
   }catch(err){
       if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
@@ -220,7 +220,7 @@ async function startGameInit() {
     balanceOfUser = await contract.getBalance()
     balanceOfUser = Web3.utils.fromWei(balanceOfUser.toString(), 'ether'); 
 
-    document.getElementById("user-balance").innerHTML=`Your balance : ${balanceOfUser}`;
+    document.getElementById("user-balance").innerHTML=`Your balance : ${parseFloat(balanceOfUser).toFixed(4)}`;
 
     if (balanceOfUser > 0 ) {
       document.getElementById("start-game").style.display = "none";
