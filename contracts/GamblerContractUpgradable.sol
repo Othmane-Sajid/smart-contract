@@ -22,21 +22,20 @@ contract GamblerContractUpgradable is Initializable, OwnableUpgradeable {
     //     currentBudgetOfContract = msg.value;
     // }
 
-    // Upgradable contracts need an an initialize function rather than a constructor.
 
+    // For upgradable contracts following OpenZeppelin standards, constructor objects are undesired.
+    // They are replaced by an intializer (takes the role of the constructor).
     function initialize() initializer public {
         __Context_init_unchained();
         __Ownable_init_unchained();
     }
 
-    // modifier isOwner {
-    //     require(msg.sender == owner);
-    //     _;
-    // }
+    modifier balanceUserNotNull {
+        require(balances[msg.sender]>= 0, "The user's balance is empty");      
+        _;
+    }
 
-    
-
-    function fundProprietaryBudgetOfContract() public payable {
+    function fundProprietaryBudgetOfContract() public payable onlyOwner {
         currentBudgetOfContract += msg.value;
         emit ContractFundedByOwner();
     }
@@ -50,14 +49,16 @@ contract GamblerContractUpgradable is Initializable, OwnableUpgradeable {
     }
 
     function addGain(uint amount) public payable{
-        require(currentBudgetOfContract >= amount, "not enough token in contract");
+        //checks-effects-interactions
+        require(currentBudgetOfContract >= amount, "Not enough funds in contract");
         currentBudgetOfContract -= amount;
         balances[msg.sender] += amount;
         emit AddGainEvent(msg.sender, balances[msg.sender]);
     }
 
     function substractLost(uint amount) public payable{
-        require(balances[msg.sender] >= amount, "not enough token in player balance");
+        //checks-effects-interactions
+        require(balances[msg.sender] >= amount, "Not enough funds in the player's balance");
         balances[msg.sender] -= amount;
         currentBudgetOfContract += amount;
         emit SubstractLostEvent(msg.sender, balances[msg.sender]);
@@ -67,9 +68,9 @@ contract GamblerContractUpgradable is Initializable, OwnableUpgradeable {
         this.withdrawUser(msg.sender);
     }
     
-    function withdrawUser(address user) public payable{
+    function withdrawUser(address user) public payable balanceUserNotNull{
         //checks
-        require(currentBudgetOfContract >= 0, "not enough token in contract");
+        require(address(this).balance >= balances[msg.sender] , "Not enough funds in contract. Please try again later.");
         //effects
         uint256 balanceToSend = balances[user];
         balances[user] = 0;
@@ -90,8 +91,8 @@ contract GamblerContractUpgradable is Initializable, OwnableUpgradeable {
         return currentBudgetOfContract;
     }
 
-    /* La fonction retourne true si l'adresse est dans l'array playersAdresses
-       C'est une fct utilitaire qui permet d'eviter les doublons d'adresses*/
+    /* Utility function that returns true if the address is present in the array playerAddresses.
+        Used to avoid duplicates. */
     function exist(address addr) private view returns(bool){
         for(uint i =0; i < playersAddresses.length; i++){
             if(playersAddresses[i] == addr){
@@ -101,14 +102,14 @@ contract GamblerContractUpgradable is Initializable, OwnableUpgradeable {
         return false;
     }
 
-    /* La fonction est appelable uniquement par le proprio.
-       Retourne les fonds des joueurs qui ont leurs addresses dans l'array
-       Apres le contrat s'auto detruit*/
+
+    /* Only the owner can call this method to defund the contract by : 
+        1- sending back to each user his funds (addresses kept in the array)
+        2- recuperating the remaining funds */
     function selfDestruct() public onlyOwner  {
         for(uint i =0; i < playersAddresses.length; i++){
             withdrawUser(playersAddresses[i]);
         }
-        // selfdestruct(payable(msg.sender)); //selfdestruct not allowed in upgradable contracts
         uint256 remainingFunds = address(this).balance;
         address owner_ = owner();
         (bool success, ) = owner_.call{value:remainingFunds}("");

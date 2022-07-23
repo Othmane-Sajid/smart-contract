@@ -77,16 +77,16 @@ startGameButton.addEventListener('click', function handleClick() {
 
 // DEV ONLY
 
-//const fundContract = document.getElementById("fundContractButton");
+// const fundContract = document.getElementById("fundContractButton");
 // const selfDestruct = document.getElementById("selfDestructButton");
 
-/* fundContract.addEventListener('click', function handleClick() {
-    try{
-         helpers.fundProprietaryBudgetOfContract();
-    }catch(err){
-         console.log(err);
-     }
- }); */
+// fundContract.addEventListener('click', function handleClick() {
+//     try{
+//          helpers.fundProprietaryBudgetOfContract();
+//     }catch(err){
+//          console.log(err);
+//      }
+//  }); 
 
 // selfDestruct.addEventListener('click', function handleClick() {
 //   try{

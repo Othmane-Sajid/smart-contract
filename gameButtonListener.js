@@ -5,8 +5,7 @@ const btn0 = document.getElementById("btn0");
 const btn1 = document.getElementById("btn1");
 const btn2 = document.getElementById("btn2");
 const btn3 = document.getElementById("btn3");
-const turn = 500;
-
+const defaultNumPennies = 500;
 
 class Game{
 
@@ -36,68 +35,72 @@ class Game{
 }
 
 class Player{
-        
-    constructor(address, pennies){
-        this.address = address;
-        this.pennies = pennies;
+
+    constructor(numberOfPennies){
+        this.numberOfPennies = numberOfPennies;
     }
 
     addOnePennie(){
-        this.pennies += 1;
+        this.numberOfPennies += 1;
     }
 
     substractOnePennie(){
-        this.pennies -= 1;
+        this.numberOfPennies -= 1;
     }
 
     isBankrupt(){
-        return this.pennies == 0;
+        return this.numberOfPennies == 0;
     }
 
-    getPennies(){
-        return this.pennies;
+    getNumberOfPennies(){
+        return this.numberOfPennies;
     }
 
+    // Randomly returns a 0 or a 1.
     choice(){
-        let min = Math.ceil(0);
-        let max = Math.floor(100);
-        return Math.floor(Math.random() * (max - min + 1)) % 2;
+        
+        // let min = 0;
+        // let max = 100;
+        // return Math.floor(Math.random() * (max - min + 1)) % 2;
+
+        // POURQUOI PAS TOUT SIMPLEMENT  
+        return Math.floor(Math.random() * 2); // Ca retourne randomly 0 ou 1 sans besoin de min max ou modulo
     }
 
     flip(){
         return this.choice();
     }
-
-    getAddress(){
-        return this.address;
-    }
 }
 
 
 
-async function play(playerTurn, gamblerTurn, playerBet, gamblerBet){
-    adr0= "0x7";
+async function play(playerNbrPennies, smartContractNbrPennies, playerBetAmount, contractBetAmount){
 
-    let player = new Player(adr0, playerTurn);
-    let gambler = new Player(adr0, gamblerTurn);
+    let player = new Player(playerNbrPennies);
+    let smartContract = new Player(smartContractNbrPennies);
     
     let game = new Game();
-    
-    let result = game.play(player, gambler);
+    let result = game.play(player, smartContract);
 
     try{
+        // The player lost
         if(result[0].isBankrupt()){
-            
-            await helper.substractLost(playerBet);    
-            return;
+            document.getElementById("loss-amount").innerHTML= " " + parseFloat(playerBetAmount).toFixed(4);
+            await helper.substractLost(playerBetAmount);   
+
+        
+        } // The player won
+        else {
+            document.getElementById("win-amount").innerHTML= " " + parseFloat(contractBetAmount).toFixed(4);
+            await helper.addGain(contractBetAmount);
         }
-        await helper.addGain(gamblerBet);
-        return;
 
     }catch(err){
         manageSpinnerOff();
+        console.log(err);
     }
 }
+
 
 function manageSpinnerOn(){
     $('#cover-spin').show(0);
@@ -107,20 +110,18 @@ function manageSpinnerOff(){
     $('#cover-spin').hide(0);
   }
 
-async function isContractSolvableToBet(playerBet, multiplier) {
-    //Verifies if the contract can afford to bet and returns a boolean
-    let budgetOfContract = await helper.getCurrentBudgetOfContract();
-    console.log("BUDGET OF CONTRACT " + budgetOfContract);
 
-    bool = (budgetOfContract > (playerBet * multiplier));
+async function isContractSolvableToBet(playerBet, multiplierReward) {
+    // Verifies if the contract has enough budget to reward the player if he wins.
+    let budgetOfContract = await helper.getCurrentBudgetOfContract();
+    bool = (budgetOfContract > (playerBet * multiplierReward));
     return bool;
 }
 
 
 btn0.addEventListener('click', async function handleClick(){
     // easy mode
-    // lance play avec un avantage de 50 pour le joueur mais avec une mise du gambler 0.5 fois celle du joueur
-    // le joueur perd sa mise ou gagne la moitie de sa mise
+    // The player has 2/3 chances to win. And his reward is equal to 0.5x the amount of his bet.
 
     var desiredPercentageToBet = document.getElementById("percentBetInput").value;
     var currentBalanceUser = await helper.getBalance();
@@ -128,11 +129,11 @@ btn0.addEventListener('click', async function handleClick(){
 
     var boolContractSolvable = await isContractSolvableToBet(playerBet, 0.5);
     if ( ! boolContractSolvable) {
-        window.alert("Sorry. The contract doesn't have the funds required to bet against you. Please withdraw your funds");
+        window.alert("Sorry. The contract doesn't have the funds required to bet against you. Please withdraw your funds or chose another game mode if the contract still has funds.");
     } else {
     window.Click = "btn0";
     manageSpinnerOn();
-    await play(turn, turn/2, playerBet, playerBet * 0.5);
+    await play(defaultNumPennies, defaultNumPennies * 0.5, playerBet, playerBet*0.5);
 
     // verify if user still has funds to bet or no. And hide the playing interface if not.
     helper.startGameInit();
@@ -143,19 +144,18 @@ btn0.addEventListener('click', async function handleClick(){
 
 btn1.addEventListener('click', async function handleClick(){
     // fair mode
-    // lance play avec le meme nombre de tour et la meme la mise
-    // le joueur gagne ou perd sa mise
+    // The player has 50 % chances to win. And his reward is equal to 1x the amount of his bet.
     var desiredPercentageToBet = document.getElementById("percentBetInput").value;
     var currentBalanceUser = await helper.getBalance();
     var playerBet = currentBalanceUser * desiredPercentageToBet;
 
     var boolContractSolvable = await isContractSolvableToBet(playerBet, 1);
     if ( ! boolContractSolvable) {
-        window.alert("Sorry. The contract doesn't have the funds required to bet against you. Please withdraw your funds");
+        window.alert("Sorry. The contract doesn't have the funds required to bet against you. Please withdraw your funds or chose another game mode if the contract still has funds.");
     } else {
     window.Click = "btn1";
     manageSpinnerOn();
-    await play(turn, turn, playerBet, playerBet);
+    await play(defaultNumPennies, defaultNumPennies, playerBet, playerBet);
 
     // verify if user still has funds to bet or no. And hide the playing interface if not.
     helper.startGameInit();
@@ -165,8 +165,7 @@ btn1.addEventListener('click', async function handleClick(){
 
 btn2.addEventListener('click', async function handleClick(){
     // hard mode
-    // gambler a un avantage de 1.5 fois le nombre de tour mais il mise 1.5 fois la mise du joueur
-    // le joueur pred sa mise ou gagne 1.5 fois sa mise
+    // The player has 40 % chances to win. And his reward is equal to 1.5x the amount of his bet.
 
     var desiredPercentageToBet = document.getElementById("percentBetInput").value;
     var currentBalanceUser = await helper.getBalance();
@@ -174,11 +173,11 @@ btn2.addEventListener('click', async function handleClick(){
 
     var boolContractSolvable = await isContractSolvableToBet(playerBet, 1.5);
     if ( ! boolContractSolvable) {
-        window.alert("Sorry. The contract doesn't have the funds required to bet against you. Please withdraw your funds");
+        window.alert("Sorry. The contract doesn't have the funds required to bet against you. Please withdraw your funds or chose another game mode if the contract still has funds.");
     } else {
     window.Click = "btn2";
     manageSpinnerOn();
-    await play(turn, turn * 1.5, playerBet, playerBet * 1.5);
+    await play(defaultNumPennies, defaultNumPennies * 1.5, playerBet, playerBet * 1.5);
 
     // verify if user still has funds to bet or no. And hide the playing interface if not.
     helper.startGameInit();
@@ -189,19 +188,18 @@ btn2.addEventListener('click', async function handleClick(){
 
 btn3.addEventListener('click', async function handleClick(){
     // very hard mode
-    // gambler a un avantage de 2 fois le nombre de tour mais il mise 2.0 fois la mise du joueur
-    // le joueur perd sa mise ou gagne 2 fois sa mise
+    // The player has 1/3 chances to win. And his reward is equal to 2x the amount of his bet.
     var desiredPercentageToBet = document.getElementById("percentBetInput").value;
     var currentBalanceUser = await helper.getBalance();
     var playerBet = currentBalanceUser * desiredPercentageToBet;
 
     var boolContractSolvable = await isContractSolvableToBet(playerBet, 2);
     if ( ! boolContractSolvable) {
-        window.alert("Sorry. The contract doesn't have the funds required to bet against you. Please withdraw your funds");
+        window.alert("Sorry. The contract doesn't have the funds required to bet against you. Please withdraw your funds or chose another game mode if the contract still has funds.");
     } else {
     window.Click = "btn3";
     manageSpinnerOn();
-    await play(turn, turn * 2, playerBet, playerBet * 2);
+    await play(defaultNumPennies, defaultNumPennies * 2, playerBet, playerBet * 2);
 
     // verify if user still has funds to bet or no. And hide the playing interface if not.
     helper.startGameInit();

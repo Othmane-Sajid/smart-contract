@@ -18,57 +18,52 @@
 
 <body>
     
+    
     <div class="navbar background-nav-bar">
         <ul>
             <li class="navbar-logo">
                 <img src="assets/photos/eth-logo2.jpg" alt="Ethereum Logo">
             </li>
             <li>
-                <a href="#connect-metamask" class="size-anim-small"> Connect with metamask</a>
+                <a href="#connect-metamask" class="size-anim-small background-color-change-anim"> Connect with metamask</a>
             </li>
             <li class="dropdown">
-                <a href="#services" class="size-anim-small"> Deposit/Withdraw <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <a href="#" class="size-anim-small background-color-change-anim"> 
+                    Deposit/Withdraw 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
                   </svg></a>
 
                 <div class="dropdown-content background-color-change-anim">
-                    <!-- <a href="#connect-metamask" class="size-anim-small" style= color:beige>Connect metamask</a> -->
                     <a href="#deposit" class="size-anim-small" style= color:beige>Deposit ETH</a>
                     <a href="#withdraw" class="size-anim-small" style= color:beige>Withdraw ETH</a>
                 </div>
             </li>
             <li>
 
-                <a href="#rules" class="size-anim-small">Rules of the game</a>
+                <a href="#rules" class="size-anim-small background-color-change-anim">Rules of the game</a>
 
             </li>
 
             <li>
-                <a href="#form-play-game" class="size-anim-small"> Play a game</a>
+                <a href="#game" class="size-anim-small background-color-change-anim"> Play a game</a>
             </li>
-
-            <!-- <button id = "connectButton"> Connect with metamask </button> -->
         </ul>
     </div>
 
-    <div id="connect-metamask" class="section-home">
-        <!-- <h1 class="size-anim color-change-anim">Gambler Ruin Smart Contract</h1> -->
+    <div id="connect-metamask" class="section-connect-metamask">
         <h1 class="color-change-anim">Gambler Ruin Smart Contract</h1>
-        <button id = "connectButton" class="color-change-anim2"> CONNECT WITH METAMASK <br> <span style="color:darkblue"><u>(Please use Ropsten network)</u></span>
+        <button id = "connectButton" class="color-change-anim2 size-anim"> CONNECT WITH METAMASK <br> <span style="color:darkblue"><u>(Please use Ropsten network)</u></span>
         <br> <h4 id="status-metamask" style="color:bisque"> Status : Not connected.</h4></button>
     </div>
 
 
-
     <div id="deposit-withdraw">
-        <div id="deposit" class="section-contacte" style="width: 45%; float:left">
+        <div id="deposit" class="important-section" style="width: 45%; float:left">
             <div class="titre-centrer">
-                <h1>
-                    <!-- <a href="#bottom" class="color-change-anim">Deposit funds</a> -->
-                    <h1 class="color-change-anim">Deposit funds</h1>
-                </h1>
+                <h1 class="color-change-anim">Deposit funds</h1>
             </div>
-            <div class="image-contacter">
+            <div class="small-image">
                 <img src="./assets/photos/ethereum-logo.png"  alt="eth" style="width:50%;">
             </div>
     
@@ -82,14 +77,13 @@
                 <option value="0.7">0.7</option> <option value="0.8">0.8</option> <option value="0.9">0.9</option> <option value="1">1</option>
               </select>
 
-            <!-- <button id = "depositButton" style: onclick="helpers.deposit()"> Deposit ETH </button> -->
-            <button id = "depositButton"> Deposit ETH </button>
+            <button id = "depositButton" class="color-change-anim size-anim"> Deposit ETH </button>
             
     
             <br><br><br><br><br><br>
         </div>
 
-        <div id="withdraw" class="section-contacte" style="width: 45%; float:right">
+        <div id="withdraw" class="important-section" style="width: 45%; float:right">
             <div class="titre-centrer">
                 <h1>
                     <!-- <a href="#bottom" class="color-change-anim">Withdraw funds</a> -->
@@ -97,14 +91,14 @@
     
                 </h1>
             </div>
-            <div class="image-contacter">
+            <div class="small-image">
                 <img src="./assets/photos/ethereum-logo.png"  alt="eth" style="width:50%;">
             </div>
     
             <p><h2>To withdraw your funds, first connect your metamask account using the "Connect" button, and then click on the "Withdraw" button.
             </h2></p>
             <!-- <button id = "withdrawButton" style: onclick="helpers.withdraw()"> Withdraw </button> -->
-            <button id = "withdrawButton"> Withdraw </button>
+            <button id = "withdrawButton" class="color-change-anim size-anim"> Withdraw </button>
             
         </div>
 
@@ -115,20 +109,19 @@
         ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     </p>
         
-    <div id="rules" class="section-about">
+    <div id="rules" class="section-rules-div">
         <div class="titre-section">
-            <h1 class="color-change-anim">Rules of the game</h1>
+            <h1 class="color-change-anim2">Rules of the game</h1>
             <p id="section-rules" style="text-align:left;">
                 This game is based on the  <a href="https://en.wikipedia.org/wiki/Gambler%27s_ruin" style="color:dodgerblue"> Gambler's Ruin concept</a>.
 
                 To play, you need to deposit an amount of ETH into your account. The game will only appear if your balance contains ETH.
-                <!-- The game is simple. You will bet a certain amount of ETH, and the contract will bet an amount either equal or larger than the size of your bet. -->
                 <br>The game is simple. You will bet a certain amount of ETH, and depending on the diffuculty chosen, the probability to win and the size of your potential reward will vary.
                 <br><br> There are 4 game modes (difficulties). 
             </p>
             <ul style="text-align:left;">
                 <li>
-                    Easy mode : You have more than 50 % probability to win. However, in event of a win, your reward is equivalent to 50 % of the size of your bet.
+                    Easy mode : You have more than 50 % probability to win. However, in the event of a win, your reward is equivalent to 50 % of the size of your bet.
                 </li>
                 <li>
                     Normal mode : Your chance to win (or lose) is equal to 50 %. The reward in the event of a win amounts to 100 % of your bet.
@@ -144,10 +137,9 @@
         </div>
     </div>
 
-    <p class="separator">
+    <p class="separator" id="game">
         ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     </p>
-
     <div id="start-game" class="section-game titre-section" style="display:block">
         <h1 class="color-change-anim">Play a game</h1>
         <button id = "startGameButton" class="color-change-anim2" style="font-size: 50px;width: 80%"> 
@@ -156,24 +148,39 @@
     
     <div id="play-game" class="section-game" style="display:none">
         
-        <h1 class="color-change-anim">Play a game</h1>
+        <h1 class="titre-section" style="color:palevioletred">Play a game</h1>
         
         <div class="center-remember">
             <p>
-                <h5 class="remember">
-                Reminder: <br>
-                easy mode : you have more chance to win half of your bet, but you still can loose your bet.<br>
-                normal mode : you have the same chance to win or loose your bet<br>
-                hard mode : you can win 50% more than you bet, but still loose only your bet<br>
-                very hard mode : Gambler put 2 x your bet on the table, but still loose only your bet<br>
-                </h5>
-                
+                <h2> <u>Reminder</u> </h2>
+
+                 <table id="reminderRewards" width="60%">
+                    <thead>
+                    <tr><th>Game mode<th>Probability to win<th>Reward
+                    <tbody>
+                    <tr>
+                    <td>Easy mode
+                    <td>66.7 %
+                    <td>0.5x your bet
+                    <tr>
+                    <td>Normal mode
+                    <td>50.0 %
+                    <td>1x your bet
+                    <tr>
+                    <td>Hard more
+                    <td>40.0 %
+                    <td>1.5x your bet
+                    <tr>
+                    <td>Very hard mode
+                    <td>33.3 %
+                    <td>2x your bet
+                    </table>
             </p> 
         </div>
 
         <div>
             <h3> Please select the % of your balance that you want to bet on the next game
-                <br> and then click on one of the 4 colored buttons to start a game.
+                <br> and then click on one of the 4 buttons to start a game.
             </h3>
             <select name="Percentage-of-balance-to-bet" id="percentBetInput" style="max-width:70%">
                 <option value="0.1">10 %</option> <option value="0.2">20 %</option> <option value="0.3">30 %</option>
@@ -191,9 +198,12 @@
         </div>
 
         <div> <br><br>
-            <!-- <h2 id="message-amount-bet-play" style="display:block">By clicking on any of the colored buttons, you will be betting the selected % of your balance.</h2> -->
-            <h2 id="message-win" style="display:none ; color:#00ff2a"> Congratulations ! You have won this game.</h2>
-            <h2 id="message-loss" style="display:none ; color:red"> You have lost this game. Better luck next time !</h2>
+            <h2 id="message-win" style="display: none; color:#00ff2a"> 
+                Congratulations ! You have won this game.
+                <br> You have earned<span id="win-amount"> X </span> ETH
+            </h2>
+            <h2 id="message-loss" style="display: none; color:red"> 
+                You have lost this game. You lost <span id="loss-amount"> X</span> ETH. <br> Better luck next time !</h2>
         </div>
     </div>
     <br><br>
@@ -202,14 +212,14 @@
         ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     </p>
 
-    <div id="infosOnAccount"  class="section-contacte" style="clear:both;">
-        <button id = "getAccountBalanceButton"> Display personal funds amount in contract </button>
+    <div id="infosOnAccount"  class="important-section" style="clear:both; background-image: url('/assets/background.jpg;');">
+        <button id = "getAccountBalanceButton" class="color-change-anim"> Display personal funds amount in contract </button>
         <h3 id="user-balance" style="color:cyan"> Your balance :</h3>
 
-        <button id = "getTotalBalanceInContract" > Display total amount of ETH deposited in contract </button>
+        <button id = "getTotalBalanceInContract" class="color-change-anim"> Display total amount of ETH deposited in contract </button>
         <h3 id="total-balance" style="color:cyan"> Total balance in contract : </h3>
 
-        <button id = "getBudgetOfContract" > Display the proprietary budget of the contract (to bet against players) </button>
+        <button id = "getBudgetOfContract" class="color-change-anim"> Display the proprietary budget of the contract (to bet against players) </button>
         <h3 id="proprietary-budget-contract" style="color:cyan"> Proprietary budget of the contract :</h3>
         <br><br><br><br><br><br>
 
@@ -221,14 +231,14 @@
 
     </div>
 
-    <div id="cover-spin"></div>
+    <div id="cover-spin">
+        <h1> Please wait a few seconds while the transaction is validated.</h1>
+    </div>
     <div class="footer">
         <p>&copy; Gambler Ruin Smart Contract - IFT4100 - 2022</p>
     </div>
 
     <script src="./contract-info.json" type="application/json"> </script>
-    <!-- <script src="./contract-info.js" type="application/json"> </script> -->
-
     <script src="./dist/listenerBrowserified.js" type="text/javascript"> </script>
     <script src="./dist/listenerGameButtonBrowserified.js" type="text/javascript"> </script>
 

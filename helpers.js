@@ -2,13 +2,9 @@
 const { ethers } = require("ethers");
 var Web3 = require('web3');
 
-
 const {contractAddress, abi} = require('./contract-info.json');
 
 
-// const contractAddress = require("./contract-info.json").contractAddress;
-// const abi = require("./contract-info.json").abi;
-  
 var account;
 var isActiveSmartContractListener = false;
 
@@ -31,11 +27,8 @@ async function addSmartContractListener() {
       console.log(error.message);
     } else {
       console.log("depot a l'adresse: " + data.returnValues[0] + " : " + data.returnValues[1]);
-    
-      window.playerBet = web3.utils.fromWei((data.returnValues[1] / 4).toString(), "ether");
-
       manageSpinnerOff();
-      window.alert("Wonderfull, now go to the Game");
+      alert("Your deposit has been received. You can now play.");
     }
   });
 
@@ -143,6 +136,7 @@ async function getBalanceInContract() {
       totalBalanceInContract = Web3.utils.fromWei(totalBalanceInContract.toString(), 'ether'); 
 
       document.getElementById("total-balance").innerHTML=`Total balance in contract : ${parseFloat(totalBalanceInContract).toFixed(4)}`;
+      return totalBalanceInContract;
   }catch(err){
       if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
   }    
@@ -213,14 +207,9 @@ async function fundProprietaryBudgetOfContract() {
 async function startGameInit() {
 
   try{
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(contractAddress, abi, signer); 
-
-    balanceOfUser = await contract.getBalance()
-    balanceOfUser = Web3.utils.fromWei(balanceOfUser.toString(), 'ether'); 
-
-    document.getElementById("user-balance").innerHTML=`Your balance : ${parseFloat(balanceOfUser).toFixed(4)}`;
+    var balanceOfUser = await getBalance();
+    await getBalanceInContract();
+    await getCurrentBudgetOfContract();
 
     if (balanceOfUser > 0 ) {
       document.getElementById("start-game").style.display = "none";
