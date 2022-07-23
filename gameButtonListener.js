@@ -152,7 +152,6 @@ btn1.addEventListener('click', async function handleClick(){
 });
 
 
-
 btn2.addEventListener('click', async function handleClick(){
     // hard mode
     // The player has 40 % chances to win. And his reward is equal to 1.5x the amount of his bet.
