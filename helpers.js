@@ -8,6 +8,7 @@ const {contractAddress, abi} = require('./contract-info.json');
 var account;
 var isActiveSmartContractListener = false;
 
+
 function manageSpinnerOff(){
   $('#cover-spin').hide(0);
 }
@@ -205,16 +206,18 @@ async function fundProprietaryBudgetOfContract() {
 
 
 async function startGameInit() {
-
+  // Function that makes the game visible if the conditions are respected (metamask connected and user balance>=0)
   try{
     var balanceOfUser = await getBalance();
+    if (balanceOfUser == undefined) {
+      return;
+    }
     await getBalanceInContract();
     await getCurrentBudgetOfContract();
 
     if (balanceOfUser > 0 ) {
       document.getElementById("start-game").style.display = "none";
       document.getElementById("play-game").style.display = "block";
-      
       addSmartContractListener();
 
     } else {
@@ -226,7 +229,6 @@ async function startGameInit() {
   }catch(err){
       if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
   }
-
 }
 
 

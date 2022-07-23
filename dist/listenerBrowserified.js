@@ -301,15 +301,12 @@ module.exports={
 const { ethers } = require("ethers");
 var Web3 = require('web3');
 
-
 const {contractAddress, abi} = require('./contract-info.json');
 
 
-// const contractAddress = require("./contract-info.json").contractAddress;
-// const abi = require("./contract-info.json").abi;
-  
 var account;
 var isActiveSmartContractListener = false;
+
 
 function manageSpinnerOff(){
   $('#cover-spin').hide(0);
@@ -508,16 +505,18 @@ async function fundProprietaryBudgetOfContract() {
 
 
 async function startGameInit() {
-
+  // Function that makes the game visible if the conditions are respected (metamask connected and user balance>=0)
   try{
     var balanceOfUser = await getBalance();
+    if (balanceOfUser == undefined) {
+      return;
+    }
     await getBalanceInContract();
     await getCurrentBudgetOfContract();
 
     if (balanceOfUser > 0 ) {
       document.getElementById("start-game").style.display = "none";
       document.getElementById("play-game").style.display = "block";
-      
       addSmartContractListener();
 
     } else {
@@ -529,7 +528,6 @@ async function startGameInit() {
   }catch(err){
       if (err.code !==4001) {window.alert("You need to connect your metamask account first !")} // 4001 is the code for when user rejects the tx on metamask
   }
-
 }
 
 
@@ -628,7 +626,6 @@ startGameButton.addEventListener('click', function handleClick() {
 
 
 // DEV ONLY
-
 // const fundContract = document.getElementById("fundContractButton");
 // const selfDestruct = document.getElementById("selfDestructButton");
 

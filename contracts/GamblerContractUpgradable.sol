@@ -6,12 +6,10 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 
 
 contract GamblerContractUpgradable is Initializable, OwnableUpgradeable {
-    // address public owner;
     mapping(address => uint256) public balances;
     uint public currentBudgetOfContract;
     address[] playersAddresses;
 
-    event ReceivedFunds();
     event ContractFundedByOwner();
     event BalanceChange(address player, uint amount);
     event AddGainEvent(address player, uint balance);

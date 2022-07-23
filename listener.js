@@ -76,7 +76,6 @@ startGameButton.addEventListener('click', function handleClick() {
 
 
 // DEV ONLY
-
 // const fundContract = document.getElementById("fundContractButton");
 // const selfDestruct = document.getElementById("selfDestructButton");
 
