@@ -100,7 +100,6 @@ contract GamblerContractUpgradable is Initializable, OwnableUpgradeable {
         return false;
     }
 
-
     /* Only the owner can call this method to defund the contract by : 
         1- sending back to each user his funds (addresses kept in the array)
         2- recuperating the remaining funds */
@@ -109,6 +108,7 @@ contract GamblerContractUpgradable is Initializable, OwnableUpgradeable {
             withdrawUser(playersAddresses[i]);
         }
         uint256 remainingFunds = address(this).balance;
+        currentBudgetOfContract=0;
         address owner_ = owner();
         (bool success, ) = owner_.call{value:remainingFunds}("");
     }

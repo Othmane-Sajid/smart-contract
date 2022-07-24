@@ -1,5 +1,5 @@
 {
-    "contractAddress": "0x7A79b887b4e6d25206f552d7Fc93Ee6CFFe30b8d",
+    "contractAddress": "0x56181A89D9D2dA96E6D330B137A1CbFb57a00F23",
     "contractName": "GamblerContractUpgradable",
     "abi": [
       {
@@ -76,12 +76,6 @@
           }
         ],
         "name": "OwnershipTransferred",
-        "type": "event"
-      },
-      {
-        "anonymous": false,
-        "inputs": [],
-        "name": "ReceivedFunds",
         "type": "event"
       },
       {

@@ -6,10 +6,22 @@ Numéro de dossier (NI): 537014971
 Nom complet: Richard Gingras
 Numéro de dossier (NI): 111078307
 
+###################################################################################################
+Lien Github du projet : 
+
+
 ####################################################################################################
-Lien [etherscan.io] du contrat intelligent déployé: 
+
+Précisons que dans le cadre d'une implémentation Upgradable (suivant le standard de OpenZeppenlin), il y'a
+une adresse pour le contrat déployé, et une adresse pour un "Transparent Upgradeable Proxy".
+En réalité, c'est avec le Proxy que l'utilisateur du contrat interagit directement.
+
+
+Lien [etherscan.io] du Proxy Upgradable avec lequel on interagit: https://ropsten.etherscan.io/address/0x56181A89D9D2dA96E6D330B137A1CbFb57a00F23
+Lien [etherscan.io] du contrat déployé lui-même : https://ropsten.etherscan.io/address/0x983769d55c43e984efe03a76c26c9d4c1aa21134
+
 ####################################################################################################
-Ex: https://etherscan.io/address/0xb84f8e4a4286f93c93564e72fdb893e34ca53eb0#code
+
 
 
 Critères d'évaluation

@@ -1,4 +1,4 @@
-const GamblerToken = artifacts.require("GamblerToken");
+const GamblerContractUpgradable = artifacts.require("GamblerContractUpgradable");
 
 
 /*
@@ -6,16 +6,16 @@ const GamblerToken = artifacts.require("GamblerToken");
  * Ethereum client
  * See docs: https://www.trufflesuite.com/docs/truffle/testing/writing-tests-in-javascript
  */
-contract("GamblerToken", function (accounts) {
+contract("GamblerContractUpgradable", function (accounts) {
   
   it("should assert true", async function () {
-    await GamblerToken.deployed();
+    await GamblerContractUpgradable.deployed();
     return assert.isTrue(true);
   });
 
 
-  it("owner should transfert to GamblerToken 10 ethers", async function () {
-    const contract = await GamblerToken.deployed();
+  it("owner should transfert to GamblerContractUpgradable 10 ethers", async function () {
+    const contract = await GamblerContractUpgradable.deployed();
     
     // achat de Token 
     await contract.sendTransaction({
@@ -27,8 +27,8 @@ contract("GamblerToken", function (accounts) {
     return assert.isTrue(true);
   });
 
-  it("player should transfert to GamblerToken 5 ethers", async function () {
-    const contract = await GamblerToken.deployed();
+  it("player should transfert to GamblerContractUpgradable 5 ethers", async function () {
+    const contract = await GamblerContractUpgradable.deployed();
     
     // achat de Token 
     await contract.deposit.sendTransaction({
@@ -41,7 +41,7 @@ contract("GamblerToken", function (accounts) {
   });
 
   it("player win 8 ether", async function () {
-    const contract = await GamblerToken.deployed();
+    const contract = await GamblerContractUpgradable.deployed();
 
     await contract.addGain.sendTransaction(accounts[3], web3.utils.toWei("8", "ether"), {
       from: accounts[1],
@@ -52,7 +52,7 @@ contract("GamblerToken", function (accounts) {
   }); 
 
   it("player lost 2 ether", async function () {
-    const contract = await GamblerToken.deployed();
+    const contract = await GamblerContractUpgradable.deployed();
 
     await contract.substractLost.sendTransaction(accounts[3], web3.utils.toWei("2", "ether"), {
       from: accounts[1],
@@ -64,7 +64,7 @@ contract("GamblerToken", function (accounts) {
 
 
   it("should withdraw user with 11 ether", async function () {
-    const contract = await GamblerToken.deployed();
+    const contract = await GamblerContractUpgradable.deployed();
 
     await contract.withdrawUser.sendTransaction({
       from: accounts[3],
@@ -75,7 +75,7 @@ contract("GamblerToken", function (accounts) {
   }); 
 
   it("should withdraw owner with 4 ether", async function () {
-    const contract = await GamblerToken.deployed();
+    const contract = await GamblerContractUpgradable.deployed();
 
     await contract.withdrawOwner.sendTransaction({
       from: accounts[1],
